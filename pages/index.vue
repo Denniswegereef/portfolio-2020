@@ -1,31 +1,24 @@
 <template>
   <div class="container">
-    <logo />
-    {{ socials }}
+    <HomeHeader />>
+    <nuxt-link :to="'all'">
+      Projects
+    </nuxt-link>
+    <nuxt-link :to="'about'">
+      ABOUGT
+    </nuxt-link>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import socialQuery from '~/apollo/socials'
+import locomotive from '~/mixins/locomotiveScroll.js'
+
+import HomeHeader from '~/components/sections/home-header.vue'
 
 export default {
   components: {
-    Logo
+    HomeHeader
   },
-  data () {
-    return {
-      socials: []
-    }
-  },
-  apollo: {
-    socials: {
-      prefetch: true,
-      query: socialQuery
-    }
-  }
+  mixins: [locomotive]
 }
 </script>
-
-<style>
-</style>

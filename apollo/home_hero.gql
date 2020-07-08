@@ -1,0 +1,10 @@
+query HomeHero {
+  homeHero {
+    title_main
+    title_second
+    title_payoff
+    text_first
+    text_second
+    link_text
+  }
+}

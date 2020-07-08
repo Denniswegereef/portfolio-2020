@@ -1,0 +1,10 @@
+query Projects($slug: String!) {
+  projects(where: {slug: $slug}) {
+    id
+    slug
+    title
+    cover {
+      url
+    }
+  }
+}

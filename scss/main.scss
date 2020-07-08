@@ -2,12 +2,17 @@
  * Core
  */
  @import "core/variables";
- @import "core/normalize";
+ @import "core/adaptive";
  @import "core/mixins";
  @import "core/functions";
+ @import "core/normalize";
  @import "core/base";
+ @import "core/fonts";
+ @import "core/typography";
 
+//  @import "locomotive-scroll/dist/locomotive-scroll.min.css";
 
-body {
-    background: red;
-}
+ /**
+ * Partials
+ */
+//  @import "partials/rich-text";

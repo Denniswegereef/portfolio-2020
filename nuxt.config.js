@@ -25,12 +25,21 @@ export default {
   ** Global CSS
   */
   css: [
-    '@/scss/main.scss'
+    '~/scss/main.scss',
+    'locomotive-scroll/dist/locomotive-scroll.min.css'
   ],
+
+  styleResources: {
+    scss: ['~/scss/*.scss']
+  },
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    {
+      src: "~/plugins/locomotiveScroll.js",
+      ssr: false
+    }
   ],
   /*
   ** Nuxt.js dev-modules
@@ -45,8 +54,18 @@ export default {
   modules: [
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
-    '@nuxtjs/apollo'
+    '@nuxtjs/apollo',
+    '@nuxtjs/markdownit',
+    '@nuxtjs/style-resources'
   ],
+
+  markdownit: {
+    preset: 'default',
+    linkify: true,
+    breaks: true,
+    injected: true
+  },
+
   apollo: {
     clientConfigs: {
       default: {

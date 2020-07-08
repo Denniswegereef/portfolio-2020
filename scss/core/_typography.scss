@@ -1,0 +1,38 @@
+.heading {
+    @include font-corsa-medium();
+
+    margin: 0;
+    padding: 0;
+
+    font-size: rem(110px);
+    line-height: 0.95;
+}
+
+.subheading {
+    @include font-canela-regular();
+
+    margin: 0;
+    padding: 0;
+
+    font-size: rem(100px);
+}
+
+.paragraph {
+    @include font-commons-medium();
+
+    margin: 0;
+    padding: 0;
+
+    font-size: rem(22px);
+    line-height: rem(18px);
+}
+
+.rich-text {
+    p {
+        margin: 0 0 rem(10px) 0;
+
+        &:last-child {
+            margin: 0;
+        }
+    }
+}
