@@ -19,7 +19,7 @@ export default {
       this.$nextTick(() => {
         this.lmS = new this.LocomotiveScroll({
           el: document.querySelector('#js-scroll'),
-          smooth: true
+          smooth: false
         })
       })
     }

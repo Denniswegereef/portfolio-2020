@@ -1,12 +1,8 @@
 <template>
-  <div class="container">
-    <HomeHeader />>
-    <nuxt-link :to="'all'">
-      Projects
-    </nuxt-link>
-    <nuxt-link :to="'about'">
-      ABOUGT
-    </nuxt-link>
+  <div class="home">
+    <HomeHeader />
+    <HomeProjects />
+    <Footer />
   </div>
 </template>
 
@@ -14,11 +10,18 @@
 import locomotive from '~/mixins/locomotiveScroll.js'
 
 import HomeHeader from '~/components/sections/home-header.vue'
+import HomeProjects from '~/components/sections/home-projects.vue'
+import Footer from '~/components/sections/footer.vue'
 
 export default {
   components: {
-    HomeHeader
+    HomeHeader,
+    HomeProjects,
+    Footer
   },
   mixins: [locomotive]
 }
 </script>
+
+<style lang="scss" scoped>
+</style>

@@ -1,35 +1,52 @@
 <template>
-  <div class="container">
-    <h1>ABOUT</h1>
-    <nuxt-link :to="'/'">
-      BACK
-    </nuxt-link>
+  <section class="about">
+    <div class="about__content">
+      <h1>{{ about.title_intro }}</h1>
 
-    <div class="test-object" />
-  </div>
+      <!-- eslint-disable vue/no-v-html -->
+      <div class="paragraph rich-text about__richt-text" v-html="about.text_intro" />
+      <div class="paragraph rich-text about__richt-text" v-html="about.text_body" />
+    </div>
+    <div class="about__experience">
+      <h1>{{ about.title_experience_first }} {{ about.title_experience_second }}</h1>
+    </div>
+  </section>
 </template>
 
 <script>
 import locomotive from '~/mixins/locomotiveScroll.js'
+import aboutQuery from '~/apollo/about'
 
 export default {
-  mixins: [locomotive]
+  mixins: [locomotive],
+  data () {
+    return {
+      about: {}
+    }
+  },
+  apollo: {
+    about: {
+      prefetch: true,
+      query: aboutQuery,
+      update ({ about }) {
+        return {
+          ...about,
+          text_intro: this.$md.render(about.text_intro),
+          text_body: this.$md.render(about.text_body)
+        }
+      }
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-.container {
-  padding-bottom: 300px;
+.about {
+  background: $color-black;
+  color: $color-white;
 }
-.test-object {
-  // margin: 150px auto;
 
-  height: 200vh;
-  width: 90%;
-  background: rgb(238,15,196);
-  background: -moz-linear-gradient(0deg, rgba(238,15,196,1) 0%, rgba(3,169,208,1) 100%);
-  background: -webkit-linear-gradient(0deg, rgba(238,15,196,1) 0%, rgba(3,169,208,1) 100%);
-  background: linear-gradient(0deg, rgba(238,15,196,1) 0%, rgba(3,169,208,1) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ee0fc4",endColorstr="#03a9d0",GradientType=1);
+.about__richt-text {
+  margin-bottom: rem(40px);
 }
 </style>

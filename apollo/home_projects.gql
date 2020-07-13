@@ -1,9 +1,9 @@
-query Projects {
+query HomeProjects {
   projects {
     title
     slug
     id
-    description
+    role
     cover {
       url
     }

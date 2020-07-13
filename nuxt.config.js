@@ -66,6 +66,14 @@ export default {
     injected: true
   },
 
+  generate: {
+    routes() {
+      return [
+        '/projects/dfns'
+      ]
+    }
+  },
+
   apollo: {
     clientConfigs: {
       default: {

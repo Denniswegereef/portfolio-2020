@@ -1,18 +1,24 @@
 <template>
   <section class="hero">
-    <h1 class="heading hero__title">
-      {{ homeHero.title_main }} <br>
-      {{ homeHero.title_second }} <br>
-      <span class="subheading hero__subheading">
-        {{ homeHero.title_payoff }}
-      </span>
-    </h1>
-    <!-- eslint-disable vue/no-v-html -->
-    <div class="paragraph rich-text hero__richt-text" v-html="homeHero.text_first"/>
-    <div class="paragraph rich-text hero__richt-text" v-html="homeHero.text_second"/>
+    <div class="hero__container">
+      <h1 class="heading hero__title">
+        {{ homeHero.title_main }} <br>
+        {{ homeHero.title_second }} <br>
+        <span class="subheading hero__subheading">
+          {{ homeHero.title_payoff }}
+        </span>
+      </h1>
 
-    <nuxt-link :to="'/about'">{{ homeHero.link_text }}</nuxt-link>
-    <div class="test-object" />
+      <div class="hero__content">
+        <!-- eslint-disable vue/no-v-html -->
+        <div class="rich-text hero__richt-text" v-html="homeHero.text_first" />
+        <div class="rich-text hero__richt-text" v-html="homeHero.text_second" />
+
+        <nuxt-link :to="'/about'" class="button hero__button">
+          {{ homeHero.link_text }}
+        </nuxt-link>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -29,7 +35,6 @@ export default {
     homeHero: {
       prefetch: true,
       query: homeHeroQuery,
-
       update ({ homeHero }) {
         return {
           ...homeHero,
@@ -44,27 +49,119 @@ export default {
 
 <style lang="scss" scoped>
 .hero {
-  padding-top: 350px;
-  min-height: 100vh;
+  width: 100%;
 
   background: $color-primary;
 }
 
-.hero__title {
-  margin-bottom: 50px;
+.hero__container {
+  padding: rem(150px) #{rem($narrow-container-padding)};
+}
 
-  color: $color-tertiary;
+.hero__title {
+  margin-bottom: rem(36px);
+
+  font-size: rem(45px);
+
+  color: $color-white;
+}
+
+.hero__subheading {
+  display: block;
+  position: relative;
+
+  padding: rem(5px) 0 0 rem(30px);
+
+  font-size: rem(50px);
+
+  &:before {
+    position: absolute;
+    top: calc(50% - 2px);
+    left: 0;
+
+    width: rem(25px);
+    height: 4px;
+
+    background: $color-white;
+
+    content: '';
+  }
 }
 
 .hero__richt-text {
+  margin-bottom: rem(24px);
+
   color: $color-white;
-  line-height: rem(25px);
-  max-width: 500px;
-  padding-left: 50px;
-  margin-bottom: 30px;
 }
 
-.test-object {
-  height: 500vh;
+.hero__button {
+  color: $color-white;
+}
+
+@include mq-regular {
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 100vh;
+  }
+
+  .hero__container {
+    padding: 0 10%;
+  }
+
+  .hero__title {
+    margin-bottom: rem(60px);
+
+    font-size: rem(80px);
+  }
+
+  .hero__subheading {
+    font-size: rem(85px);
+  }
+
+  .hero__content {
+    display: flex;
+
+    padding-left: rem(90px);
+  }
+
+  .hero__richt-text {
+    padding-right: rem(30px);
+    margin: 0;
+
+    &:nth-child(2) {
+      padding-top: rem(60px);
+    }
+  }
+
+  .hero__button {
+    align-self: center;
+
+    min-width: fit-content;
+
+    padding-bottom: 0;
+
+    text-align: center;
+  }
+}
+
+@include mq-wide {
+  .hero__container {
+    max-width: rem(1100px);
+
+    padding: 0 rem(60px);
+  }
+
+  .hero__title {
+    margin-bottom: rem(80px);
+
+    font-size: rem(100px);
+  }
+
+  .hero__subheading {
+    font-size: rem(110px);
+  }
 }
 </style>
