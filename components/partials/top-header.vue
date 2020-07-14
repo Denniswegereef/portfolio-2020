@@ -2,7 +2,7 @@
   <header class="header">
     <ul class="header__list">
       <li v-for="(item, index) in links" :key="index" class="header__item">
-        <a :href="item.link" target="_blank" class="button header__link">{{ item.name }}</a>
+        <a :href="item.link" class="button header__link">{{ item.name }}</a>
       </li>
     </ul>
   </header>
@@ -15,7 +15,7 @@ export default {
       links: [
         {
           name: 'Projects',
-          link: '/projects'
+          link: '/'
         },
         {
           name: 'About',
@@ -36,6 +36,8 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+
+  z-index: 2;
 
   padding: 0 rem(50px);
 

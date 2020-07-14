@@ -1,14 +1,8 @@
 <template>
   <section class="about">
-    <div class="about__content">
-      <h1>{{ about.title_intro }}</h1>
-
-      <!-- eslint-disable vue/no-v-html -->
-      <div class="paragraph rich-text about__richt-text" v-html="about.text_intro" />
-      <div class="paragraph rich-text about__richt-text" v-html="about.text_body" />
-    </div>
-    <div class="about__experience">
-      <h1>{{ about.title_experience_first }} {{ about.title_experience_second }}</h1>
+    <div v-if="loaded">
+      <AboutInfo :hero-props="aboutData"/>
+      <AboutExperience/>
     </div>
   </section>
 </template>
@@ -17,15 +11,25 @@
 import locomotive from '~/mixins/locomotiveScroll.js'
 import aboutQuery from '~/apollo/about'
 
+import AboutInfo from '~/components/sections/about-info.vue'
+import AboutExperience from '~/components/sections/about-experience.vue'
+
 export default {
+  components: {
+    AboutInfo,
+    AboutExperience
+  },
   mixins: [locomotive],
   data () {
     return {
-      about: {}
+      aboutData: {},
+      name_first: 'Dennis',
+      name_second: 'Wegereef',
+      loaded: false
     }
   },
   apollo: {
-    about: {
+    aboutData: {
       prefetch: true,
       query: aboutQuery,
       update ({ about }) {
@@ -36,17 +40,22 @@ export default {
         }
       }
     }
+  },
+  watch: {
+    aboutData () {
+      this.$data.loaded = true
+      this.initScroll()
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .about {
-  background: $color-black;
-  color: $color-white;
+  min-height: 100vh;
 }
 
-.about__richt-text {
-  margin-bottom: rem(40px);
+h1 {
+  margin: 0;
 }
 </style>

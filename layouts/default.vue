@@ -1,9 +1,9 @@
 <template>
   <div>
     <topHeader />
-    <div id="js-scroll">
+    <main class="default-layout" id="js-scroll">
       <nuxt />
-    </div>
+    </main>
     <socialComponent />
   </div>
 </template>
@@ -20,5 +20,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.default-layout {
+  background: #F9F7F1;
+}
 </style>

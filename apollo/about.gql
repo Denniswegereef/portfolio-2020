@@ -5,5 +5,8 @@ query About {
     text_body
     title_experience_first
     title_experience_second
+    cover {
+      url
+    }
   }
 }

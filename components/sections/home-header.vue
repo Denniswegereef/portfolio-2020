@@ -1,21 +1,22 @@
+<!-- eslint-disable vue/no-v-html -->
+
 <template>
   <section class="hero">
     <div class="hero__container">
       <h1 class="heading hero__title">
-        {{ homeHero.title_main }} <br>
-        {{ homeHero.title_second }} <br>
+        {{ heroProps.title_main }} <br>
+        {{ heroProps.title_second }} <br>
         <span class="subheading hero__subheading">
-          {{ homeHero.title_payoff }}
+          {{ heroProps.title_payoff }}
         </span>
       </h1>
 
       <div class="hero__content">
-        <!-- eslint-disable vue/no-v-html -->
-        <div class="rich-text hero__richt-text" v-html="homeHero.text_first" />
-        <div class="rich-text hero__richt-text" v-html="homeHero.text_second" />
+        <div class="rich-text hero__richt-text" v-html="heroProps.text_first" />
+        <div class="rich-text hero__richt-text" v-html="heroProps.text_second" />
 
         <nuxt-link :to="'/about'" class="button hero__button">
-          {{ homeHero.link_text }}
+          {{ heroProps.link_text }}
         </nuxt-link>
       </div>
     </div>
@@ -23,25 +24,11 @@
 </template>
 
 <script>
-import homeHeroQuery from '~/apollo/home_hero'
-
 export default {
-  data () {
-    return {
-      homeHero: {}
-    }
-  },
-  apollo: {
-    homeHero: {
-      prefetch: true,
-      query: homeHeroQuery,
-      update ({ homeHero }) {
-        return {
-          ...homeHero,
-          text_first: this.$md.render(homeHero.text_first),
-          text_second: this.$md.render(homeHero.text_second)
-        }
-      }
+  props: {
+    heroProps: {
+      type: Object,
+      default: () => null
     }
   }
 }

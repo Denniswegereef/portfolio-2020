@@ -6,26 +6,27 @@ export default {
   },
   watch: {
     $route () {
-      this.lmS.update()
+      this.updateScroll()
     }
-  },
-
-  mounted () {
-    this.initScroll()
   },
 
   methods: {
     initScroll () {
-      this.$nextTick(() => {
-        this.lmS = new this.LocomotiveScroll({
-          el: document.querySelector('#js-scroll'),
-          smooth: false
+      setTimeout(() => {
+        this.$nextTick(() => {
+          this.lmS = new this.LocomotiveScroll({
+            el: document.getElementById('js-scroll'),
+            smooth: true
+          })
         })
-      })
+      }, 25)
+    },
+    updateScroll () {
+      this.lmS.update()
     }
   },
 
   destroyed () {
-    this.lmS.destroy()
+    this.lmS ? this.lmS.destroy() : this.lmS = null
   }
 }

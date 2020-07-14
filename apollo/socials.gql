@@ -1,6 +1,0 @@
-query Socials {
-  socials {
-    name
-    link
-  }
-}
