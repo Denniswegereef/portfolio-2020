@@ -1,8 +1,8 @@
 <template>
   <section class="about">
     <div v-if="loaded">
-      <AboutInfo :hero-props="aboutData"/>
-      <AboutExperience/>
+      <AboutInfo :info-props="aboutData.about"/>
+      <AboutExperience :experiences-props="aboutData.experiences"/>
     </div>
   </section>
 </template>
@@ -32,11 +32,16 @@ export default {
     aboutData: {
       prefetch: true,
       query: aboutQuery,
-      update ({ about }) {
+      update ({ about, experiences }) {
         return {
-          ...about,
-          text_intro: this.$md.render(about.text_intro),
-          text_body: this.$md.render(about.text_body)
+          about: {
+            ...about,
+            text_intro: this.$md.render(about.text_intro),
+            text_body: this.$md.render(about.text_body)
+          },
+          experiences: {
+            ...experiences
+          }
         }
       }
     }

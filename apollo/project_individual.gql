@@ -3,8 +3,15 @@ query Projects($slug: String!) {
     id
     slug
     title
+    date
+    description
+    role
+    link
+    github
+    agency
     cover {
       url
     }
+    agency
   }
 }

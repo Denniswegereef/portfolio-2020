@@ -9,4 +9,11 @@ query About {
       url
     }
   }
+  experiences {
+    title
+    role
+    top
+    description
+    year
+  }
 }

@@ -3,24 +3,24 @@
 <template>
   <section class="info">
     <h1 class="subheading info__title">
-      <span class="heading info__title-small">{{ heroProps.title_intro }}</span>
+      <span class="heading info__title-small">{{ infoProps.title_intro }}</span>
       <span class="info__title-first">{{ first_name }}</span><br>
       {{ last_name }}
     </h1>
 
     <div class="info__content">
-      <div class="paragraph rich-text info__richt-text" v-html="heroProps.text_intro" />
-      <div class="paragraph rich-text info__richt-text" v-html="heroProps.text_body" />
+      <div class="paragraph rich-text info__richt-text" v-html="infoProps.text_intro" />
+      <div class="paragraph rich-text info__richt-text" v-html="infoProps.text_body" />
     </div>
 
-    <img class="info__cover" :src="`${api_url}${heroProps.cover.url}`" :alt="`${first_name} ${last_name} photo`">
+    <img class="info__cover" :src="`${api_url}${infoProps.cover.url}`" :alt="`${first_name} ${last_name} photo`">
   </section>
 </template>
 
 <script>
 export default {
   props: {
-    heroProps: {
+    infoProps: {
       type: Object,
       default: () => null
     }
