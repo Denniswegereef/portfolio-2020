@@ -1,8 +1,9 @@
 <template>
   <div  class="home">
+    <PreLoader ref="loader"/>
     <div v-if="loaded">
       <HomeHeader :hero-props="homeData.hero"/>
-      <HomeProjects :projects-props="homeData.projects"/>
+      <HomeProjects ref="projectsComponent" :projects-props="homeData.projects"/>
      <!--<Footer /> -->
     </div>
   </div>
@@ -14,19 +15,24 @@ import HomeQuery from '~/apollo/home'
 
 import HomeHeader from '~/components/sections/home-header.vue'
 import HomeProjects from '~/components/sections/home-projects.vue'
+
+import PreLoader from '~/components/partials/pre-loader.vue'
 // import Footer from '~/components/sections/footer.vue'
 
 export default {
   components: {
     HomeHeader,
-    HomeProjects
+    HomeProjects,
+    PreLoader
     // Footer
   },
   mixins: [locomotive],
   data () {
     return {
-      homeData: {},
-      loaded: false
+      homeData: null,
+      loaded: false,
+      title: 'Portfolio - Dennis',
+      currentIndex: 0
     }
   },
   apollo: {
@@ -47,10 +53,34 @@ export default {
       }
     }
   },
+  methods: {
+    startIntroAnimation () {
+      this.lmS.stop()
+
+      this.$refs.loader.start(this.lmS)
+    },
+    single (el) {
+      this.$refs.projectsComponent.animateIn(el.dataset.index)
+    }
+  },
   watch: {
     homeData () {
-      this.$data.loaded = true
-      this.initScroll()
+      if (this.$data.homeData) {
+        this.$data.loaded = true
+
+        this.$nextTick(() => {
+          this.initScroll()
+
+          this.$nextTick(() => {
+            this.startIntroAnimation()
+          })
+        })
+      }
+    }
+  },
+  head () {
+    return {
+      title: this.title
     }
   }
 }

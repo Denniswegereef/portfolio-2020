@@ -11,7 +11,7 @@
         </span>
       </h1>
 
-      <div class="hero__content">
+      <div class="hero__content" ref="content">
         <div class="rich-text hero__richt-text" v-html="heroProps.text_first" />
         <div class="rich-text hero__richt-text" v-html="heroProps.text_second" />
 

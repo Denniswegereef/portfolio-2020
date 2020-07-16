@@ -16,11 +16,6 @@ export default {
   },
   globalName: 'app',
 
-
-  /*
-  ** Customize the progress-bar color
-  */
-  loading: { color: '#fff' },
   /*
   ** Global CSS
   */
@@ -36,6 +31,10 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    {
+      src: "~/plugins/gsap.js",
+      ssr: false
+    },
     {
       src: "~/plugins/locomotiveScroll.js",
       ssr: false

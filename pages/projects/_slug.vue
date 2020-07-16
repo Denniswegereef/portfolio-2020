@@ -7,20 +7,25 @@
 
         <h1 class="subheading project__title">{{ projectData.title }}</h1>
 
-        <ul class="project__list">
-          <template v-for="(value, key, index) in projectData.list">
-            <li :key="index" class="project__list-item" v-if="value">
-              <span class="heading project__list-subtitle">{{ key }}</span>
-              <p class="subheading project__list-title">{{ value }}</p>
+        <div class="project__container-list">
+          <ul class="project__list project__list-info">
+            <template v-for="(value, key, index) in projectData.list">
+              <li :key="index" class="project__list-item" v-if="value">
+                <span class="heading project__list-subtitle">{{ key }}</span>
+                <p class="subheading project__list-title">{{ value }}</p>
+              </li>
+            </template>
+          </ul>
+
+          <ul class="project__list-links">
+            <li class="project__list-item">
+              <a :href="projectData.link" target="_blank" class="button project__list-link">{{ github_text }}</a>
             </li>
-          </template>
-          <li class="project__list-item">
-            <a :href="projectData.link" target="_blank" class="button project__list-link">{{ github_text }}</a>
-          </li>
-          <li class="project__list-item">
-            <a :href="projectData.link" target="_blank" class="button project__list-link">{{ online_text }}</a>
-          </li>
-        </ul>
+            <li class="project__list-item">
+              <a :href="projectData.link" target="_blank" class="button project__list-link">{{ online_text }}</a>
+            </li>
+          </ul>
+        </div>
 
         <p class="paragraph projects__description" v-html="projectData.description"/>
 
@@ -118,6 +123,20 @@ export default {
   margin-bottom: rem(24px);
 }
 
+.project__list-info {
+  margin-bottom: rem(20px);
+}
+
+.project__list-links {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+
+  .project__list-item {
+    width: auto;
+  }
+}
+
 .project__list-subtitle {
   display: block;
 
@@ -125,12 +144,12 @@ export default {
 
   color: $color-primary;
 
-  font-size: rem(16px);
+  font-size: rem(12px);
   text-transform: uppercase;
 }
 
 .project__list-title {
-  font-size: rem(16px);
+  font-size: rem(18px);
 }
 
 .project__list-link {
@@ -154,7 +173,60 @@ export default {
   .project__cover-header {
     width: 95%;
 
-    margin: 0 auto rem(100px);
+    margin: rem(50px) auto rem(100px);
+  }
+
+  .project__title {
+    font-size: rem(90px);
+
+    margin-bottom: rem(80px);
+  }
+
+  .project__container {
+    width: 100%;
+
+    padding: 0 rem(90px);
+  }
+
+  .project__container-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: rem(80px);
+  }
+
+  .project__list {
+    flex-wrap: nowrap;
+  }
+
+  .project__list-item {
+    display: inline-block;
+    width: auto;
+
+    margin: 0;
+    padding-right: rem(60px);
+  }
+
+  .projects__description {
+    width: g(8, 12);
+
+    margin: 0 auto rem(60px);
+  }
+
+  .project__image {
+    width: g(10, 12);
+    margin-left: g(1, 12);
+    margin-bottom: rem(120px);
+  }
+}
+
+@include mq-wide {
+  .project__container {
+    max-width: $container-wide;
+
+    margin: 0 auto;
+    padding: 0 $container-wide-padding;
   }
 }
 </style>

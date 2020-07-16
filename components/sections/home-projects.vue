@@ -1,12 +1,21 @@
 <template>
   <section class="projects">
-    <h2 class="subheading projects__title">
+    <h2 class="subheading projects__title" ref="title">
       {{ title }} <br>
       <span class="heading projects__subtitle">{{ subtitle }}</span>
     </h2>
 
     <div class="projects__articles-container">
-      <article v-for="(item, index) in projectsProps" :key="index" class="projects__article">
+      <article
+        v-for="(item, index) in projectsProps"
+        :key="index"
+        class="projects__article"
+        data-scroll
+        :data-index="index"
+        :data-scroll-speed="index"
+        data-scroll-call="single"
+        :ref="`item_${index}`">
+
         <a :href="`projects/${item.slug}`" class="projects__article-link">
           <img class="projects__article-image" :src="`${api_url}${item.cover.url}`" :alt="item.title">
           <div class="projects__article-container">
@@ -20,6 +29,10 @@
 </template>
 
 <script>
+// import { gsap } from 'gsap/dist/gsap'
+// import { ScrollTrigger } from 'gsap/dist/ScrollTrigger.js'
+// import LocomotiveScroll from 'locomotive-scroll'
+
 export default {
   props: {
     projectsProps: {
@@ -30,9 +43,14 @@ export default {
   data () {
     return {
       projects: [],
-      title: 'Selected work',
+      title: 'Some selected work',
       subtitle: '2018-2020',
       api_url: process.env.strapiBaseUri
+    }
+  },
+  methods: {
+    animateIn (index) {
+      console.log(this.$refs[`item_${index}`])
     }
   }
 }

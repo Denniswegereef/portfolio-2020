@@ -1,7 +1,11 @@
+// import { gsap } from 'gsap/dist/gsap'
+// import { ScrollTrigger } from 'gsap/dist/ScrollTrigger.js'
+
 export default {
   data () {
     return {
-      lmS: null
+      lmS: null,
+      scrolltrigger: null
     }
   },
   watch: {
@@ -9,20 +13,19 @@ export default {
       this.updateScroll()
     }
   },
-
   methods: {
     initScroll () {
-      setTimeout(() => {
-        this.$nextTick(() => {
-          this.lmS = new this.LocomotiveScroll({
-            el: document.getElementById('js-scroll'),
-            smooth: true
-          })
+      this.$nextTick(() => {
+        const scrollerElement = document.getElementById('js-scroll')
+
+        this.$data.lmS = new this.LocomotiveScroll({
+          el: scrollerElement,
+          smooth: true
         })
-      }, 25)
+      })
     },
     updateScroll () {
-      this.lmS.update()
+      this.$data.lmS.update()
     }
   },
 
