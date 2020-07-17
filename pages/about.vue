@@ -1,5 +1,6 @@
 <template>
   <section class="about">
+    <!-- <div class="curtain" ref="curtain"/> -->
     <div v-if="loaded">
       <AboutInfo :info-props="aboutData.about"/>
       <AboutExperience :experiences-props="aboutData.experiences"/>
@@ -8,6 +9,8 @@
 </template>
 
 <script>
+// import { gsap } from 'gsap'
+
 import locomotive from '~/mixins/locomotiveScroll.js'
 import aboutQuery from '~/apollo/about'
 
@@ -22,7 +25,7 @@ export default {
   mixins: [locomotive],
   data () {
     return {
-      aboutData: {},
+      aboutData: null,
       name_first: 'Dennis',
       name_second: 'Wegereef',
       loaded: false
@@ -46,16 +49,44 @@ export default {
       }
     }
   },
+  methods: {
+    startIntroAnimation () {
+      this.lmS.stop()
+
+      setTimeout(() => {
+        this.updateScroll()
+        this.lmS.start()
+      }, 1000)
+    }
+  },
   watch: {
     aboutData () {
-      this.$data.loaded = true
-      this.initScroll()
+      if (this.$data.aboutData) {
+        this.$data.loaded = true
+
+        this.$nextTick(() => {
+          this.initScroll()
+
+          this.$nextTick(() => {
+            this.startIntroAnimation()
+          })
+        })
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.curtain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background: red;
+  z-index: 3;
+}
 .about {
   min-height: 100vh;
 }

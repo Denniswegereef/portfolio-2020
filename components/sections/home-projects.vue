@@ -1,5 +1,5 @@
 <template>
-  <section class="projects">
+  <section class="projects" id="projects">
     <h2 class="subheading projects__title" ref="title">
       {{ title }} <br>
       <span class="heading projects__subtitle">{{ subtitle }}</span>
@@ -11,27 +11,26 @@
         :key="index"
         class="projects__article"
         data-scroll
+        data-scroll-position="bottom"
         :data-index="index"
         :data-scroll-speed="index"
-        data-scroll-call="single"
-        :ref="`item_${index}`">
+        data-scroll-call="project_item_animation"
+        :ref="`item`">
 
-        <a :href="`projects/${item.slug}`" class="projects__article-link">
+        <nuxt-link :to="`projects/${item.slug}`" class="projects__article-link">
           <img class="projects__article-image" :src="`${api_url}${item.cover.url}`" :alt="item.title">
           <div class="projects__article-container">
             <h3 class="subheading projects__article-title">{{ item.title }}</h3>
-            <p class="paragraph projects__article-text">{{ item.role }}</p>
+            <p class="paragraph projects__article-text">{{ item.date }}</p>
           </div>
-        </a>
+        </nuxt-link>
       </article>
     </div>
   </section>
 </template>
 
 <script>
-// import { gsap } from 'gsap/dist/gsap'
-// import { ScrollTrigger } from 'gsap/dist/ScrollTrigger.js'
-// import LocomotiveScroll from 'locomotive-scroll'
+import { gsap } from 'gsap'
 
 export default {
   props: {
@@ -45,24 +44,53 @@ export default {
       projects: [],
       title: 'Some selected work',
       subtitle: '2018-2020',
-      api_url: process.env.strapiBaseUri
+      api_url: process.env.strapiBaseUri,
+      tl: []
     }
   },
+  mounted () {
+    this._setupTimelines()
+  },
+
   methods: {
-    animateIn (index) {
-      console.log(this.$refs[`item_${index}`])
-    }
+    enter_item_animation (index) {
+      this.tl[index].play()
+    },
+
+    _setupTimelines () {
+      console.log(this.$refs.item)
+      for (let i = 0; i < this.$refs.item.length; i++) {
+        const tl = gsap.timeline({ paused: true })
+        const el = this.$refs.item[i]
+
+        // tl.eventCallback('onComplete', this._timelineCompleteHandler, i)
+
+        tl.to(el, { duration: 1.0, background: 'red', delay: 0.5 })
+
+        this.tl.push(tl)
+      }
+    },
+
+    // _timelineCompleteHandler (i) {
+    //   console.log(`Killed ${i}`)
+
+    //   // this.tl[i].kill()
+    // }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .projects {
+  position: relative;
+
   padding: rem(180px) #{rem($narrow-container-padding)};
 }
 
 .projects__title {
   margin-bottom: rem(60px);
+
+  color: $color-white;
 
   font-size: rem(60px);
   line-height: 0.6;
@@ -70,6 +98,8 @@ export default {
 }
 
 .projects__subtitle {
+  color: $color-white;
+
   font-size: rem(30px);
 }
 
@@ -116,9 +146,9 @@ export default {
     left: 0;
 
     width: rem(30px);
-    height: 1px;
+    height: 2px;
 
-    background: $color-black;
+    background: red;
 
     content: '';
   }
@@ -128,9 +158,13 @@ export default {
   margin-bottom: rem(6px);
 
   font-size: rem(24px);
+
+  color: $color-white;
 }
 
 .projects__article-text {
+  color: $color-white;
+
   font-size: rem(18px);
 }
 
@@ -174,7 +208,6 @@ export default {
 
     &:nth-of-type(2) {
       grid-column: 1 / 4;
-      grid-row: 1 / 3;
 
       margin-top: rem(90px);
       padding-right: 25%;
@@ -195,16 +228,9 @@ export default {
     padding-left: rem(60px);
 
     &:before {
-      position: absolute;
       top: rem(18px);
-      left: 0;
 
       width: rem(50px);
-      height: 1px;
-
-      background: $color-black;
-
-      content: '';
     }
   }
 
@@ -225,9 +251,10 @@ export default {
 
 @include mq-wide {
   .projects {
-    max-width: rem(1400px);
+    max-width: $container-wide;
 
-    padding: rem(250px) rem(25px) rem(150px);
+    margin: 0 auto;
+    padding: rem(100px) rem($container-wide-padding);
   }
 }
 </style>

@@ -1,17 +1,27 @@
 <template>
   <header class="header">
+    <span ref="logo">
+      <nuxt-link :to="logo.link" class="button header__link header__logo">{{ logo.name }}</nuxt-link>
+    </span>
+
     <ul class="header__list">
-      <li v-for="(item, index) in links" :key="index" class="header__item">
-        <a :href="item.link" class="button header__link">{{ item.name }}</a>
+      <li v-for="(item, index) in links" :key="index" class="header__item" ref="link">
+        <nuxt-link :to="item.link" class="button header__link">{{ item.name }}</nuxt-link>
       </li>
     </ul>
   </header>
 </template>
 
 <script>
+import { gsap } from 'gsap'
+
 export default {
   data () {
     return {
+      logo: {
+        name: 'Dennis Wegereef',
+        link: '/'
+      },
       links: [
         {
           name: 'Projects',
@@ -21,7 +31,29 @@ export default {
           name: 'About',
           link: '/about'
         }
-      ]
+      ],
+      tl: gsap.timeline({ paused: true })
+    }
+  },
+
+  mounted () {
+    gsap.set([this.$refs.logo, ...this.$refs.link], { opacity: 0, y: '-10px' })
+    this._setupTimeLine()
+
+    this.tl.play()
+  },
+
+  methods: {
+    _setupTimeLine () {
+      this.tl.eventCallback('onComplete', this._timelineCompleteHandler)
+
+      this.tl.to([this.$refs.logo, ...this.$refs.link], { y: '0', opacity: 1, stagger: 0.2 }, 2.5)
+    },
+
+    _timelineCompleteHandler () {
+      console.log('Done')
+
+      this.tl.kill()
     }
   }
 }
@@ -45,9 +77,7 @@ export default {
 }
 
 .header__logo {
-  @include font-canela-regular();
-
-  color: $color-tertiary;
+  display: none;
 }
 
 .header__list {
@@ -63,6 +93,8 @@ export default {
 }
 
 .header__link {
+  @include unselectable;
+
   color: $color-secondary;
 
   &:before {
@@ -72,7 +104,15 @@ export default {
 
 @include mq-regular {
   .header {
-    justify-content: flex-end;
+    justify-content: space-between;
+  }
+
+  .header__logo {
+    display: block;
+  }
+
+  .header__link {
+    font-size: rem(20px);
   }
 }
 </style>

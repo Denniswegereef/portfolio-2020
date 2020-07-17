@@ -1,30 +1,32 @@
 <template>
-  <div  class="home">
-    <PreLoader ref="loader"/>
+  <div class="home" ref="home">
+    <HomeIntro ref="loader"/>
     <div v-if="loaded">
-      <HomeHeader :hero-props="homeData.hero"/>
+      <HomeHero :hero-props="homeData.hero" :lmS="lmS"/>
       <HomeProjects ref="projectsComponent" :projects-props="homeData.projects"/>
-     <!--<Footer /> -->
+      <Footer />
     </div>
   </div>
 </template>
 
 <script>
+// import { gsap } from 'gsap'
+
 import locomotive from '~/mixins/locomotiveScroll.js'
 import HomeQuery from '~/apollo/home'
 
-import HomeHeader from '~/components/sections/home-header.vue'
+import HomeHero from '~/components/sections/home-hero.vue'
 import HomeProjects from '~/components/sections/home-projects.vue'
 
-import PreLoader from '~/components/partials/pre-loader.vue'
-// import Footer from '~/components/sections/footer.vue'
+import HomeIntro from '~/components/partials/home-intro.vue'
+import Footer from '~/components/sections/footer.vue'
 
 export default {
   components: {
-    HomeHeader,
+    HomeHero,
     HomeProjects,
-    PreLoader
-    // Footer
+    HomeIntro,
+    Footer
   },
   mixins: [locomotive],
   data () {
@@ -55,12 +57,12 @@ export default {
   },
   methods: {
     startIntroAnimation () {
-      this.lmS.stop()
-
       this.$refs.loader.start(this.lmS)
     },
-    single (el) {
-      this.$refs.projectsComponent.animateIn(el.dataset.index)
+
+    _project_item_animation (event) {
+      console.log(this.$refs.projectsComponent)
+      this.$refs.projectsComponent.enter_item_animation(event.el.dataset.index)
     }
   },
   watch: {
@@ -87,4 +89,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.home {
+  background: $color-primary;
+}
 </style>

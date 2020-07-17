@@ -101,7 +101,7 @@ export default {
 }
 
 .project__container {
-  padding: 0 #{rem($narrow-container-padding)} rem(120px);
+  padding: 0 rem($narrow-container-padding) rem(120px);
 }
 
 .project__title {
@@ -226,7 +226,7 @@ export default {
     max-width: $container-wide;
 
     margin: 0 auto;
-    padding: 0 $container-wide-padding;
+    padding: 0 rem($container-wide-padding);
   }
 }
 </style>

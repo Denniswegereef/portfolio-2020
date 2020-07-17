@@ -4,15 +4,13 @@
   position: relative;
   display: inline-block;
 
-  padding-bottom: rem(6px);
-
   color: inherit;
 
   text-decoration: none;
 
   &:before {
     position: absolute;
-    bottom: rem(-5px);
+    bottom: rem(-3px);
 
     width: 100%;
     height: 2px;

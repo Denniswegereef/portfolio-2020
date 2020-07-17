@@ -3,7 +3,7 @@ query Home {
     title
     slug
     id
-    role
+    date
     cover {
       url
     }

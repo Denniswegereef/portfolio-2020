@@ -22,6 +22,15 @@ export default {
           el: scrollerElement,
           smooth: true
         })
+
+        this.$data.lmS.on('call', (eventName, state, event) => {
+          if (!this[`_${eventName}`]) {
+            console.log('No event found with the name' + eventName)
+            return
+          }
+
+          this[`_${eventName}`](event)
+        })
       })
     },
     updateScroll () {
