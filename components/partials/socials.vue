@@ -2,7 +2,7 @@
   <div class="socials">
     <ul class="socials__list">
       <li v-for="(item, index) in socials" :key="index" class="socials__item" ref="link">
-        <a :href="item.link" target="_blank" class="button socials__link">{{ item.name }}</a>
+        <a :href="item.link" target="_blank" class="button smallheading socials__link">{{ item.name }}</a>
       </li>
     </ul>
   </div>
@@ -56,8 +56,8 @@ export default {
 <style lang="scss" scoped>
 .socials {
   position: fixed;;
-  top: 50%;
-  right: rem(10px);
+  top: $narrow-spacing * 2;
+  right: g(1, 24);
 }
 
 .socials__list {
@@ -86,13 +86,19 @@ export default {
 
 @include mq-regular {
   .socials {
-    right: rem(20px);
+    top: $regular-spacing * 2;
   }
 
   .socials__item {
     padding-bottom: rem(20px);
 
     font-size: rem(20px);
+  }
+}
+
+@include mq-wide {
+  .socials {
+    top: $wide-spacing * 2;
   }
 }
 </style>

@@ -1,6 +1,4 @@
 .button {
-  @include font-canela-regular();
-
   position: relative;
   display: inline-block;
 
@@ -10,16 +8,17 @@
 
   &:before {
     position: absolute;
-    bottom: rem(-3px);
+    bottom: rem(-2px);
 
     width: 100%;
     height: 2px;
 
-    background: $color-black;
+    background: currentColor;
 
     transform: scaleX(0);
     transform-origin: right;
     transition: transform .3s ease-out;
+
     content: '';
   }
 

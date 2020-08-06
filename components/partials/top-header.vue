@@ -1,8 +1,8 @@
 <template>
   <header class="header">
-    <span ref="logo">
+    <!-- <span ref="logo">
       <nuxt-link :to="logo.link" class="button header__link header__logo">{{ logo.name }}</nuxt-link>
-    </span>
+    </span> -->
 
     <ul class="header__list">
       <li v-for="(item, index) in links" :key="index" class="header__item" ref="link">
@@ -37,7 +37,7 @@ export default {
   },
 
   mounted () {
-    gsap.set([this.$refs.logo, ...this.$refs.link], { opacity: 0, y: '-10px' })
+    gsap.set([...this.$refs.link], { opacity: 0, y: '-10px' })
     this._setupTimeLine()
 
     this.tl.play()
@@ -47,7 +47,7 @@ export default {
     _setupTimeLine () {
       this.tl.eventCallback('onComplete', this._timelineCompleteHandler)
 
-      this.tl.to([this.$refs.logo, ...this.$refs.link], { y: '0', opacity: 1, stagger: 0.2 }, 2.5)
+      this.tl.to([...this.$refs.link], { y: '0', opacity: 1, stagger: 0.2 }, 2.5)
     },
 
     _timelineCompleteHandler () {

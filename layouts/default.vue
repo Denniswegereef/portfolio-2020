@@ -1,6 +1,6 @@
 <template>
   <div>
-    <topHeader />
+    <!-- <topHeader /> -->
     <main class="default-layout" id="js-scroll">
       <nuxt />
     </main>
@@ -10,18 +10,18 @@
 
 <script>
 import SocialComponent from '~/components/partials/socials.vue'
-import TopHeader from '~/components/partials/top-header.vue'
+// import TopHeader from '~/components/partials/top-header.vue'
 
 export default {
   components: {
-    SocialComponent,
-    TopHeader
+    SocialComponent
+    // TopHeader
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .default-layout {
-  background: #F9F7F1;
+  background: $color-background;
 }
 </style>

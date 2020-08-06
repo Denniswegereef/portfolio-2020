@@ -13,17 +13,17 @@
         data-scroll
         data-scroll-position="bottom"
         :data-index="index"
-        :data-scroll-speed="index"
+        :data-scroll-speed="index * 2"
         data-scroll-call="project_item_animation"
         :ref="`item`">
 
-        <nuxt-link :to="`projects/${item.slug}`" class="projects__article-link">
+        <a :href="`projects/${item.slug}`" class="projects__article-link" @click="handler(`projects/${item.slug}`, $event)">
           <img class="projects__article-image" :src="`${api_url}${item.cover.url}`" :alt="item.title">
           <div class="projects__article-container">
             <h3 class="subheading projects__article-title">{{ item.title }}</h3>
             <p class="paragraph projects__article-text">{{ item.date }}</p>
           </div>
-        </nuxt-link>
+        </a>
       </article>
     </div>
   </section>
@@ -53,6 +53,12 @@ export default {
   },
 
   methods: {
+    handler (param, e) {
+      e.preventDefault()
+
+      this.$router.push(param)
+    },
+
     enter_item_animation (index) {
       this.tl[index].play()
     },
@@ -65,11 +71,11 @@ export default {
 
         // tl.eventCallback('onComplete', this._timelineCompleteHandler, i)
 
-        tl.to(el, { duration: 1.0, background: 'red', delay: 0.5 })
+        tl.to(el, { duration: 1.0, delay: 0.5 })
 
         this.tl.push(tl)
       }
-    },
+    }
 
     // _timelineCompleteHandler (i) {
     //   console.log(`Killed ${i}`)

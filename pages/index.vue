@@ -1,68 +1,58 @@
 <template>
-  <div class="home" ref="home">
-    <HomeIntro ref="loader"/>
-    <div v-if="loaded">
-      <HomeHero :hero-props="homeData.hero" :lmS="lmS"/>
-      <HomeProjects ref="projectsComponent" :projects-props="homeData.projects"/>
-      <Footer />
-    </div>
+  <div v-if="loaded">
+    <Header />
+    <Hero />
+    <Work :workProps="homeData.projects" />
+    <About :aboutProps="homeData.about"/>
+    <Experiences :experiencesProps="homeData.experiences"/>
+    <Footer />
   </div>
 </template>
 
 <script>
-// import { gsap } from 'gsap'
-
 import locomotive from '~/mixins/locomotiveScroll.js'
-import HomeQuery from '~/apollo/home'
+import HomeQuery from '~/apollo/home_2'
 
-import HomeHero from '~/components/sections/home-hero.vue'
-import HomeProjects from '~/components/sections/home-projects.vue'
-
-import HomeIntro from '~/components/partials/home-intro.vue'
+import Header from '~/components/sections/header.vue'
+import Hero from '~/components/sections/hero.vue'
+import Work from '~/components/sections/work.vue'
+import About from '~/components/sections/about.vue'
+import Experiences from '~/components/sections/experiences.vue'
 import Footer from '~/components/sections/footer.vue'
 
 export default {
   components: {
-    HomeHero,
-    HomeProjects,
-    HomeIntro,
+    Header,
+    Hero,
+    Work,
+    About,
+    Experiences,
     Footer
   },
   mixins: [locomotive],
   data () {
     return {
       homeData: null,
-      loaded: false,
-      title: 'Portfolio - Dennis',
-      currentIndex: 0
+      loaded: false
     }
   },
   apollo: {
     homeData: {
       prefetch: true,
       query: HomeQuery,
-      update ({ projects, homeHero }) {
+      update ({ projects, about, experiences }) {
         return {
-          projects: {
+          projects: [
             ...projects
+          ],
+          about: {
+            ...about
           },
-          hero: {
-            ...homeHero,
-            text_first: this.$md.render(homeHero.text_first),
-            text_second: this.$md.render(homeHero.text_second)
-          }
+          experiences: [
+            ...experiences
+          ]
         }
       }
-    }
-  },
-  methods: {
-    startIntroAnimation () {
-      this.$refs.loader.start(this.lmS)
-    },
-
-    _project_item_animation (event) {
-      console.log(this.$refs.projectsComponent)
-      this.$refs.projectsComponent.enter_item_animation(event.el.dataset.index)
     }
   },
   watch: {
@@ -73,23 +63,15 @@ export default {
         this.$nextTick(() => {
           this.initScroll()
 
-          this.$nextTick(() => {
-            this.startIntroAnimation()
-          })
+          // this.$nextTick(() => {
+          //   this.startIntroAnimation()
+          // })
         })
       }
-    }
-  },
-  head () {
-    return {
-      title: this.title
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.home {
-  background: $color-primary;
-}
 </style>
