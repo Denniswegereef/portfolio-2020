@@ -2,7 +2,7 @@
   <div v-if="loaded">
     <Header />
     <Hero />
-    <Work :workProps="homeData.projects" />
+    <Work :workProps="homeData.projects" ref="workComponent"/>
     <About :aboutProps="homeData.about"/>
     <Experiences :experiencesProps="homeData.experiences"/>
     <Footer />
@@ -68,6 +68,12 @@ export default {
           // })
         })
       }
+    }
+  },
+
+  methods: {
+    _project_item_animation (e) {
+      this.$refs.workComponent.enterAnimation(e)
     }
   }
 }

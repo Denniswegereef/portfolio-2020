@@ -101,7 +101,7 @@ export default {
   }
 
   .experiences__list {
-    margin-left: g(4, 12);
+    margin-left: auto;
     width: g(8, 12);
   }
 
@@ -119,7 +119,7 @@ export default {
   }
 
   .experiences__description {
-    font-size: rem(20px);
+    font-size: rem(18px);
     line-height: rem(28px);
   }
 }

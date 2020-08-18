@@ -8,7 +8,7 @@
       </li>
     </ul>
 
-    <div class="header__square"/>
+    <div class="square header__square"/>
   </header>
 </template>
 
@@ -66,15 +66,10 @@ export default {
   top: rem($narrow-spacing / 2);
   right: g(1, 24);
 
-  height: rem(15px);
-  width: rem(15px);
-
-  background: $color-black;
-
   transition: transform 0.3s ease-out;
 
   &:hover {
-      transform: rotate(90deg);
+    transform: rotate(90deg);
   }
 }
 
