@@ -1,7 +1,7 @@
 <template>
   <div v-if="loader">
-    <div ref="item_one" class="loader loader-one" id="js-hook"/>
-    <div ref="item_two" class="loader loader-two"/>
+    <div ref="background_one" class="loader loader-one"/>
+    <div ref="background_two" class="loader loader-two"/>
   </div>
 </template>
 
@@ -11,7 +11,7 @@ import { gsap } from 'gsap'
 export default {
   data () {
     return {
-      loader: false,
+      loader: true,
       tl: gsap.timeline({ paused: true }),
       lmS: null
     }
@@ -20,8 +20,7 @@ export default {
     this._setupTimeline()
   },
   methods: {
-    start (lmS) {
-      this.loader = true
+    play (lmS) {
       this.lmS = lmS
 
       this.lmS.stop()
@@ -29,12 +28,11 @@ export default {
     },
 
     _setupTimeline (lmS) {
-      const easing = 'power3'
-
       this.tl.eventCallback('onComplete', this._timelineCompleteHandler)
-
-      this.tl.to(this.$refs.item_one, { scaleY: 0.0, duration: 0.2, ease: easing.easeOuteaseOut }, 0.5)
-      this.tl.to(this.$refs.item_two, { scaleY: 0.0, duration: 0.3, ease: easing.easeOuteaseOut }, 0.9)
+      console.log(this.$refs.background_two)
+      this.tl.to(this.$refs.background_two, { duration: 1.2, scaleY: 1.0, ease: 'Expo.easeInOuteaseInOut' }, 0.3)
+      this.tl.set(this.$refs.background_one, { opacity: 0 }, 1.4)
+      this.tl.to(this.$refs.background_two, { duration: 0.4, opacity: 0 }, 1.5)
     },
 
     _timelineCompleteHandler () {
@@ -60,13 +58,17 @@ export default {
   transform: scaleY(1.0);
 
   &-one {
-    z-index: 4;
+    z-index: 3;
+
     background: $color-black;
   }
 
   &-two {
-    z-index: 3;
-    background: $color-secondary;
+    z-index: 4;
+
+    background: $color-background;
+
+    transform: scaleY(0.0);
   }
 }
 </style>

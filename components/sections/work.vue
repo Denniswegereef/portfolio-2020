@@ -2,7 +2,7 @@
   <section class="work">
     <div class="work__hover-container" data-scroll data-scroll-sticky data-scroll-target="#js-scroll">
       <div class="work__hover-element" ref="hover_element">
-        <img src="" alt="" class="work__hover-image" ref="hover_image">
+        <img src="" alt="" class="work__hover-image" rel="preload" ref="hover_image">
       </div>
     </div>
     <ul class="work__list">
@@ -25,7 +25,9 @@
 </template>
 
 <script>
-// TODO MOBILE DISABLING!
+// TODO
+// MOBILE DISABLING!
+// OPTIMIZE WHEN NOT IN VIEW?
 
 import { gsap } from 'gsap'
 
@@ -137,6 +139,8 @@ export default {
       hoverElement.style.top = lerp(hoverElement.offsetTop, newPositionY, this.$data.hoverElement.lerpAlpha) + 'px'
     },
 
+    // Handlers
+
     _mouseOverHandler (e, i) {
       this.$refs.hover_image.src = `${this.api_url}${this.$props.workProps[i].cover.url}`
 
@@ -177,6 +181,8 @@ export default {
 .work__link {
   display: inline-block;
   overflow: hidden;
+
+  width: 100%;
 
   text-decoration: none;
 }

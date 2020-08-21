@@ -1,6 +1,7 @@
 <template>
   <section class="project">
     <div v-if="loaded">
+      <nuxt-link to="/">BACK</nuxt-link>
       <div class="project__cover-header"></div>
 
       <div class="project__container">

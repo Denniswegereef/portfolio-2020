@@ -1,17 +1,22 @@
 <template>
-  <div v-if="loaded">
-    <Header />
-    <Hero />
-    <Work :workProps="homeData.projects" ref="workComponent"/>
-    <About :aboutProps="homeData.about"/>
-    <Experiences :experiencesProps="homeData.experiences"/>
-    <Footer />
+  <div>
+    <Intro-animation ref="introComponent"/>
+    <div v-if="loaded">
+      <Header />
+      <Hero />
+      <Work :workProps="homeData.projects" ref="workComponent"/>
+      <About :aboutProps="homeData.about"/>
+      <Experiences :experiencesProps="homeData.experiences"/>
+      <Footer />
+    </div>
   </div>
 </template>
 
 <script>
 import locomotive from '~/mixins/locomotiveScroll.js'
 import HomeQuery from '~/apollo/home_2'
+
+import IntroAnimation from '~/components/partials/intro-animation.vue'
 
 import Header from '~/components/sections/header.vue'
 import Hero from '~/components/sections/hero.vue'
@@ -22,6 +27,7 @@ import Footer from '~/components/sections/footer.vue'
 
 export default {
   components: {
+    IntroAnimation,
     Header,
     Hero,
     Work,
@@ -63,15 +69,19 @@ export default {
         this.$nextTick(() => {
           this.initScroll()
 
-          // this.$nextTick(() => {
-          //   this.startIntroAnimation()
-          // })
+          this.$nextTick(() => {
+            this._startIntroAnimation()
+          })
         })
       }
     }
   },
 
   methods: {
+    _startIntroAnimation () {
+      this.$refs.introComponent.play(this.$data.lmS)
+    },
+
     _project_item_animation (e) {
       this.$refs.workComponent.enterAnimation(e)
     }
