@@ -5,7 +5,7 @@
       <Header />
       <Hero />
       <Work :workProps="homeData.projects" ref="workComponent"/>
-      <About :aboutProps="homeData.about"/>
+      <About :aboutProps="homeData.about" ref="aboutComponent"/>
       <Experiences :experiencesProps="homeData.experiences"/>
       <Footer />
     </div>
@@ -78,12 +78,24 @@ export default {
   },
 
   methods: {
+    scrollTo (target) {
+      this.$data.lmS.scrollTo(target)
+    },
+
     _startIntroAnimation () {
       this.$refs.introComponent.play(this.$data.lmS)
     },
 
     _project_item_animation (e) {
       this.$refs.workComponent.enterAnimation(e)
+    },
+
+    _about_intro_animation (e) {
+      this.$refs.aboutComponent.startAnimateIntro(e)
+    },
+
+    _about_body_animation (e) {
+      this.$refs.aboutComponent.startAnimateBody(e)
     }
   }
 }

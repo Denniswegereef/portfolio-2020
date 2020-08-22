@@ -57,6 +57,8 @@ export default {
   transform-origin: bottom center;
   transform: scaleY(1.0);
 
+  pointer-events: none;
+
   &-one {
     z-index: 3;
 

@@ -1,10 +1,10 @@
 <template>
   <header class="header">
-    <p class="header__text smallheading">{{ content.text_one }}</p>
-    <p class="header__text smallheading">{{ content.text_two }}</p>
-    <ul class="header__list">
+    <p class="header__text smallheading" ref="heading_one">{{ content.text_one }}</p>
+    <p class="header__text smallheading" ref="heading_two">{{ content.text_two }}</p>
+    <ul class="header__list" ref="list">
       <li v-for="(item, index) in content.links" :key="index" class="header__list-item">
-        <a :href="item.text" class="header__link button smallheading">{{ item.text }}</a>
+        <a href="#" :data-link="item.href" @click="_linkHandler" class="header__link button smallheading">{{ item.text }}</a>
       </li>
     </ul>
 
@@ -13,23 +13,50 @@
 </template>
 
 <script>
+import { gsap } from 'gsap'
+
 export default {
   data () {
     return {
+      timelines: {
+        intro: gsap.timeline({ paused: true })
+      },
       content: {
         text_one: 'Just graduated and looking for a job',
         text_two: 'Portfolio selected work',
         links: [
           {
-            href: '#',
-            text: 'Projects'
+            href: '#js-work',
+            text: 'Work'
           },
           {
-            href: '#',
+            href: '#js-about',
             text: 'About'
           }
         ]
       }
+    }
+  },
+
+  mounted () {
+    this._setupTimelines()
+
+    this.$data.timelines.intro.play()
+    // console.log(this.$parent.scrollTo())
+  },
+
+  methods: {
+    _setupTimelines () {
+      const tlIntro = this.$data.timelines.intro
+      const allElements = [this.$refs.heading_one, this.$refs.heading_two, this.$refs.list]
+
+      tlIntro.set(allElements, { opacity: 0, yPercent: 100 }, 0.0)
+      tlIntro.to(allElements, { duration: 0.5, yPercent: 0, opacity: 1, stagger: 0.2 }, 3.0)
+    },
+
+    _linkHandler (e) {
+      e.preventDefault()
+      this.$parent.scrollTo(e.target.dataset.link)
     }
   }
 }
@@ -59,6 +86,8 @@ export default {
 
 .header__link {
   color: $color-primary;
+
+  cursor: pointer;
 }
 
 .header__square {

@@ -1,5 +1,5 @@
 <template>
-  <section class="work">
+  <section class="work" id="js-work">
     <div class="work__hover-container" data-scroll data-scroll-sticky data-scroll-target="#js-scroll">
       <div class="work__hover-element" ref="hover_element">
         <img src="" alt="" class="work__hover-image" rel="preload" ref="hover_image">
@@ -120,7 +120,6 @@ export default {
     },
 
     enterAnimation (e) {
-      console.log(Number(e.el.dataset.index))
       this.$data.timelines.enterTitle[Number(e.el.dataset.index)].play()
     },
 
@@ -182,8 +181,6 @@ export default {
   display: inline-block;
   overflow: hidden;
 
-  width: 100%;
-
   text-decoration: none;
 }
 
@@ -198,9 +195,6 @@ export default {
 
   &:after {
     @extend .smallheading;
-
-    position: absolute;
-    top: rem(5px);
 
     width: rem(50px);
 

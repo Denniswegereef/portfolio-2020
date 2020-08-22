@@ -1,17 +1,95 @@
 <template>
-  <section class="about">
-    <p class="subheading about__intro">{{ aboutProps.text_intro }}</p>
-    <div class="about__image"/>
-    <p class="paragraph about__body">{{ aboutProps.text_body }}</p>
+  <section class="about" id="js-about">
+    <p
+      class="subheading about__intro"
+      ref="intro"
+      data-scroll
+      data-scroll-offset="100px 0"
+      data-scroll-call="about_intro_animation">
+      {{ aboutProps.text_intro }}
+    </p>
+    <div class="about__image-container" data-scroll data-scroll-speed="1.5">
+      <img class="about__image" src="~/assets/images/portrait_test.png" alt="portrait image" ref="image">
+      <div class="about__image-cover" ref="cover"/>
+    </div>
+    <p
+      class="paragraph about__body"
+      ref="body"
+      data-scroll
+      data-scroll-offset="100px 0"
+      data-scroll-call="about_body_animation">
+      {{ aboutProps.text_body }}
+    </p>
   </section>
 </template>
 
 <script>
+
+// TODO
+// On resize calculate spans again
+import { gsap } from 'gsap'
+
+import splitText from '~/helpers/splitText'
+// import sanatizeText from '~/helpers/sanatizeText'
+
+const CLASS_NAME_SPLIT_CONTAINER = 'js-split-container-intro'
+const CLASS_NAME_SPLIT_CHILD = 'js-split-child-intro'
+
 export default {
   props: {
     aboutProps: {
       type: Object,
       default: () => null
+    }
+  },
+
+  data () {
+    return {
+      timelines: {
+        introEnter: gsap.timeline({ paused: true }),
+        bodyEnter: gsap.timeline({ paused: true })
+      },
+      spanTagOpening: `<span class="${CLASS_NAME_SPLIT_CONTAINER}"><span class="${CLASS_NAME_SPLIT_CHILD}">`,
+      spanTagClosing: '</span></span>'
+    }
+  },
+
+  mounted () {
+    splitText(this.$refs.intro, this.$data.spanTagOpening, this.$data.spanTagClosing)
+    splitText(this.$refs.body, this.$data.spanTagOpening, this.$data.spanTagClosing)
+    this._setUpTimelines()
+  },
+
+  methods: {
+    _setUpTimelines () {
+      const splitIntroContainerElements = document.querySelectorAll('.about__intro .' + CLASS_NAME_SPLIT_CONTAINER)
+      const splitIntroChildElements = document.querySelectorAll('.about__intro .' + CLASS_NAME_SPLIT_CHILD)
+
+      const splitBodyContainerElements = document.querySelectorAll('.about__body .' + CLASS_NAME_SPLIT_CONTAINER)
+      const splitBodyChildElements = document.querySelectorAll('.about__body .' + CLASS_NAME_SPLIT_CHILD)
+
+      const tlIntro = this.$data.timelines.introEnter
+      const tlBody = this.$data.timelines.bodyEnter
+
+      gsap.set([...splitIntroContainerElements, ...splitBodyContainerElements], { overflow: 'hidden', display: 'block' })
+      gsap.set([...splitIntroChildElements, ...splitBodyChildElements], { yPercent: 100, display: 'block' })
+      gsap.set(this.$refs.image, { opacity: 0 })
+
+      tlIntro.to(splitIntroChildElements, { duration: 1.3, yPercent: 0, ease: 'power4', stagger: 0.15 })
+
+      tlBody.to(splitBodyChildElements, { duration: 1.0, yPercent: 0, ease: 'power4', stagger: 0.1 })
+      tlBody.to(this.$refs.cover, { duration: 0.8, scaleY: 1, ease: 'power4' }, 0.5)
+      tlBody.set(this.$refs.cover, { transformOrigin: 'left top' }, 1.3)
+      tlBody.set(this.$refs.image, { opacity: 1 }, 1.3)
+      tlBody.to(this.$refs.cover, { duration: 0.8, scaleY: 0, ease: 'power4' }, 1.5)
+    },
+
+    startAnimateIntro () {
+      this.$data.timelines.introEnter.play()
+    },
+
+    startAnimateBody () {
+      this.$data.timelines.bodyEnter.play()
     }
   }
 }
@@ -34,14 +112,31 @@ export default {
   margin-bottom: rem($narrow-spacing / 3)
 }
 
-.about__image {
+.about__image-container {
+  display: inline-table;
   position: absolute;
   bottom: rem(-270px);
 
-  height: rem(250px);
-  width: 100%;
+  overflow: hidden;
 
-  background: $color-primary;
+  width: 100%;
+}
+
+.about__image {
+  position: relative;
+  width: 100%;
+}
+
+.about__image-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: $color-black;
+
+  transform: scaleY(0.0);
+  transform-origin: left bottom;
 }
 
 @include mq-regular {
@@ -55,8 +150,9 @@ export default {
     margin-bottom: rem($regular-spacing / 3)
   }
 
-  .about__image {
+  .about__image-container {
     position: initial;
+
     width: g(4, 12);
   }
 
@@ -79,10 +175,11 @@ export default {
     margin-bottom: rem($wide-spacing / 3)
   }
 
-  .about__image {
+  .about__image-container {
     width: g(3, 12);
 
     margin-left: g(1, 12);
+    margin-top: rem(100px);
   }
 
   .about__body {

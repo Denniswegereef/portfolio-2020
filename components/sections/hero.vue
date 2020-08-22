@@ -1,6 +1,6 @@
 <template>
   <section class="hero">
-    <h1 class="heading hero__text" data-scroll data-scroll-speed="0.7" ref="title_container">
+    <h1 class="heading hero__text" data-scroll data-scroll-speed="1.2" ref="title_container">
       <span class="hero__text-item" :data-text="content.small_one">
         <span class="hidden">{{ content.title_one }}</span>
         <span class="hero__text-show" ref="title_one">
@@ -35,7 +35,7 @@ import { gsap } from 'gsap'
 export default {
   data () {
     return {
-      tl: gsap.timeline({ paused: true, delay: 2.1 }),
+      tl: gsap.timeline({ paused: true }),
       content: {
         title_one: 'Dennis',
         title_two: 'Wegereef',
@@ -59,7 +59,7 @@ export default {
       const tl = this.$data.tl
       const titleRefs = [this.$refs.title_one, this.$refs.title_two, this.$refs.title_three, this.$refs.title_four]
 
-      tl.from(titleRefs, { y: '100%', duration: 1.2, stagger: 0.2, delay: 0.4, ease: 'Expo.easeOut' })
+      tl.from(titleRefs, { y: '100%', duration: 1.2, stagger: 0.2, delay: 0.4, ease: 'Expo.easeOut' }, 1.2)
       tl.eventCallback('onComplete', this._onComplete)
 
       this.playIntro()
