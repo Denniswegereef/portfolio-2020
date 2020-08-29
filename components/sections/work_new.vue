@@ -1,62 +1,66 @@
 <template>
   <section class="work" id="js-work">
+
     <div class="work__hover-container" data-scroll data-scroll-sticky data-scroll-target="#js-scroll">
       <div class="work__hover-element" ref="hover_element">
         <img src="" alt="" class="work__hover-image" rel="preload" ref="hover_image">
       </div>
+
+      <div class="work__transistion_element" ref="transition_element"/>
     </div>
     <ul class="work__list" ref="work_list">
       <li
-        v-for="(item, index) in workProps"
+        v-for="(item, index) in data.work"
         :key="index"
         class="work__list-item"
         data-scroll
         :data-index="index"
         data-scroll-offset="100px 0"
         data-scroll-call="project_item_animation">
+
         <a
           class="work__link"
           :href="`projects/${item.slug}`"
-          @click.native="(event) => _mouseClickHandler(event, `projects/${item.slug}`)"
-          @mouseover.native="(event) => _mouseOverHandler(event, index)"
-          @mouseleave.native="_mouseLeaveHandler">
+          @click="(event) => _mouseClickHandler(event, index, `projects/${item.slug}`)"
+          @mouseover="(event) => _mouseOverHandler(event, index)"
+          @mouseleave="_mouseLeaveHandler">
           <h3 class="heading work__heading" :data-text="item.date" ref="title">{{ item.title }}</h3>
         </a>
         <div class="work__line-border" ref="line"/>
-        <div v-if="index + 1 === workProps.length" class="work__line-border work__line-border_last" ref="lastLine"/>
+        <div v-if="index + 1 === data.work.length" class="work__line-border work__line-border_last" ref="lastLine"/>
       </li>
-    </ul>
+     </ul>
   </section>
 </template>
 
 <script>
 /* eslint curly: [2, "multi"] */
 
+import { gsap } from 'gsap'
+import lerp from '~/helpers/lerp'
+
+import data from '~/static/data/work.json'
+
 // TODO
 // MOBILE DISABLING!
 // OPTIMIZE WHEN NOT IN VIEW?
-
-import { gsap } from 'gsap'
-
-import lerp from '~/helpers/lerp'
-
 export default {
-  props: {
-    workProps: {
-      type: Array,
-      default: () => null
-    }
+  asyncData () {
+    return { data }
   },
   data () {
     return {
       content: {
         title: 'Work'
       },
+      data,
       timelines: {
         hoverEnter: gsap.timeline({ paused: true }),
         hoverLeave: gsap.timeline({ paused: true }),
+        transition: gsap.timeline({ paused: true }),
         enterTitle: []
       },
+      nextRoute: null,
       transitionAnimation: false,
       hoverElement: {
         oldPositionX: 0,
@@ -67,8 +71,7 @@ export default {
         offSetY: 0,
         show: false,
         lerpAlpha: 0.25
-      },
-      api_url: process.env.strapiBaseUri
+      }
     }
   },
 
@@ -123,6 +126,16 @@ export default {
 
         if (i + 1 === this.$refs.title.length) tl.to(this.$refs.lastLine, { duration: 0.9, scaleX: 1 }, 0.9)
       }
+
+      // Transistion timeline
+      const tlTransistion = this.$data.timelines.transition
+
+      tlTransistion.eventCallback('onComplete', this._onCompleteTimelineTransistionHandler)
+      tlTransistion.to(hoverElement, { duration: 1.0, scale: 1 }, 0.0)
+      tlTransistion.to(hoverImage, { duration: 1.0, scale: 1 }, 0.0)
+      tlTransistion.to([this.$refs.work_list, document.getElementById('js-hero')], { duration: 0.5, opacity: 0 }, 0.0)
+      tlTransistion.to(this.$refs.transition_element, { duration: 0.5, scaleY: 1 }, 1.0)
+      tlTransistion.to(hoverElement, { duration: 0.5, x: 0, y: 0, width: '100%' }, 1.8)
     },
 
     enterAnimation (e) {
@@ -135,8 +148,6 @@ export default {
     },
 
     _updateElementPosition () {
-      if (this.$data.transitionAnimation) return
-
       const hoverElement = this.$refs.hover_element
 
       const newPositionX = this.$data.hoverElement.positionX + this.$data.hoverElement.offSetX
@@ -146,8 +157,12 @@ export default {
       hoverElement.style.top = lerp(hoverElement.offsetTop, newPositionY, this.$data.hoverElement.lerpAlpha) + 'px'
     },
 
-    _transistionItem (e) {
-      // e.preventDefault()
+    _transistionItem (path) {
+      this.$data.transitionAnimation = true
+      this.$data.nextRoute = path
+
+      this.$parent.toggleScroll()
+      this.$data.timelines.transition.play()
     },
 
     // Handlers
@@ -155,7 +170,7 @@ export default {
     _mouseOverHandler (e, i) {
       if (this.$data.transitionAnimation) return
 
-      this.$refs.hover_image.src = `${this.api_url}${this.$props.workProps[i].cover.url}`
+      this.$refs.hover_image.src = require(`~/assets/images/${this.$data.data.work[i].cover.url}`)
 
       this.$data.hoverElement.show = true
       this.$data.timelines.hoverLeave.pause()
@@ -169,12 +184,19 @@ export default {
       }
     },
 
-    _mouseClickHandler (to) {
-      this.$router.push(to)
+    _mouseClickHandler (event, index, path) {
+      event.preventDefault()
+
+      window.removeEventListener('mousemove', this._updateMousePositions)
+      this._transistionItem(path)
     },
 
     _mouseMoveHandler () {
       window.addEventListener('mousemove', this._updateMousePositions)
+    },
+
+    _onCompleteTimelineTransistionHandler () {
+      this.$router.push({ path: this.$data.nextRoute, query: { routeBefore: 'true' } })
     },
 
     _tickHandler () {
@@ -250,6 +272,22 @@ export default {
   &_last {
     top: 100%;
   }
+}
+
+.work__transistion_element {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  height: 100vh;
+  width: 100%;
+
+  background: $color-black;
+
+  z-index: -2;
+
+  transform: scaleY(0);
+  transform-origin : bottom left;
 }
 
 @include mq-regular {

@@ -5,7 +5,8 @@ export default {
   data () {
     return {
       lmS: null,
-      scrolltrigger: null
+      scrolltrigger: null,
+      scrollActive: true
     }
   },
   watch: {
@@ -33,8 +34,16 @@ export default {
         })
       })
     },
+
     updateScroll () {
       this.$data.lmS.update()
+    },
+
+    toggleScroll () {
+      setTimeout(() => {
+        this.$data.scrollActive = !this.$data.scrollActive
+        this.$data.scrollActive ? this.$data.lmS.start() : this.$data.lmS.stop()
+      })
     }
   },
 

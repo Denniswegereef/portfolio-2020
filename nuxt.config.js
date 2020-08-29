@@ -68,7 +68,8 @@ export default {
   generate: {
     routes() {
       return [
-        '/projects/dfns'
+        '/projects/dfns',
+        '/projects/recharge'
       ]
     }
   },

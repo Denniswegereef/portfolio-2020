@@ -1,6 +1,6 @@
 <template>
-  <section class="hero">
-    <h1 class="heading hero__text" data-scroll data-scroll-speed="1.2" ref="title_container">
+  <section class="hero" id="js-hero">
+    <h1 class="heading hero__text" ref="title_container">
       <span class="hero__text-item" :data-text="content.small_one">
         <span class="hidden">{{ content.title_one }}</span>
         <span class="hero__text-show" ref="title_one">
@@ -66,7 +66,7 @@ export default {
     },
 
     _onComplete () {
-      this.$refs.title_container.classList.add('js-done-animating')
+      // this.$refs.title_container.classList.add('js-done-animating')
     }
   }
 }

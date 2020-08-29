@@ -33,7 +33,7 @@ export default {
   },
 
   mounted () {
-    gsap.set(this.$refs.link, { opacity: 0, x: '20px' })
+    gsap.set(this.$refs.link, { opacity: 0, xPercent: 20 })
     this._setupTimeLine()
 
     this.tl.play()
@@ -42,8 +42,7 @@ export default {
   methods: {
     _setupTimeLine () {
       this.tl.eventCallback('onComplete', this._timelineCompleteHandler)
-
-      this.tl.to(this.$refs.link, { x: '0', opacity: 1, stagger: 0.2 }, 3.0)
+      this.tl.to(this.$refs.link, { xPercent: 0, opacity: 1, stagger: 0.2 }, 5.5)
     },
 
     _timelineCompleteHandler () {

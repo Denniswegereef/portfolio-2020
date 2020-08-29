@@ -1,87 +1,65 @@
 <template>
-  <section class="project">
-    <div v-if="loaded">
-      <nuxt-link to="/">BACK</nuxt-link>
-      <div class="project__cover-header"></div>
-
-      <div class="project__container">
-
-        <h1 class="subheading project__title">{{ projectData.title }}</h1>
-
-        <div class="project__container-list">
-          <ul class="project__list project__list-info">
-            <template v-for="(value, key, index) in projectData.list">
-              <li :key="index" class="project__list-item" v-if="value">
-                <span class="heading project__list-subtitle">{{ key }}</span>
-                <p class="subheading project__list-title">{{ value }}</p>
-              </li>
-            </template>
-          </ul>
-
-          <ul class="project__list-links">
-            <li class="project__list-item">
-              <a :href="projectData.link" target="_blank" class="button project__list-link">{{ github_text }}</a>
-            </li>
-            <li class="project__list-item">
-              <a :href="projectData.link" target="_blank" class="button project__list-link">{{ online_text }}</a>
-            </li>
-          </ul>
-        </div>
-
-        <p class="paragraph projects__description" v-html="projectData.description"/>
-
-        <img class="project__image" :src="`${api_url}${projectData.cover.url}`" :alt="`${projectData.title} photo`">
+  <div class="project">
+    <div class="project__container">
+      <nuxt-link class="button smallheading project__back" :prefetch="false" :to="content.back.href">{{ content.back.text }}</nuxt-link>
+      <!-- <h1>{{ data.cover.url }}</h1> -->
+      <div class="project__image-container">
+        <!-- <img class="project__image-cover" :src="imageCover" alt=""> -->
       </div>
+      <h1 class="heading project__title">{{ work.title }}</h1>
 
-      <project-next />
+      <p class="subheading project__body">{{ work.description }}</p>
+      {{ work }}
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
 import locomotive from '~/mixins/locomotiveScroll.js'
-import projectsQuery from '~/apollo/project_individual'
-
-import ProjectNext from '~/components/partials/project-next.vue'
+import data from '~/static/data/work.json'
 
 export default {
-  mixins: [locomotive],
-  components: {
-    ProjectNext
+  validate ({ params, route }) {
+    if (data.work.find(item => item.slug === params.slug)) return true
   },
+
+  asyncData () {
+    return { data }
+  },
+
   data () {
     return {
-      projectData: {},
-      api_url: process.env.strapiBaseUri,
-      loaded: false,
-      online_text: 'Online link',
-      github_text: 'View repository'
-    }
-  },
-  apollo: {
-    projectData: {
-      prefetch: true,
-      variables () {
-        return { slug: this.$route.params.slug }
-      },
-      query: projectsQuery,
-      update ({ projects }) {
-        return (projects === undefined || projects.length === 0) ? this.$router.push('/404') : {
-          ...projects[0],
-          description: this.$md.render(projects[0].description),
-          list: {
-            agency: projects[0].agency,
-            role: projects[0].role,
-            year: projects[0].date
-          }
+      work: {},
+      imageCover: null,
+      routeBefore: false,
+      queryToCheck: 'routeBefore',
+      content: {
+        back: {
+          href: '/',
+          text: 'Go home'
         }
       }
     }
   },
+
+  mixins: [locomotive],
+
+  beforeMount () {
+    this.$data.work = data.work.find(item => item.slug === this.$route.params.slug)
+
+    // Some query checking if route is coming form a page or a hard refresh
+    const checkQuery = this.$data.queryToCheck in this.$route.query
+    checkQuery ? this.$data.routeBefore = true : this.$data.routeBefore = false
+    if (this.$data.routeBefore || checkQuery) this.$router.replace({ query: null })
+  },
+
+  mounted () {
+    this.initScroll()
+  },
+
   watch: {
-    projectData () {
-      this.$data.loaded = true
-      this.initScroll()
+    work () {
+      this.$data.imageCover = require(`~/assets/images/${this.$data.work.cover.url}`)
     }
   }
 }
@@ -90,144 +68,67 @@ export default {
 <style lang="scss" scoped>
 .project {
   min-height: 100vh;
-}
-
-.project__cover-header {
   width: 100%;
-  height: 60vh;
-
-  margin-bottom: rem(60px);
-
-  background: $color-primary;
+  background: $color-black;
 }
 
 .project__container {
-  padding: 0 rem($narrow-container-padding) rem(120px);
+  position: relative;
+  width: 100%;
+
+  padding: 35vh g(2, 24) rem($narrow-spacing);
+}
+
+.project__back {
+  position: absolute;
+  top: 5vh;
+  left: 0;
+  right: 0;
+
+  text-align: center;
+
+  color: $color-background;
+}
+
+.project__image-container {
+  // position: absolute;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  // text-align: center;
+
+  // top: 13vh;
+  // left: g(2, 24);
+
+  // width: g(10, 12);
+}
+
+.project__image-cover {
+  width: 100%;
 }
 
 .project__title {
   font-size: rem(50px);
 
-  margin-bottom: rem(40px);
+  color: $color-background;
 }
 
-.project__list {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.project__list-item {
-  display: block;
-
-  width: 50%;
-
-  margin-bottom: rem(24px);
-}
-
-.project__list-info {
-  margin-bottom: rem(20px);
-}
-
-.project__list-links {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-
-  .project__list-item {
-    width: auto;
-  }
-}
-
-.project__list-subtitle {
-  display: block;
-
-  margin-bottom: rem(8px);
-
-  color: $color-primary;
-
-  font-size: rem(12px);
-  text-transform: uppercase;
-}
-
-.project__list-title {
-  font-size: rem(18px);
-}
-
-.project__list-link {
-  padding: 0;
-
-  color: $color-primary;
-
-  font-size: rem(16px);
-}
-
-.projects__description {
-  margin-bottom: rem(40px);
-}
-
-.project__image {
-  width: calc(100% + #{rem(30px)});
-  margin-left: rem(-15px);
+.project__body {
+  color: $color-background;
 }
 
 @include mq-regular {
-  .project__cover-header {
-    width: 95%;
-
-    margin: rem(50px) auto rem(100px);
-  }
-
-  .project__title {
-    font-size: rem(90px);
-
-    margin-bottom: rem(80px);
-  }
-
   .project__container {
-    width: 100%;
-
-    padding: 0 rem(90px);
-  }
-
-  .project__container-list {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    margin-bottom: rem(80px);
-  }
-
-  .project__list {
-    flex-wrap: nowrap;
-  }
-
-  .project__list-item {
-    display: inline-block;
-    width: auto;
-
-    margin: 0;
-    padding-right: rem(60px);
-  }
-
-  .projects__description {
-    width: g(8, 12);
-
-    margin: 0 auto rem(60px);
-  }
-
-  .project__image {
-    width: g(10, 12);
-    margin-left: g(1, 12);
-    margin-bottom: rem(120px);
+    padding: 0 g(2, 24) rem($regular-spacing);
   }
 }
 
 @include mq-wide {
   .project__container {
-    max-width: $container-wide;
+    max-width: rem($wide-container);
 
-    margin: 0 auto;
-    padding: 0 rem($container-wide-padding);
+    padding: 0;
+    margin: 0 g(2, 24) rem($wide-spacing);
   }
 }
 </style>

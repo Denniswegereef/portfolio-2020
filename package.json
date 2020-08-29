@@ -18,11 +18,14 @@
     "@nuxtjs/markdownit": "^1.2.10",
     "core-js": "^2.6.11",
     "graphql": "^15.3.0",
-    "gsap": "^3.4.0",
+    "gsap": "^3.5.1",
     "locomotive-scroll": "^3.5.4",
-    "nuxt": "^2.13.3"
+    "lodash.debounce": "^4.0.8",
+    "nuxt": "^2.14.4"
   },
   "devDependencies": {
+    "@babel/traverse": "^7.11.0",
+    "@babel/types": "^7.11.0",
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",
     "@nuxtjs/style-resources": "^1.0.0",

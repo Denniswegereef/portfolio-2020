@@ -1,105 +1,24 @@
-<template>
-  <div>
-    <Intro-animation ref="introComponent"/>
-    <div v-if="loaded">
-      <Header />
-      <Hero />
-      <Work :workProps="homeData.projects" ref="workComponent"/>
-      <About :aboutProps="homeData.about" ref="aboutComponent"/>
-      <Experiences :experiencesProps="homeData.experiences"/>
-      <Footer />
-    </div>
+!<template>
+  <div class="intro">
+    <h1 class="heading intro__heading">
+      Dennis <br>Wegereef<br> <span class="smallheading">Portfolio 2020</span>
+    </h1>
   </div>
 </template>
 
-<script>
-import locomotive from '~/mixins/locomotiveScroll.js'
-import HomeQuery from '~/apollo/home_2'
+<style lang="scss" scoped>
+.intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  text-align: center;
 
-import IntroAnimation from '~/components/partials/intro-animation.vue'
+  background: $color-background;
 
-import Header from '~/components/sections/header.vue'
-import Hero from '~/components/sections/hero.vue'
-import Work from '~/components/sections/work.vue'
-import About from '~/components/sections/about.vue'
-import Experiences from '~/components/sections/experiences.vue'
-import Footer from '~/components/sections/footer.vue'
-
-export default {
-  components: {
-    IntroAnimation,
-    Header,
-    Hero,
-    Work,
-    About,
-    Experiences,
-    Footer
-  },
-  mixins: [locomotive],
-  data () {
-    return {
-      homeData: null,
-      loaded: false
-    }
-  },
-  apollo: {
-    homeData: {
-      prefetch: true,
-      query: HomeQuery,
-      update ({ projects, about, experiences }) {
-        return {
-          projects: [
-            ...projects
-          ],
-          about: {
-            ...about
-          },
-          experiences: [
-            ...experiences
-          ]
-        }
-      }
-    }
-  },
-  watch: {
-    homeData () {
-      if (this.$data.homeData) {
-        this.$data.loaded = true
-
-        this.$nextTick(() => {
-          this.initScroll()
-
-          this.$nextTick(() => {
-            this._startIntroAnimation()
-          })
-        })
-      }
-    }
-  },
-
-  methods: {
-    scrollTo (target) {
-      this.$data.lmS.scrollTo(target)
-    },
-
-    _startIntroAnimation () {
-      this.$refs.introComponent.play(this.$data.lmS)
-    },
-
-    _project_item_animation (e) {
-      this.$refs.workComponent.enterAnimation(e)
-    },
-
-    _about_intro_animation (e) {
-      this.$refs.aboutComponent.startAnimateIntro(e)
-    },
-
-    _about_body_animation (e) {
-      this.$refs.aboutComponent.startAnimateBody(e)
-    }
+  span {
+    font-size: rem(25px);
   }
 }
-</script>
-
-<style lang="scss" scoped>
 </style>

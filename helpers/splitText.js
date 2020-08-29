@@ -7,9 +7,7 @@ function splitText (container, opentag, closingtag) {
 
   for (let i = 0; i < spans.length; i++) {
     const rect = spans[i].getBoundingClientRect().top
-    if (top < rect) {
-      tmp += closingtag + opentag
-    }
+    if (top < rect) tmp += closingtag + opentag
     top = rect
     tmp += spans[i].textContent + ' '
   }

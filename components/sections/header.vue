@@ -7,8 +7,6 @@
         <a href="#" :data-link="item.href" @click="_linkHandler" class="header__link button smallheading">{{ item.text }}</a>
       </li>
     </ul>
-
-    <div class="square header__square"/>
   </header>
 </template>
 
@@ -42,7 +40,6 @@ export default {
     this._setupTimelines()
 
     this.$data.timelines.intro.play()
-    // console.log(this.$parent.scrollTo())
   },
 
   methods: {
@@ -50,8 +47,15 @@ export default {
       const tlIntro = this.$data.timelines.intro
       const allElements = [this.$refs.heading_one, this.$refs.heading_two, this.$refs.list]
 
+      tlIntro.eventCallback('onComplete', this._timelineCompleteHandler)
       tlIntro.set(allElements, { opacity: 0, yPercent: 100 }, 0.0)
-      tlIntro.to(allElements, { duration: 0.5, yPercent: 0, opacity: 1, stagger: 0.2 }, 3.0)
+      tlIntro.to(allElements, { duration: 0.5, yPercent: 0, opacity: 1, stagger: 0.2 }, 3.8)
+    },
+
+    // Handlers
+
+    _timelineCompleteHandler () {
+      this.$data.timelines.intro.kill()
     },
 
     _linkHandler (e) {
@@ -64,10 +68,18 @@ export default {
 
 <style lang="scss" scoped>
 .header {
-  width: g(10, 12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  padding: rem($narrow-spacing) / 2 0 0 0;
-  margin:  0 auto 10vh;
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100vh;
+
+  padding: 85vh g(1, 24) 0;
 }
 
 .header__text {
@@ -105,17 +117,19 @@ export default {
 @include mq-regular {
   .header {
     display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 
-    width: g(11, 12);
+    top: 0;
+    bottom: auto;
 
-    margin:  0 auto 30vh;
-    padding: rem($regular-spacing) / 2 0 0 0;
+    height: auto;
+
+    padding: rem($regular-spacing) / 2 g(1, 24) 0;
   }
 
   .header__text {
     max-width: g(2, 10);
-
-    margin-right: g(1, 10);
   }
 
   .header__list {
@@ -149,14 +163,8 @@ export default {
 @include mq-wide {
   .header {
     width: 100%;
-    max-width: rem($wide-container);
 
-    padding: rem($wide-spacing) / 2 g(1, 24) 0;
-  }
-
-  .header__square {
-    top: rem($wide-spacing / 2);
-    right: g(1, 24);
+    padding: rem($wide-spacing) / 3 g(4, 24) 0;
   }
 }
 </style>
