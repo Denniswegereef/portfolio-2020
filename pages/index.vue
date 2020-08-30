@@ -1,10 +1,42 @@
 !<template>
-  <div class="intro">
-    <h1 class="heading intro__heading">
-      Dennis <br>Wegereef<br> <span class="smallheading">Portfolio 2020</span>
+  <div class="intro" ref="intro">
+    <h1 class="heading intro__heading" ref="heading">
+      Dennis <br>Wegereef<br> <span class="smallheading" ref="small">Portfolio 2020</span>
     </h1>
   </div>
 </template>
+
+<script>
+import { gsap } from 'gsap'
+
+export default {
+  data () {
+    return {
+      tl: gsap.timeline({ paused: true })
+    }
+  },
+  mounted () {
+    const color = '#A7ADA9'
+    const colorRed = '#E10E12'
+    const tl = this.$data.tl
+
+    gsap.set(this.$refs.heading, { opacity: 0, yPercent: 13 })
+    gsap.set(this.$refs.small, { opacity: 0, y: '-25' })
+
+    tl.to(this.$refs.intro, { duration: 3, background: color }, 1.1)
+    tl.to(this.$refs.heading, { duration: 2.5, opacity: 1, yPercent: 0, easing: 'Power3.easeInOut' }, 1.2)
+    tl.to(this.$refs.small, { duration: 0.8, opacity: 1, y: 0, easing: 'Power3.easeOut', color: colorRed }, 2.9)
+
+    tl.play()
+  },
+
+  head: {
+    meta: [
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+    ]
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .intro {
@@ -15,10 +47,41 @@
   width: 100%;
   text-align: center;
 
-  background: $color-background;
+  background: $color-black;
+
+  h1 {
+    opacity: 0;
+    font-size: 20vw;
+  }
 
   span {
-    font-size: rem(25px);
+    position: relative;
+    display: inline-block;
+    font-size: 4vw;
+  }
+}
+
+@include mq-regular {
+  .intro {
+    h1 {
+      font-size: 16vw;
+    }
+
+    span {
+      font-size: 3vw;
+    }
+  }
+}
+
+@include mq-wide {
+  .intro {
+    h1 {
+      font-size: 12vw;
+    }
+
+    span {
+      font-size: 2vw;
+    }
   }
 }
 </style>
