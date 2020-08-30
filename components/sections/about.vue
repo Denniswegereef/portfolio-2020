@@ -9,7 +9,7 @@
       {{ aboutProps.text_intro }}
     </p>
     <div class="about__image-container" data-scroll data-scroll-speed="1.5">
-      <img class="about__image" src="~/assets/images/portrait_test.png" alt="portrait image" ref="image">
+      <img class="about__image" src="~/static/images/portrait_test.png" alt="portrait image" ref="image">
       <div class="about__image-cover" ref="cover"/>
     </div>
     <p

@@ -155,7 +155,7 @@ export default {
     _mouseOverHandler (e, i) {
       if (this.$data.transitionAnimation) return
 
-      this.$refs.hover_image.src = `${this.api_url}${this.$props.workProps[i].cover.url}`
+      // this.$refs.hover_image.src = `${this.api_url}${this.$props.workProps[i].cover.url}`
 
       this.$data.hoverElement.show = true
       this.$data.timelines.hoverLeave.pause()

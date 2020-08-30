@@ -77,7 +77,7 @@ export default {
 
   watch: {
     work () {
-      this.$data.imageCover = require(`~/assets/images/${this.$data.work.cover.url}`)
+      // this.$data.imageCover = require(`~/assets/images/${this.$data.work.cover.url}`)
     }
   }
 }
