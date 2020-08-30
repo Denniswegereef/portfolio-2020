@@ -47,7 +47,7 @@ export default {
   data () {
     return {
       tl: gsap.timeline({ paused: true }),
-      dev: false,
+      dev: true,
       animationComplete: false,
       content: {
         title_one: 'Dennis',

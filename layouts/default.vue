@@ -15,6 +15,9 @@ import MouseMove from '~/components/partials/mouse-move.vue'
 // import TopHeader from '~/components/partials/top-header.vue'
 
 export default {
+  meta: [
+    { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+  ],
   components: {
     MouseMove,
     SocialComponent

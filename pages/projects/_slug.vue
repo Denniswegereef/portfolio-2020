@@ -6,10 +6,27 @@
       <div class="project__image-container">
         <!-- <img class="project__image-cover" :src="imageCover" alt=""> -->
       </div>
-      <h1 class="heading project__title">{{ work.title }}</h1>
+      <h1 class="heading project__title" :data-text="work.date">{{ work.title }}</h1>
+
+      <div class="project__meta">
+        <ul class="project__meta-list">
+           <li v-for="(item, index) in work.meta" :key="index" class="project__meta-list-item">
+             <p class="project__meta-title-small subheading">{{ item.title_small }}</p>
+             <p class="project__meta-title-big subheading">{{ item.title_big }}</p>
+           </li>
+        </ul>
+      </div>
 
       <p class="subheading project__body">{{ work.description }}</p>
-      {{ work }}
+
+      <div class="project__link-container">
+        <a :href="work.github" target="_blank" class="smallheading button project__link">{{ content.github }}</a>
+        <a :href="work.online" target="_blank" class="smallheading button project__link">{{ content.online }}</a>
+      </div>
+
+      <div class="project__gif-container">
+
+      </div>
     </div>
   </div>
 </template>
@@ -37,7 +54,9 @@ export default {
         back: {
           href: '/',
           text: 'Go home'
-        }
+        },
+        online: 'Online link',
+        github: 'Github'
       }
     }
   },
@@ -76,14 +95,12 @@ export default {
   position: relative;
   width: 100%;
 
-  padding: 35vh g(2, 24) rem($narrow-spacing);
+  padding: 25vh g(2, 24) 10vh;
 }
 
 .project__back {
   position: absolute;
   top: 5vh;
-  left: 0;
-  right: 0;
 
   text-align: center;
 
@@ -108,13 +125,77 @@ export default {
 }
 
 .project__title {
-  font-size: rem(50px);
+  position: relative;
+
+  margin-bottom: rem(30px);
+
+  font-size: rem(60px);
+  color: $color-background;
+
+  &:after {
+    @extend .smallheading;
+
+    margin-left: rem(5px);
+
+    content: attr(data-text);
+  }
+}
+
+.project__meta {
+  margin-bottom: rem(40px);
+}
+
+.project__meta-list {
+  display: flex;
+}
+
+.project__meta-list-item {
+  color: $color-background;
+
+  &:first-of-type {
+    margin-right: rem(25px);
+  }
+}
+
+.project__meta-title-small {
+  padding-bottom: rem(5px);
+
+  font-size: rem(12px);
+  line-height: rem(12px);
+
+  opacity: 0.6;
+}
+
+.project__meta-title-big {
+  font-size: rem(15px);
+  line-height: rem(15px);
+}
+
+.project__body {
+  margin-bottom: rem(50px);
 
   color: $color-background;
 }
 
-.project__body {
-  color: $color-background;
+.project__link-container {
+  margin-bottom: rem(50px);
+}
+
+.project__link {
+  color: $color-primary;
+
+  &:nth-child(2) {
+    margin-left: rem(25px);
+  }
+}
+
+.project__gif-container {
+  width: 110%;
+  min-height: rem(250px);
+
+  margin-left: -5%;
+
+  background: red;
 }
 
 @include mq-regular {
