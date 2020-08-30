@@ -86,6 +86,7 @@ export default {
   },
 
   mounted () {
+    this._preloadImages(this.$data.data.work.map(item => item.cover.url))
     this._setupEventListeners()
     this._setUpTimelines()
   },
@@ -142,6 +143,15 @@ export default {
       this.$data.timelines.enterTitle[Number(e.el.dataset.index)].play()
     },
 
+    _preloadImages (imagesArray) {
+      const images = []
+
+      for (let i = 0; i < imagesArray.length; i++) {
+        images[i] = new Image()
+        images[i].src = `/images/${imagesArray[i]}`
+      }
+    },
+
     _updateMousePositions (e) {
       this.$data.hoverElement.positionX = e.clientX
       this.$data.hoverElement.positionY = e.clientY
@@ -170,7 +180,7 @@ export default {
     _mouseOverHandler (e, i) {
       if (this.$data.transitionAnimation) return
 
-      this.$refs.hover_image.src = require(`~/assets/images/${this.$data.data.work[i].cover.url}`)
+      this.$refs.hover_image.src = `/images/${this.$data.data.work[i].cover.url}`
 
       this.$data.hoverElement.show = true
       this.$data.timelines.hoverLeave.pause()

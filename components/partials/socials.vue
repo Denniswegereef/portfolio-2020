@@ -54,8 +54,11 @@ export default {
 
 <style lang="scss" scoped>
 .socials {
-  position: fixed;;
-  top: $narrow-spacing * 2;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  top: 0;
+  bottom: 0;
   right: g(1, 24);
 }
 
@@ -76,16 +79,16 @@ export default {
 
   padding: 0;
 
-  color: $color-secondary;
+  color: $color-primary;
 
   &:before {
-    background:$color-secondary;
+    background:$color-primary;
   }
 }
 
 @include mq-regular {
   .socials {
-    top: $regular-spacing * 2;
+    // top: 20vh;
   }
 
   .socials__item {
@@ -97,7 +100,7 @@ export default {
 
 @include mq-wide {
   .socials {
-    top: $wide-spacing * 2;
+    // top: 20vh;
   }
 }
 </style>
