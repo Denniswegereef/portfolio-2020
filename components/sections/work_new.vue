@@ -333,7 +333,7 @@ export default {
   transform-origin : bottom left;
 }
 
-.work__hover-container {
+.work__hover-element {
   display: none;
 }
 
@@ -347,7 +347,6 @@ export default {
   .work__hover-container {
     @include unselectable();
 
-    display: block;
     position: fixed;
     left: 0;
     top: 0;

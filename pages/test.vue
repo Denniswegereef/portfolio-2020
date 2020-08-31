@@ -3,8 +3,6 @@
     <Header />
     <Hero />
     <Work ref="workComponent"/>
-
-    <h1>test</h1>
   </div>
 </template>
 
@@ -52,9 +50,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h1 {
-  height: 400vh;
-  width: 50%;
-  background: linear-gradient(0deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
-}
 </style>
