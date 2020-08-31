@@ -97,6 +97,7 @@ export default {
 
       this.$data.canvas.ctx = this.$refs.canvas.getContext('2d')
 
+      this.$data.canvas.noiseData = []
       for (let i = 0; i < 10; i++) this._createNoise()
     },
 

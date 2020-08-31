@@ -57,7 +57,7 @@ export default {
         title_three: 'Creative',
         title_four: 'Developer',
         small_one: '1996',
-        small_two: 'junior',
+        small_two: 'front /',
         small_three: '2020'
       },
       canvas: {
@@ -92,7 +92,7 @@ export default {
       tl.add(this.$parent.toggleScroll(), 0.0)
       tl.set(titleRefsFirst, { yPercent: 100 }, 0.0)
       tl.set(this.$refs.cover_start, { opacity: 0 }, 0.0)
-      // tl.to(this.$refs.canvas[0], { duration: 1.5, opacity: 0.3 }, 0.2)
+      tl.to(this.$refs.canvas[0], { duration: 1.5, opacity: 0.3 }, 0.2)
       tl.to(titleRefsFirst, { yPercent: 0, duration: 0.9, stagger: 0.2, delay: 0.7, ease: 'Expo.easeOut' }, 0.4)
       tl.to(this.$refs.hero_cover[0], { duration: 2.4, clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)', ease: 'Power4.easeInOut' }, 2.4)
       tl.to(this.$refs.title_container, { duration: 1.1, yPercent: -5, ease: 'Power1.easeInOut' }, 2.6)
@@ -217,7 +217,7 @@ export default {
   top: 0;
   left: 0;
 
-  opacity: 0.3;
+  opacity: 0;
   z-index: -1;
 }
 
