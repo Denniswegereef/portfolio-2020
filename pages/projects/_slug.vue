@@ -1,5 +1,6 @@
 <template>
   <div class="project">
+    <canvas class="project__canvas" ref="canvas" data-scroll data-scroll-sticky data-scroll-target="#js-scroll" />
     <div class="project__container" ref="container">
       <nuxt-link class="button smallheading project__back" :prefetch="false" :to="content.back.href">{{ content.back.text }}</nuxt-link>
       <!-- <h1>{{ data.cover.url }}</h1> -->
@@ -32,6 +33,7 @@
 
 <script>
 import { gsap } from 'gsap'
+import debounce from 'lodash.debounce'
 
 import locomotive from '~/mixins/locomotiveScroll.js'
 import data from '~/static/data/work.json'
@@ -51,6 +53,7 @@ export default {
       imageCover: null,
       routeBefore: false,
       queryToCheck: 'routeBefore',
+      ctx: null,
       content: {
         back: {
           href: '/test',
@@ -75,8 +78,39 @@ export default {
 
   mounted () {
     this.initScroll()
+    this._setCanvas()
+    this._setupEventListeners()
 
     gsap.from(this.$refs.container, { duration: 1.3, opacity: 0, delay: 1, yPercent: 2 })
+  },
+  methods: {
+    _setupEventListeners () {
+      this._resizeHandler()
+      this._tickHandler()
+    },
+
+    _setCanvas () {
+      console.log('set canvas')
+      this.$refs.canvas.width = window.innerWidth
+      this.$refs.canvas.height = window.innerHeight
+
+      this.$data.ctx = this.$refs.canvas.getContext('2d')
+    },
+
+    _drawCanvas () {
+      this.$data.ctx.fillStyle = 'yellow'
+      this.$data.ctx.fillRect(0, 0, 0, 0)
+    },
+
+    // Handlers
+
+    _resizeHandler () {
+      window.addEventListener('resize', debounce(this._setCanvas.bind(this), 250))
+    },
+
+    _tickHandler () {
+      gsap.ticker.add(this._drawCanvas)
+    }
   },
 
   watch: {
@@ -92,6 +126,12 @@ export default {
   min-height: 100vh;
   width: 100%;
   background: $color-black;
+}
+
+.project__canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 .project__container {

@@ -143,8 +143,9 @@ export default {
       tlTransistion.eventCallback('onComplete', this._onCompleteTimelineTransistionHandler)
 
       const lines = [...this.$refs.line, this.$refs.lastLine]
+      const sideElements = [document.getElementById('js-hero'), document.getElementById('js-header')]
 
-      tlTransistion.to(document.getElementById('js-hero'), { duration: 0.5, opacity: 0 }, 0.3)
+      tlTransistion.to(sideElements, { duration: 0.5, opacity: 0 }, 0.3)
       tlTransistion.to(hoverElement, { duration: 1.0, scale: 1 }, 0.0)
       tlTransistion.to(hoverImage, { duration: 1.0, scale: 1 }, 0.0)
       tlTransistion.to(this.$refs.hover_element, { duration: 1.2, clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)', ease: 'Power4.easeInOut' }, 0.2)
@@ -184,12 +185,11 @@ export default {
 
     _checkForHover () {
       this.$data.shouldHover = !this.$data.isTouch && window.innerWidth >= this.$parent.$data.breakpoint.narrow
-      console.log(this.$data.shouldHover)
     },
 
     _resizeWindow () {
       this._checkForHover()
-      console.log(this.$refs.hover_container.getBoundingClientRect())
+
       gsap.set(this.$refs.hover_container, { top: `${Math.abs(this.$refs.hover_container.getBoundingClientRect().top)}px` })
     },
 
@@ -243,12 +243,14 @@ export default {
     },
 
     _resizeHandler () {
-      window.addEventListener('resize', debounce(this._resizeWindow.bind(this), 250))
+      this.$data.debounceResize = debounce(this._resizeWindow.bind(this), 250)
+      window.addEventListener('resize', this.$data.debounceResize)
     }
   },
 
   beforeDestroy () {
     gsap.ticker.remove(this._updateElementPosition)
+    window.removeEventListener('resize', this.$data.debounceResize)
   }
 }
 </script>
@@ -333,6 +335,19 @@ export default {
   transform-origin : bottom left;
 }
 
+.work__hover-container {
+  @include unselectable();
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  height: 100vh;
+  width: 100vw;
+
+  z-index: -1;
+  pointer-events: none;
+}
+
 .work__hover-element {
   display: none;
 }
@@ -342,22 +357,6 @@ export default {
     width: g(11, 12);
 
     margin: 0 auto rem($regular-spacing);
-  }
-
-  .work__hover-container {
-    @include unselectable();
-
-    position: fixed;
-    left: 0;
-    top: 0;
-
-    height: 100vh;
-    width: 100vw;
-
-    // background: rgba(255, 0, 0, 0.2);
-
-    z-index: -1;
-    pointer-events: none;
   }
 
   .work__hover-element {

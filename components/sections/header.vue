@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="header" id="js-header">
     <p class="header__text smallheading" ref="heading_one">{{ content.text_one }}</p>
     <p class="header__text smallheading" ref="heading_two">{{ content.text_two }}</p>
     <ul class="header__list" ref="list">
