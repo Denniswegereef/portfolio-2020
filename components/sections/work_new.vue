@@ -86,7 +86,6 @@ export default {
   },
 
   mounted () {
-    this._preloadImages(this.$data.data.work.map(item => item.cover.url))
     this._setupEventListeners()
     this._setUpTimelines()
   },
@@ -122,6 +121,7 @@ export default {
 
         const tl = this.$data.timelines.enterTitle[i]
 
+        tl.eventCallback('onComplete', this._onCompleteTimelineEnterHandler, [i])
         tl.from(item, { duration: 0.8, delay: 0.25, translateY: '100%' }, 0.0)
         tl.to(line, { duration: 0.9, scaleX: 1 }, 0.4)
 
@@ -132,24 +132,20 @@ export default {
       const tlTransistion = this.$data.timelines.transition
 
       tlTransistion.eventCallback('onComplete', this._onCompleteTimelineTransistionHandler)
+
+      const lines = [...this.$refs.line, this.$refs.lastLine]
+
+      tlTransistion.to(document.getElementById('js-hero'), { duration: 0.5, opacity: 0 }, 0.0)
       tlTransistion.to(hoverElement, { duration: 1.0, scale: 1 }, 0.0)
       tlTransistion.to(hoverImage, { duration: 1.0, scale: 1 }, 0.0)
-      tlTransistion.to([this.$refs.work_list, document.getElementById('js-hero')], { duration: 0.5, opacity: 0 }, 0.0)
-      tlTransistion.to(this.$refs.transition_element, { duration: 0.5, scaleY: 1 }, 1.0)
-      tlTransistion.to(hoverElement, { duration: 0.5, x: 0, y: 0, width: '100%' }, 1.8)
+      tlTransistion.to(this.$refs.hover_element, { duration: 1.2, clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)', ease: 'Power4.easeInOut' }, 0.2)
+      tlTransistion.to(lines, { duration: 1.2, scaleX: 0 }, 0.3)
+      tlTransistion.to(this.$refs.title, { duration: 0.8, translateY: '100%' }, 0.5)
+      tlTransistion.to(this.$refs.transition_element, { duration: 0.8, scaleY: 1 }, 1.2)
     },
 
     enterAnimation (e) {
       this.$data.timelines.enterTitle[Number(e.el.dataset.index)].play()
-    },
-
-    _preloadImages (imagesArray) {
-      const images = []
-
-      for (let i = 0; i < imagesArray.length; i++) {
-        images[i] = new Image()
-        images[i].src = `/images/${imagesArray[i]}`
-      }
     },
 
     _updateMousePositions (e) {
@@ -173,6 +169,8 @@ export default {
 
       this.$parent.toggleScroll()
       this.$data.timelines.transition.play()
+
+      // for (let i = 0; i < this.$data.timelines.enterTitle.length; i++) this.$data.timelines.enterTitle[i].reverse()
     },
 
     // Handlers
@@ -206,7 +204,14 @@ export default {
     },
 
     _onCompleteTimelineTransistionHandler () {
+      this.$data.timelines.transition.kill()
+      this.$data.timelines.hoverEnter.kill()
+      this.$data.timelines.hoverLeave.kill()
       this.$router.push({ path: this.$data.nextRoute, query: { routeBefore: 'true' } })
+    },
+
+    _onCompleteTimelineEnterHandler (i) {
+      this.$data.timelines.enterTitle[i].kill()
     },
 
     _tickHandler () {
@@ -340,6 +345,7 @@ export default {
     opacity: 0;
     overflow: hidden;
 
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
     transition: opacity 0.2s;
   }
 

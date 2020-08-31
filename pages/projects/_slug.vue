@@ -1,6 +1,6 @@
 <template>
   <div class="project">
-    <div class="project__container">
+    <div class="project__container" ref="container">
       <nuxt-link class="button smallheading project__back" :prefetch="false" :to="content.back.href">{{ content.back.text }}</nuxt-link>
       <!-- <h1>{{ data.cover.url }}</h1> -->
       <div class="project__image-container">
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { gsap } from 'gsap'
+
 import locomotive from '~/mixins/locomotiveScroll.js'
 import data from '~/static/data/work.json'
 
@@ -51,7 +53,7 @@ export default {
       queryToCheck: 'routeBefore',
       content: {
         back: {
-          href: '/',
+          href: '/test',
           text: 'Go back'
         },
         online: 'Online link',
@@ -73,6 +75,8 @@ export default {
 
   mounted () {
     this.initScroll()
+
+    gsap.from(this.$refs.container, { duration: 1.3, opacity: 0, delay: 1, yPercent: 2 })
   },
 
   watch: {
