@@ -26,7 +26,12 @@ export default {
   },
   data () {
     return {
-      scrollActive: true
+      scrollActive: true,
+      breakpoint: {
+        narrow: 480,
+        regular: 767,
+        wide: 1024
+      }
     }
   },
 

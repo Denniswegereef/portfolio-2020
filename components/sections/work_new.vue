@@ -1,7 +1,7 @@
 <template>
   <section class="work" id="js-work">
 
-    <div class="work__hover-container" data-scroll data-scroll-sticky data-scroll-target="#js-scroll">
+    <div class="work__hover-container" data-scroll data-scroll-sticky data-scroll-target="#js-scroll" ref="hover_container">
       <div class="work__hover-element" ref="hover_element">
         <img src="" alt="" class="work__hover-image" rel="preload" ref="hover_image">
       </div>
@@ -37,7 +37,10 @@
 /* eslint curly: [2, "multi"] */
 
 import { gsap } from 'gsap'
+import debounce from 'lodash.debounce'
+
 import lerp from '~/helpers/lerp'
+import isTouch from '~/helpers/isTouch'
 
 import data from '~/static/data/work.json'
 
@@ -53,6 +56,8 @@ export default {
       content: {
         title: 'Work'
       },
+      shouldHover: false,
+      isTouch: false,
       data,
       timelines: {
         hoverEnter: gsap.timeline({ paused: true }),
@@ -86,14 +91,18 @@ export default {
   },
 
   mounted () {
+    this.$data.isTouch = isTouch()
+
     this._setupEventListeners()
     this._setUpTimelines()
+    this._checkForHover()
   },
 
   methods: {
     _setupEventListeners () {
       this._mouseMoveHandler()
       this._tickHandler()
+      this._resizeHandler()
     },
 
     _setUpTimelines () {
@@ -135,12 +144,12 @@ export default {
 
       const lines = [...this.$refs.line, this.$refs.lastLine]
 
-      tlTransistion.to(document.getElementById('js-hero'), { duration: 0.5, opacity: 0 }, 0.0)
+      tlTransistion.to(document.getElementById('js-hero'), { duration: 0.5, opacity: 0 }, 0.3)
       tlTransistion.to(hoverElement, { duration: 1.0, scale: 1 }, 0.0)
       tlTransistion.to(hoverImage, { duration: 1.0, scale: 1 }, 0.0)
       tlTransistion.to(this.$refs.hover_element, { duration: 1.2, clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)', ease: 'Power4.easeInOut' }, 0.2)
       tlTransistion.to(lines, { duration: 1.2, scaleX: 0 }, 0.3)
-      tlTransistion.to(this.$refs.title, { duration: 0.8, translateY: '100%' }, 0.5)
+      tlTransistion.to(this.$refs.title, { duration: 0.5, translateY: '100%' }, 0.5)
       tlTransistion.to(this.$refs.transition_element, { duration: 0.8, scaleY: 1 }, 1.2)
     },
 
@@ -154,6 +163,8 @@ export default {
     },
 
     _updateElementPosition () {
+      if (!this.$data.shouldHover) return
+
       const hoverElement = this.$refs.hover_element
 
       const newPositionX = this.$data.hoverElement.positionX + this.$data.hoverElement.offSetX
@@ -169,14 +180,24 @@ export default {
 
       this.$parent.toggleScroll()
       this.$data.timelines.transition.play()
+    },
 
-      // for (let i = 0; i < this.$data.timelines.enterTitle.length; i++) this.$data.timelines.enterTitle[i].reverse()
+    _checkForHover () {
+      this.$data.shouldHover = !this.$data.isTouch && window.innerWidth >= this.$parent.$data.breakpoint.narrow
+      console.log(this.$data.shouldHover)
+    },
+
+    _resizeWindow () {
+      this._checkForHover()
+      console.log(this.$refs.hover_container.getBoundingClientRect())
+      gsap.set(this.$refs.hover_container, { top: `${Math.abs(this.$refs.hover_container.getBoundingClientRect().top)}px` })
     },
 
     // Handlers
 
     _mouseOverHandler (e, i) {
       if (this.$data.transitionAnimation) return
+      if (!this.$data.shouldHover) return
 
       this.$refs.hover_image.src = `/images/${this.$data.data.work[i].cover.url}`
 
@@ -186,6 +207,8 @@ export default {
     },
 
     _mouseLeaveHandler () {
+      if (!this.$data.shouldHover) return
+
       if (!this.$data.transitionAnimation) {
         this.$data.hoverElement.show = false
         this.$data.timelines.hoverLeave.play(0)
@@ -207,6 +230,7 @@ export default {
       this.$data.timelines.transition.kill()
       this.$data.timelines.hoverEnter.kill()
       this.$data.timelines.hoverLeave.kill()
+
       this.$router.push({ path: this.$data.nextRoute, query: { routeBefore: 'true' } })
     },
 
@@ -216,6 +240,10 @@ export default {
 
     _tickHandler () {
       gsap.ticker.add(this._updateElementPosition)
+    },
+
+    _resizeHandler () {
+      window.addEventListener('resize', debounce(this._resizeWindow.bind(this), 250))
     }
   },
 
@@ -305,6 +333,10 @@ export default {
   transform-origin : bottom left;
 }
 
+.work__hover-container {
+  display: none;
+}
+
 @include mq-regular {
   .work {
     width: g(11, 12);
@@ -315,6 +347,7 @@ export default {
   .work__hover-container {
     @include unselectable();
 
+    display: block;
     position: fixed;
     left: 0;
     top: 0;

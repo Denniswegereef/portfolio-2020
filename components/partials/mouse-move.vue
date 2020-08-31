@@ -1,5 +1,11 @@
 <template>
-  <div class="mouse-move" ref="mouse_element" data-scroll data-scroll-sticky data-scroll-target="#js-scroll">
+  <div
+    class="mouse-move"
+    ref="mouse_element"
+    data-scroll
+    data-scroll-sticky
+    data-scroll-target="#js-scroll"
+    v-if="!isTouch">
     <div class="mouse-move__pointer"/>
   </div>
 </template>
@@ -8,6 +14,7 @@
 import { gsap } from 'gsap'
 
 import lerp from '~/helpers/lerp'
+import isTouch from '~/helpers/isTouch'
 
 export default {
   data () {
@@ -21,11 +28,17 @@ export default {
         width: 12,
         height: 12
       },
-      lerpAlpha: 0.2
+      lerpAlpha: 0.2,
+      isTouch: false
     }
   },
 
   mounted () {
+    const isScreenTouch = isTouch()
+
+    if (isScreenTouch) this.$data.isTouch = true
+    if (isScreenTouch) return
+
     this._setupEventListeners()
   },
 
