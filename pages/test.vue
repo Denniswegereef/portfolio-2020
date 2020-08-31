@@ -3,6 +3,8 @@
     <Header />
     <Hero />
     <Work ref="workComponent"/>
+    <About ref="aboutComponent"/>
+    <Footer/>
   </div>
 </template>
 
@@ -12,6 +14,8 @@ import locomotive from '~/mixins/locomotiveScroll.js'
 import Header from '~/components/sections/header.vue'
 import Hero from '~/components/sections/hero_new.vue'
 import Work from '~/components/sections/work_new.vue'
+import About from '~/components/sections/about.vue'
+import Footer from '~/components/sections/footer.vue'
 // import Work from '~/components/sections/work_new.vue'
 
 export default {
@@ -19,7 +23,9 @@ export default {
   components: {
     Hero,
     Header,
-    Work
+    Work,
+    About,
+    Footer
     // Work
   },
   data () {
@@ -44,6 +50,14 @@ export default {
 
     _project_item_animation (e) {
       this.$refs.workComponent.enterAnimation(e)
+    },
+
+    _about_intro_animation (e) {
+      this.$refs.aboutComponent.startAnimateIntro(e)
+    },
+
+    _about_body_animation (e) {
+      this.$refs.aboutComponent.startAnimateBody(e)
     }
   }
 }

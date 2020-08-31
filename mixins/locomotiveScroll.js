@@ -1,3 +1,5 @@
+import debounce from 'lodash.debounce'
+
 export default {
   data () {
     return {
@@ -6,6 +8,10 @@ export default {
       scrollActive: true
     }
   },
+  mounted () {
+    this._setupEventListeners()
+  },
+
   watch: {
     $route () {
       this.updateScroll()
@@ -41,10 +47,22 @@ export default {
         this.$data.scrollActive = !this.$data.scrollActive
         this.$data.scrollActive ? this.$data.lmS.start() : this.$data.lmS.stop()
       })
+    },
+
+    _setupEventListeners () {
+      this._resizeHandler()
+    },
+
+    // Handlers
+
+    _resizeHandler () {
+      this.$data.debounceResize = debounce(this.updateScroll.bind(this), 250)
+      window.addEventListener('resize', this.$data.debounceResize)
     }
   },
 
   destroyed () {
+    window.removeEventListener('resize', this.$data.debounceResize)
     this.lmS ? this.lmS.destroy() : this.lmS = null
   }
 }
