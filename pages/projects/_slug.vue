@@ -53,7 +53,11 @@ export default {
       imageCover: null,
       routeBefore: false,
       queryToCheck: 'routeBefore',
-      ctx: null,
+      canvas: {
+        ctx: null,
+        noiseData: [],
+        frame: 0
+      },
       content: {
         back: {
           href: '/test',
@@ -82,6 +86,7 @@ export default {
     this._setupEventListeners()
 
     gsap.from(this.$refs.container, { duration: 1.3, opacity: 0, delay: 1, yPercent: 2 })
+    gsap.to(this.$refs.canvas, { duration: 3, opacity: 0.3, delay: 1 })
   },
   methods: {
     _setupEventListeners () {
@@ -90,22 +95,42 @@ export default {
     },
 
     _setCanvas () {
-      console.log('set canvas')
+      console.log('resize')
       this.$refs.canvas.width = window.innerWidth
       this.$refs.canvas.height = window.innerHeight
 
-      this.$data.ctx = this.$refs.canvas.getContext('2d')
+      this.$data.canvas.ctx = this.$refs.canvas.getContext('2d')
+
+      for (let i = 0; i < 10; i++) this._createNoise()
+    },
+
+    _createNoise () {
+      const idata = this.$data.canvas.ctx.createImageData(window.innerWidth, window.innerHeight)
+      const buffer32 = new Uint32Array(idata.data.buffer)
+      const len = buffer32.length
+
+      for (let i = 0; i < len; i++) if (Math.random() < 0.5) buffer32[i] = 0xFF000000
+
+      this.$data.canvas.noiseData.push(idata)
+    },
+
+    _paintNoise () {
+      // this.$data.canvas.frame === 9 ? this.$data.canvas.frame = 9 : this.$data.canvas.frame++
+      this.$data.canvas.frame++
+      if (this.$data.canvas.frame === 9) this.$data.canvas.frame = 0
+
+      this.$data.canvas.ctx.putImageData(this.$data.canvas.noiseData[this.$data.canvas.frame], 0, 0)
     },
 
     _drawCanvas () {
-      this.$data.ctx.fillStyle = 'yellow'
-      this.$data.ctx.fillRect(0, 0, 0, 0)
+      this._paintNoise(this.$data.canvas.frame)
     },
 
     // Handlers
 
     _resizeHandler () {
-      window.addEventListener('resize', debounce(this._setCanvas.bind(this), 250))
+      this.$data.debounceResize = debounce(this._setCanvas.bind(this), 250)
+      window.addEventListener('resize', this.$data.debounceResize)
     },
 
     _tickHandler () {
@@ -113,10 +138,9 @@ export default {
     }
   },
 
-  watch: {
-    work () {
-      // this.$data.imageCover = require(`~/assets/images/${this.$data.work.cover.url}`)
-    }
+  beforeDestroy () {
+    gsap.ticker.remove(this._drawCanvas)
+    window.removeEventListener('resize', this.$data.debounceResize)
   }
 }
 </script>
@@ -132,6 +156,8 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
+
+  opacity: 0;
 }
 
 .project__container {

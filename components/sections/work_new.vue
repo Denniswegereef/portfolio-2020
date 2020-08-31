@@ -1,5 +1,8 @@
 <template>
   <section class="work" id="js-work">
+    <div class="preload_images">
+      <img :src="`/images/${item.cover.url}`" v-for="(item, index) in data.work" :key="index" ref="preload_images">
+    </div>
 
     <div class="work__hover-container" data-scroll data-scroll-sticky data-scroll-target="#js-scroll" ref="hover_container">
       <div class="work__hover-element" ref="hover_element">
@@ -260,6 +263,13 @@ export default {
   width: g(10, 12);
 
   margin: 0 auto rem($narrow-spacing);
+}
+
+.preload_images {
+  img {
+    height: 0;
+    width: 0;
+  }
 }
 
 .work__list-item {
