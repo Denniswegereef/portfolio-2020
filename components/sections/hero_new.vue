@@ -2,6 +2,8 @@
   <section class="hero" id="js-hero">
     <div class="hero__cover-start" ref="cover_start"/>
     <div class="hero__cover" v-for="index in 2" :key="index" :class="{ 'hero__cover-second' : index === 1 }" ref="hero_cover">
+      <canvas v-if="index === 1" ref="canvas" class="hero__canvas"/>
+
       <h1 class="heading hero__text" ref="title_container">
         <span class="hero__text-item" :data-text="content.small_one" ref="text_item">
           <span class="hidden">{{ content.title_one }}</span>
@@ -57,11 +59,17 @@ export default {
         small_one: '1996',
         small_two: 'junior',
         small_three: '2020'
+      },
+      canvas: {
+        ctx: null,
+        noiseData: [],
+        frame: 0
       }
     }
   },
   mounted () {
     this._setupEventListeners()
+    this._setCanvas()
     this._setupTimelines()
     this._setCoverStyles()
   },
@@ -73,6 +81,7 @@ export default {
 
     _setupEventListeners () {
       this._resizeHandler()
+      this._tickHandler()
     },
 
     _setupTimelines () {
@@ -83,12 +92,44 @@ export default {
       tl.add(this.$parent.toggleScroll(), 0.0)
       tl.set(titleRefsFirst, { yPercent: 100 }, 0.0)
       tl.set(this.$refs.cover_start, { opacity: 0 }, 0.0)
+      // tl.to(this.$refs.canvas[0], { duration: 1.5, opacity: 0.3 }, 0.2)
       tl.to(titleRefsFirst, { yPercent: 0, duration: 0.9, stagger: 0.2, delay: 0.7, ease: 'Expo.easeOut' }, 0.4)
       tl.to(this.$refs.hero_cover[0], { duration: 2.4, clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)', ease: 'Power4.easeInOut' }, 2.4)
       tl.to(this.$refs.title_container, { duration: 1.1, yPercent: -5, ease: 'Power1.easeInOut' }, 2.6)
       tl.set(this.$refs.text_item, { overflow: 'visible' }, 2.6)
 
       this.playIntro()
+    },
+
+    _setCanvas () {
+      this.$data.canvas.el = this.$refs.canvas[0]
+      this.$data.canvas.el.width = window.innerWidth
+      this.$data.canvas.el.height = window.innerHeight
+
+      this.$data.canvas.ctx = this.$data.canvas.el.getContext('2d')
+
+      for (let i = 0; i < 10; i++) this._createNoise()
+    },
+
+    _createNoise () {
+      const idata = this.$data.canvas.ctx.createImageData(window.innerWidth, window.innerHeight)
+      const buffer32 = new Uint32Array(idata.data.buffer)
+      const len = buffer32.length
+
+      for (let i = 0; i < len; i++) if (Math.random() < 0.5) buffer32[i] = 0xFF000000
+
+      this.$data.canvas.noiseData.push(idata)
+    },
+
+    _paintNoise () {
+      this.$data.canvas.frame++
+      if (this.$data.canvas.frame === 9) this.$data.canvas.frame = 0
+
+      this.$data.canvas.ctx.putImageData(this.$data.canvas.noiseData[this.$data.canvas.frame], 0, 0)
+    },
+
+    _drawCanvas () {
+      this._paintNoise(this.$data.canvas.frame)
     },
 
     _setCoverStyles () {
@@ -103,6 +144,8 @@ export default {
       this.$refs.hero_cover[1].classList.add('js-done-animating')
       this.$parent.toggleScroll()
       this.$data.tl.kill()
+
+      gsap.ticker.remove(this._drawCanvas)
     },
 
     _resizeOnIntro () {
@@ -112,10 +155,17 @@ export default {
     },
 
     // Handlers
+    _tickHandler () {
+      gsap.ticker.add(this._drawCanvas)
+    },
 
     _resizeHandler () {
       window.addEventListener('resize', debounce(this._resizeOnIntro.bind(this), 250))
     }
+  },
+
+  beforeDestroy () {
+    window.removeEventListener('resize', this.$data.debounceResize)
   }
 }
 </script>
@@ -160,6 +210,15 @@ export default {
       color: $color-background;
     }
   }
+}
+
+.hero__canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  opacity: 0.3;
+  z-index: -1;
 }
 
 .hero__text {

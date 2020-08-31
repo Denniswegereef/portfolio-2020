@@ -11,6 +11,7 @@
 
       <div class="work__transistion_element" ref="transition_element"/>
     </div>
+
     <ul class="work__list" ref="work_list">
       <li
         v-for="(item, index) in data.work"
@@ -201,6 +202,7 @@ export default {
     _mouseOverHandler (e, i) {
       if (this.$data.transitionAnimation) return
       if (!this.$data.shouldHover) return
+      if (document.documentElement.classList.contains(this.$parent.$data.lmS.scrollingClass)) this.$data.timelines.hoverEnter.reverse()
 
       this.$refs.hover_image.src = `/images/${this.$data.data.work[i].cover.url}`
 

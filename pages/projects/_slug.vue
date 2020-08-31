@@ -3,10 +3,7 @@
     <canvas class="project__canvas" ref="canvas" data-scroll data-scroll-sticky data-scroll-target="#js-scroll" />
     <div class="project__container" ref="container">
       <nuxt-link class="button smallheading project__back" :prefetch="false" :to="content.back.href">{{ content.back.text }}</nuxt-link>
-      <!-- <h1>{{ data.cover.url }}</h1> -->
-      <div class="project__image-container">
-        <!-- <img class="project__image-cover" :src="imageCover" alt=""> -->
-      </div>
+
       <h1 class="heading project__title">{{ work.title }} <span class="subheading project__date">{{ work.date }}</span></h1>
 
       <p class="subheading project__body">{{ work.description }}</p>
@@ -85,8 +82,8 @@ export default {
     this._setCanvas()
     this._setupEventListeners()
 
-    gsap.from(this.$refs.container, { duration: 1.3, opacity: 0, delay: 1, yPercent: 2 })
-    gsap.to(this.$refs.canvas, { duration: 3, opacity: 0.3, delay: 1 })
+    gsap.to(this.$refs.container, { duration: 1.3, opacity: 1, delay: 1, yPercent: 2 })
+    gsap.to(this.$refs.canvas, { duration: 3, opacity: 0.2, delay: 1 })
   },
   methods: {
     _setupEventListeners () {
@@ -95,7 +92,6 @@ export default {
     },
 
     _setCanvas () {
-      console.log('resize')
       this.$refs.canvas.width = window.innerWidth
       this.$refs.canvas.height = window.innerHeight
 
@@ -115,7 +111,6 @@ export default {
     },
 
     _paintNoise () {
-      // this.$data.canvas.frame === 9 ? this.$data.canvas.frame = 9 : this.$data.canvas.frame++
       this.$data.canvas.frame++
       if (this.$data.canvas.frame === 9) this.$data.canvas.frame = 0
 
@@ -149,6 +144,7 @@ export default {
 .project {
   min-height: 100vh;
   width: 100%;
+
   background: $color-black;
 }
 
@@ -164,6 +160,8 @@ export default {
   position: relative;
   width: 100%;
 
+  opacity: 0;
+
   padding: 25vh g(2, 24) rem($narrow-spacing);
 }
 
@@ -174,19 +172,6 @@ export default {
   text-align: center;
 
   color: $color-background;
-}
-
-.project__image-container {
-  // position: absolute;
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
-  // text-align: center;
-
-  // top: 13vh;
-  // left: g(2, 24);
-
-  // width: g(10, 12);
 }
 
 .project__image-cover {
