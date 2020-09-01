@@ -54,14 +54,20 @@ export default {
   methods: {
     _setupTimeLines () {
       const tl = this.$data.tl
+
       gsap.set(this.$refs.letter[2], { scaleX: -1 })
       gsap.set([this.$refs.letter[0], this.$refs.letter[1], this.$refs.letter[2]], { yPercent: 130, opacity: 1 })
       gsap.set(this.$refs.back.$el, { opacity: 0, yPercent: 50 })
 
+      tl.eventCallback('onComplete', this._timelineCompleteHandler)
       tl.to(this.$refs.letter[1], { duration: 1.1, yPercent: 0 }, 0.2)
       tl.to([this.$refs.letter[0], this.$refs.letter[2]], { duration: 1.1, yPercent: 0 }, 0.5)
 
       tl.to(this.$refs.back.$el, { duration: 0.3, yPercent: 0, opacity: 1 }, 0.7)
+    },
+
+    _timelineCompleteHandler () {
+      this.$data.tl.kill()
     }
   }
 }

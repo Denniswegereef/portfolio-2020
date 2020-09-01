@@ -238,7 +238,8 @@ export default {
       this.$data.timelines.hoverEnter.kill()
       this.$data.timelines.hoverLeave.kill()
 
-      this.$router.push({ path: this.$data.nextRoute, query: { routeBefore: 'true' } })
+      // this.$router.push({ path: this.$data.nextRoute, query: { routeBefore: 'true' } })
+      this.$router.push(this.$data.nextRoute)
     },
 
     _onCompleteTimelineEnterHandler (i) {
@@ -379,8 +380,6 @@ export default {
 
     height: rem(300px);
     width: rem(550px);
-
-    background: red;
 
     opacity: 0;
     overflow: hidden;
