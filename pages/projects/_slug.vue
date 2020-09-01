@@ -124,9 +124,10 @@ export default {
   },
 
   mounted () {
-    this.initScroll()
     this._setupEventListeners()
     this._setCanvas()
+    this.initScroll()
+    this.toggleScroll()
   },
 
   beforeDestroy () {
@@ -257,6 +258,9 @@ export default {
     _onCompleteTimelineEnterHandler (tl) {
       this.$data.introComplete = true
 
+      this.updateScroll()
+      this.toggleScroll()
+
       tl.kill()
     },
 
@@ -304,6 +308,8 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
+  width: 100vw;
+  height: 100vh;
 
   opacity: 0;
 
