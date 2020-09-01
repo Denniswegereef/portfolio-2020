@@ -53,8 +53,6 @@ export default {
   modules: [
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
-    '@nuxtjs/apollo',
-    '@nuxtjs/markdownit',
     '@nuxtjs/style-resources'
   ],
 
@@ -74,13 +72,6 @@ export default {
     }
   },
 
-  apollo: {
-    clientConfigs: {
-      default: {
-        httpEndpoint: "http://localhost:1337/graphql"
-      }
-    }
-  },
   /*
   ** Build configuration
   */

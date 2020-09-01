@@ -13,11 +13,8 @@
     "ngrok": "node_modules/.bin/ngrok http 3000"
   },
   "dependencies": {
-    "@nuxtjs/apollo": "^4.0.1-rc.1",
     "@nuxtjs/dotenv": "^1.4.0",
-    "@nuxtjs/markdownit": "^1.2.10",
     "core-js": "^2.6.11",
-    "graphql": "^15.3.0",
     "gsap": "^3.5.1",
     "locomotive-scroll": "^3.5.4",
     "lodash.debounce": "^4.0.8",
