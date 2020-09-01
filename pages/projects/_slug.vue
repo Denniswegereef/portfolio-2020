@@ -1,23 +1,28 @@
 <template>
   <div class="project">
     <canvas class="project__canvas" ref="canvas" data-scroll data-scroll-sticky data-scroll-target="#js-scroll" />
+
     <div class="project__container" ref="container">
-      <nuxt-link class="button smallheading project__back" :prefetch="false" :to="content.back.href">{{ content.back.text }}</nuxt-link>
+      <a class="button smallheading project__back" :href="content.back.href" ref="back" @click="_backButtonHandler">{{ content.back.text }}</a>
 
-      <h1 class="heading project__title">{{ work.title }} <span class="subheading project__date">{{ work.date }}</span></h1>
+      <div class="project__title-container" ref="title_container">
+        <h1 class="heading project__title" ref="title">{{ work.title }} <span class="subheading project__date" ref="date">{{ work.date }}</span></h1>
+      </div>
 
-      <p class="subheading project__body">{{ work.description }}</p>
+      <p class="subheading project__body" ref="body_text">{{ work.description }}</p>
+
+      <div class="project__line" ref="line" data-scroll data-scroll-ofset="100px 0" data-scroll-call="meta_container_animation"/>
 
       <div class="project__link-container">
         <ul class="project__meta-list">
-           <li v-for="(item, index) in work.meta" :key="index" class="project__meta-list-item">
+           <li v-for="(item, index) in work.meta" :key="index" class="project__meta-list-item" ref="meta_item">
              <p class="project__meta-title-small subheading">{{ item.title_small }}</p>
              <p class="project__meta-title-big subheading">{{ item.title_big }}</p>
            </li>
         </ul>
         <div class="project__meta-links">
-          <a :href="work.github" target="_blank" class="smallheading button project__link">{{ content.github }}</a>
-          <a :href="work.online" target="_blank" class="smallheading button project__link">{{ content.online }}</a>
+          <a :href="work.github" target="_blank" class="smallheading button project__link" ref="meta_github">{{ content.github }}</a>
+          <a :href="work.online" target="_blank" class="smallheading button project__link" ref="meta_online">{{ content.online }}</a>
         </div>
       </div>
 
@@ -32,8 +37,13 @@
 import { gsap } from 'gsap'
 import debounce from 'lodash.debounce'
 
+import splitText from '~/helpers/splitText'
+
 import locomotive from '~/mixins/locomotiveScroll.js'
 import data from '~/static/data/work.json'
+
+const CLASS_NAME_SPLIT_CONTAINER = 'js-split-container-intro'
+const CLASS_NAME_SPLIT_CHILD = 'js-split-child-intro'
 
 export default {
   validate ({ params, route }) {
@@ -50,6 +60,12 @@ export default {
       imageCover: null,
       routeBefore: false,
       queryToCheck: 'routeBefore',
+      leaveDuration: 2.2,
+      timelines: {
+        enter: gsap.timeline({ paused: true }),
+        enterMeta: gsap.timeline({ paused: true }),
+        leave: gsap.timeline({ paused: true })
+      },
       canvas: {
         ctx: null,
         noiseData: [],
@@ -62,6 +78,13 @@ export default {
         },
         online: 'Online link',
         github: 'Github'
+      },
+      colorLink: '#E10E12',
+      spanTagOpening: `<span class="${CLASS_NAME_SPLIT_CONTAINER}"><span class="${CLASS_NAME_SPLIT_CHILD}">`,
+      spanTagClosing: '</span></span>',
+      split: {
+        container: [],
+        child: []
       }
     }
   },
@@ -77,18 +100,84 @@ export default {
     if (this.$data.routeBefore || checkQuery) this.$router.replace({ query: null })
   },
 
+  watch: {
+    work: {
+      handler () {
+        this._splitText()
+      }
+    }
+  },
+
   mounted () {
     this.initScroll()
-    this._setCanvas()
     this._setupEventListeners()
-
-    gsap.to(this.$refs.container, { duration: 1.3, opacity: 1, delay: 1, yPercent: 2 })
-    gsap.to(this.$refs.canvas, { duration: 3, opacity: 0.2, delay: 1 })
+    this._setCanvas()
   },
+
   methods: {
     _setupEventListeners () {
       this._resizeHandler()
       this._tickHandler()
+    },
+
+    _setUpTimelines () {
+      const tl = this.$data.timelines.enter
+
+      tl.eventCallback('onComplete', this._onCompleteTimelineEnterHandler, [tl])
+      tl.set(this.$refs.title, { yPercent: 100 }, 0.0)
+      tl.set(this.$refs.container, { opacity: 1 }, 0.0)
+      tl.set(this.$refs.back, { xPercent: 25 }, 0.5)
+      tl.set(this.$refs.date, { opacity: 0, yPercent: 25 }, 0.0)
+      tl.to(this.$refs.canvas, { duration: 1.5, opacity: 0.3 }, 0.2)
+      tl.to(this.$refs.title, { duration: 1.0, yPercent: 0, ease: 'power4', stagger: 0.1 }, 0.9)
+      tl.to(this.$data.split.child, { duration: 1.0, yPercent: 0, ease: 'power4', stagger: 0.1 }, 1.3)
+      tl.set(this.$refs.title_container, { overflow: 'visible' }, 1.9)
+      tl.to(this.$refs.date, { duration: 0.5, opacity: 1, yPercent: 0 }, 2.0)
+      tl.to(this.$refs.back, { duration: 0.5, opacity: 1, xPercent: 0 }, 2.2)
+      tl.to(this.$refs.back, { duration: 0.5, color: this.$data.colorLink }, 2.9)
+
+      tl.play()
+
+      // Enter meta timeline
+      const tlEnter = this.$data.timelines.enterMeta
+
+      const metaLinks = [this.$refs.meta_github, this.$refs.meta_online]
+
+      tlEnter.eventCallback('onComplete', this._onCompleteTimelineMetalHandler, [tlEnter])
+      tlEnter.to(this.$refs.line, { duration: 0.9, scaleX: 1 }, 0.0)
+      tlEnter.from([...this.$refs.meta_item, ...metaLinks], { duration: 0.3, y: '40px', stagger: 0.2, delay: 0.1, opacity: 0 }, 0.2)
+      tlEnter.to(metaLinks, { duration: 0.5, color: this.$data.colorLink }, 1.6)
+
+      // Leave timeline
+      const tlLeave = this.$data.timelines.leave
+
+      tlLeave.eventCallback('onComplete', this._onCompleteTimelineLeaveHandler, [tlLeave])
+      tlLeave.set(this.$refs.title_container, { overflow: 'hidden' }, 0.5)
+      tlLeave.to(this.$refs.date, { duration: 0.5, opacity: 0 }, 0.5)
+      // tlLeave.to(this.$refs.container, { duration: this.$data.leaveDuration, opacity: 0.5 }, 0.0)
+      tlLeave.to(this.$refs.back, { duration: 0.5, opacity: 0, yPercent: -20 }, 0.0)
+      tlLeave.to(this.$data.split.child, { duration: 0.4, yPercent: -50, ease: 'power4', opacity: 0, stagger: 0.04 }, 0.2)
+      tlLeave.to(this.$refs.title, { duration: 1.2, yPercent: 100, ease: 'power4Out' }, 0.4)
+      tlLeave.to([...this.$refs.meta_item, ...metaLinks], { duration: 0.2, y: '40px', stagger: 0.2, delay: 0.1, opacity: 0, ease: 'power4Out' }, 0.5)
+      // tlLeave.to(this.$refs.canvas, { duration: this.$data.leaveDuration, opacity: 0.0 }, 0.0)
+    },
+
+    _meta_container_animation () {
+      this.$data.timelines.enterMeta.play()
+    },
+
+    _splitText () {
+      this.$nextTick(() => {
+        splitText(this.$refs.body_text, this.$data.spanTagOpening, this.$data.spanTagClosing)
+
+        this.$data.split.container = document.querySelectorAll('.project__body .' + CLASS_NAME_SPLIT_CONTAINER)
+        this.$data.split.child = document.querySelectorAll('.project__body .' + CLASS_NAME_SPLIT_CHILD)
+
+        gsap.set(this.$data.split.container, { overflow: 'hidden', display: 'block' })
+        gsap.set(this.$data.split.child, { yPercent: 100, display: 'block' })
+
+        this._setUpTimelines()
+      })
     },
 
     _setCanvas () {
@@ -96,6 +185,10 @@ export default {
       this.$refs.canvas.height = window.innerHeight
 
       this.$data.canvas.ctx = this.$refs.canvas.getContext('2d')
+
+      console.log(this.$refs.canvas.getBoundingClientRect().top)
+
+      gsap.set(this.$refs.canvas, { top: `${Math.abs(this.$refs.canvas.getBoundingClientRect().top)}px` })
 
       this.$data.canvas.noiseData = []
       for (let i = 0; i < 10; i++) this._createNoise()
@@ -122,11 +215,37 @@ export default {
       this._paintNoise(this.$data.canvas.frame)
     },
 
+    _leavePage (path) {
+      this.toggleScroll()
+      this.$data.timelines.leave.play()
+    },
     // Handlers
 
     _resizeHandler () {
       this.$data.debounceResize = debounce(this._setCanvas.bind(this), 250)
       window.addEventListener('resize', this.$data.debounceResize)
+    },
+
+    _onCompleteTimelineLeaveHandler (tl) {
+      this.$router.push(this.$data.content.back.href)
+
+      tl.kill()
+    },
+
+    _onCompleteTimelineEnterHandler (tl) {
+      this.$data.introComplete = true
+
+      tl.kill()
+    },
+
+    _onCompleteTimelineMetalHandler (tl) {
+      tl.kill()
+    },
+
+    _backButtonHandler (e) {
+      e.preventDefault()
+
+      this._leavePage()
     },
 
     _tickHandler () {
@@ -150,20 +269,24 @@ export default {
 }
 
 .project__canvas {
+  @include unselectable();
+
   position: fixed;
   top: 0;
   left: 0;
 
   opacity: 0;
+
+  pointer-events: none;
 }
 
 .project__container {
   position: relative;
   width: 100%;
 
-  opacity: 0;
-
   padding: 25vh g(2, 24) rem($narrow-spacing);
+
+  opacity: 0;
 }
 
 .project__back {
@@ -173,26 +296,33 @@ export default {
   text-align: center;
 
   color: $color-background;
+
+  opacity: 0;
 }
 
 .project__image-cover {
   width: 100%;
 }
 
+.project__title-container {
+  overflow: hidden;
+  margin-bottom: rem($narrow-spacing / 2);
+}
+
 .project__title {
   position: relative;
   display: inline-block;
 
-  margin: 0 0 rem($narrow-spacing / 2);
-
   font-size: rem(60px);
+  text-align: left;
+
   color: $color-background;
 }
 
 .project__date {
   position: absolute;
-  bottom: rem(-11px);
-  right: rem(-30px);
+  top: rem(-20px);
+  left: rem(3px);
 
   font-size: rem(10px);
 }
@@ -216,6 +346,7 @@ export default {
 
   font-size: rem(12px);
   line-height: rem(12px);
+  font-weight: 100;
 
   opacity: 0.6;
 }
@@ -228,33 +359,29 @@ export default {
 .project__body {
   position: relative;
 
-  margin-bottom: rem($narrow-spacing / 2);
   padding-bottom: rem($narrow-spacing / 2);
 
   font-size: rem(13px);
   line-height: rem(22px);
 
   color: $color-background;
+}
 
-  &:after {
-    position: absolute;
-    bottom: 0;
-    left: 0;
+.project__line {
+  width: 100%;
+  height: rem(2px);
 
-    width: 100%;
-    height: rem(2px);
+  background: $color-background;
 
-    background: $color-background;
-
-    content: '';
-  }
+  transform: scaleX(0.0);
+  transform-origin: left;
 }
 
 .project__link-container {
   display: flex;
   flex-direction: column;
 
-  margin-bottom: rem($narrow-spacing / 2);
+  margin: rem($narrow-spacing / 2) 0;
 }
 
 .project__meta-links {
@@ -262,7 +389,7 @@ export default {
 }
 
 .project__link {
-  color: $color-primary;
+  color: $color-background;
 
   &:nth-child(2) {
     margin-left: rem(25px);
@@ -279,24 +406,23 @@ export default {
 }
 
 @include mq-regular {
-  .project__title {
-    text-align: center;
-    font-size: rem(110px);
-
+  .project__title-container {
     margin-bottom: rem($regular-spacing / 2);
-    margin-left: auto;
-    margin-right: auto;
+  }
+
+  .project__title {
+    font-size: rem(110px);
+    line-height: rem(100px);
   }
 
   .project__date {
-    right: rem(-70px);
-    bottom: rem(-14px);
+    top: rem(-30px);
+    left: rem(6px);
 
     font-size: rem(20px);
   }
 
   .project__body {
-    margin-bottom: rem($regular-spacing / 2);
     padding-bottom: rem($regular-spacing / 2);
 
     font-size: rem(20px);
@@ -308,7 +434,7 @@ export default {
     justify-content: space-between;
     align-items: flex-end;
 
-    margin-bottom: rem($regular-spacing / 2);
+    margin: rem($regular-spacing / 2) 0;
   }
 
   .project__meta-list {
@@ -326,12 +452,15 @@ export default {
     margin: 0 auto rem($wide-spacing);
   }
 
-  .project__title {
+  .project__title-container {
     margin-bottom: rem($wide-spacing / 2);
   }
 
+  .project__title {
+  }
+
   .project__body {
-    margin-bottom: rem($wide-spacing / 4);
+    // margin-bottom: rem($wide-spacing / 4);
     padding-bottom: rem($wide-spacing / 4);
   }
 

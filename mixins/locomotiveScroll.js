@@ -9,7 +9,7 @@ export default {
     }
   },
   mounted () {
-    this._setupEventListeners()
+    this._setupEventListenersLmS()
   },
 
   watch: {
@@ -49,13 +49,13 @@ export default {
       })
     },
 
-    _setupEventListeners () {
-      this._resizeHandler()
+    _setupEventListenersLmS () {
+      this._resizeHandlerLmS()
     },
 
     // Handlers
 
-    _resizeHandler () {
+    _resizeHandlerLmS () {
       this.$data.debounceResize = debounce(this.updateScroll.bind(this), 250)
       window.addEventListener('resize', this.$data.debounceResize)
     }
