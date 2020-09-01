@@ -1,12 +1,12 @@
 <template>
   <div
-    class="mouse-move"
+    v-if="!isTouch"
     ref="mouse_element"
+    class="mouse-move"
     data-scroll
     data-scroll-sticky
-    data-scroll-target="#js-scroll"
-    v-if="!isTouch">
-    <div class="mouse-move__pointer"/>
+    data-scroll-target="#js-scroll">
+    <div class="mouse-move__pointer" />
   </div>
 </template>
 

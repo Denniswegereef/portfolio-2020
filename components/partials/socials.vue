@@ -1,7 +1,7 @@
 <template>
   <div class="socials">
     <ul class="socials__list">
-      <li v-for="(item, index) in socials" :key="index" class="socials__item" ref="link">
+      <li v-for="(item, index) in socials" :key="index" ref="link" class="socials__item">
         <a :href="item.link" target="_blank" class="button smallheading socials__link">{{ item.name }}</a>
       </li>
     </ul>

@@ -1,7 +1,8 @@
 !<template>
-  <div class="intro" ref="intro">
-    <h1 class="heading intro__heading" ref="heading">
-      Dennis <br>Wegereef<br> <span class="smallheading" ref="small">Portfolio 2020</span>
+  <div ref="intro" class="intro">
+    <h1 ref="heading" class="heading intro__heading">
+      Dennis <br>Wegereef<br>
+      <span ref="small" class="smallheading">Portfolio 2020</span>
     </h1>
   </div>
 </template>

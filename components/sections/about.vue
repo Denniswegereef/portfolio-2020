@@ -1,20 +1,20 @@
 <template>
-  <section class="about" id="js-about">
+  <section id="js-about" class="about">
     <p
-      class="subheading about__intro"
       ref="intro"
+      class="subheading about__intro"
       data-scroll
       data-scroll-offset="100px 0"
       data-scroll-call="about_intro_animation">
       {{ content.intro }}
     </p>
     <div class="about__image-container" data-scroll data-scroll-speed="1.5">
-      <img class="about__image" src="~/static/images/portrait_test.png" alt="portrait image" ref="image">
-      <div class="about__image-cover" ref="cover"/>
+      <img ref="image" class="about__image" src="~/static/images/portrait_test.png" alt="portrait image">
+      <div ref="cover" class="about__image-cover" />
     </div>
     <p
-      class="paragraph about__body"
       ref="body"
+      class="paragraph about__body"
       data-scroll
       data-scroll-offset="100px 0"
       data-scroll-call="about_body_animation">
@@ -95,7 +95,6 @@ export default {
     },
 
     _setCoverPhoto () {
-      console.log(window.innerWidth, this.$parent.$data.breakpoint.regular)
       const isNarrow = window.innerWidth < this.$parent.$data.breakpoint.regular + 1
 
       const imageHeight = this.$refs.image.getBoundingClientRect().height

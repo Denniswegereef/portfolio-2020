@@ -1,18 +1,18 @@
 <template>
-  <section class="work" id="js-work">
+  <section id="js-work" class="work">
     <div class="preload_images">
-      <img :src="`/images/${item.cover.url}`" v-for="(item, index) in data.work" :key="index" ref="preload_images">
+      <img v-for="(item, index) in data.work" :key="index" ref="preload_images" :src="`/images/${item.cover.url}`">
     </div>
 
-    <div class="work__hover-container" data-scroll data-scroll-sticky data-scroll-target="#js-scroll" ref="hover_container">
-      <div class="work__hover-element" ref="hover_element">
-        <img src="" alt="" class="work__hover-image" rel="preload" ref="hover_image">
+    <div ref="hover_container" class="work__hover-container" data-scroll data-scroll-sticky data-scroll-target="#js-scroll">
+      <div ref="hover_element" class="work__hover-element">
+        <img ref="hover_image" src="" alt="" class="work__hover-image" rel="preload">
       </div>
 
-      <div class="work__transistion_element" ref="transition_element"/>
+      <div ref="transition_element" class="work__transistion_element" />
     </div>
 
-    <ul class="work__list" ref="work_list">
+    <ul ref="work_list" class="work__list">
       <li
         v-for="(item, index) in data.work"
         :key="index"
@@ -21,19 +21,19 @@
         :data-index="index"
         data-scroll-offset="100px 0"
         data-scroll-call="project_item_animation">
-
         <a
           class="work__link"
           :href="`projects/${item.slug}`"
           @click="(event) => _mouseClickHandler(event, index, `projects/${item.slug}`)"
           @mouseover="(event) => _mouseOverHandler(event, index)"
           @mouseleave="_mouseLeaveHandler">
-          <h3 class="heading work__heading" :data-text="item.date" ref="title">{{ item.title }}</h3>
+
+          <h3 ref="title" class="heading work__heading" :data-text="item.date">{{ item.title }}</h3>
         </a>
-        <div class="work__line-border" ref="line"/>
-        <div v-if="index + 1 === data.work.length" class="work__line-border work__line-border_last" ref="lastLine"/>
+        <div ref="line" class="work__line-border" />
+        <div v-if="index + 1 === data.work.length" ref="lastLine" class="work__line-border work__line-border_last" />
       </li>
-     </ul>
+    </ul>
   </section>
 </template>
 
@@ -100,6 +100,11 @@ export default {
     this._setupEventListeners()
     this._setUpTimelines()
     this._checkForHover()
+  },
+
+  beforeDestroy () {
+    gsap.ticker.remove(this._updateElementPosition)
+    window.removeEventListener('resize', this.$data.debounceResize)
   },
 
   methods: {
@@ -251,11 +256,6 @@ export default {
       this.$data.debounceResize = debounce(this._resizeWindow.bind(this), 250)
       window.addEventListener('resize', this.$data.debounceResize)
     }
-  },
-
-  beforeDestroy () {
-    gsap.ticker.remove(this._updateElementPosition)
-    window.removeEventListener('resize', this.$data.debounceResize)
   }
 }
 </script>

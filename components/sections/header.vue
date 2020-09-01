@@ -1,10 +1,14 @@
 <template>
-  <header class="header" id="js-header">
-    <p class="header__text smallheading" ref="heading_one">{{ content.text_one }}</p>
-    <p class="header__text smallheading" ref="heading_two">{{ content.text_two }}</p>
-    <ul class="header__list" ref="list">
+  <header id="js-header" class="header">
+    <p ref="heading_one" class="header__text smallheading">
+      {{ content.text_one }}
+    </p>
+    <p ref="heading_two" class="header__text smallheading">
+      {{ content.text_two }}
+    </p>
+    <ul ref="list" class="header__list">
       <li v-for="(item, index) in content.links" :key="index" class="header__list-item">
-        <a href="#" :data-link="item.href" @click="_linkHandler" class="header__link button smallheading">{{ item.text }}</a>
+        <a href="#" :data-link="item.href" class="header__link button smallheading" @click="_linkHandler">{{ item.text }}</a>
       </li>
     </ul>
   </header>

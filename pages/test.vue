@@ -2,9 +2,9 @@
   <div>
     <Header />
     <Hero />
-    <Work ref="workComponent"/>
-    <About ref="aboutComponent"/>
-    <Footer/>
+    <Work ref="workComponent" />
+    <About ref="aboutComponent" />
+    <Footer />
   </div>
 </template>
 
@@ -19,15 +19,16 @@ import Footer from '~/components/sections/footer.vue'
 // import Work from '~/components/sections/work_new.vue'
 
 export default {
-  mixins: [locomotive],
   components: {
     Hero,
     Header,
     Work,
     About,
     Footer
-    // Work
   },
+
+  mixins: [locomotive],
+
   data () {
     return {
       scrollActive: true,

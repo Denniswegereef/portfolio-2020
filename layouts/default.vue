@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <topHeader /> -->
-    <main class="default-layout" id="js-scroll">
+    <main id="js-scroll" class="default-layout">
       <nuxt />
     </main>
     <socialComponent />

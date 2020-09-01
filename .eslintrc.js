@@ -13,6 +13,10 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
-    curly: [2, "multi"]
+    curly: [2, "multi"],
+    "vue/html-closing-bracket-newline": [1, {
+      "singleline": "never",
+      "multiline": "never"
+    }]
   }
 }

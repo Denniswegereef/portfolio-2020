@@ -1,31 +1,31 @@
 <template>
-  <section class="hero" id="js-hero">
-    <div class="hero__cover-start" ref="cover_start"/>
-    <div class="hero__cover" v-for="index in 2" :key="index" :class="{ 'hero__cover-second' : index === 1 }" ref="hero_cover">
-      <canvas v-if="index === 1" ref="canvas" class="hero__canvas"/>
+  <section id="js-hero" class="hero">
+    <div ref="cover_start" class="hero__cover-start" />
+    <div v-for="index in 2" :key="index" ref="hero_cover" :class="{ 'hero__cover-second' : index === 1 }" class="hero__cover">
+      <canvas v-if="index === 1" ref="canvas" class="hero__canvas" />
 
-      <h1 class="heading hero__text" ref="title_container">
-        <span class="hero__text-item" :data-text="content.small_one" ref="text_item">
+      <h1 ref="title_container" class="heading hero__text">
+        <span ref="text_item" class="hero__text-item" :data-text="content.small_one">
           <span class="hidden">{{ content.title_one }}</span>
-          <span class="hero__text-show" ref="title_one">
+          <span ref="title_one" class="hero__text-show">
             {{ content.title_one }}
           </span>
         </span>
-        <span class="hero__text-item" ref="text_item">
+        <span ref="text_item" class="hero__text-item">
           <span class="hidden">{{ content.title_two }}</span>
-          <span class="hero__text-show" ref="title_two">
+          <span ref="title_two" class="hero__text-show">
             {{ content.title_two }}
           </span>
         </span>
-        <span class="hero__text-item" :data-text="content.small_two" ref="text_item">
+        <span ref="text_item" class="hero__text-item" :data-text="content.small_two">
           <span class="hidden">{{ content.title_three }}</span>
-          <span class="hero__text-show" ref="title_three">
+          <span ref="title_three" class="hero__text-show">
             {{ content.title_three }}
           </span>
         </span>
-        <span class="hero__text-item" :data-text="content.small_three" ref="text_item">
+        <span ref="text_item" class="hero__text-item" :data-text="content.small_three">
           <span class="hidden">{{ content.title_four }}</span>
-          <span class="hero__text-show" ref="title_four">
+          <span ref="title_four" class="hero__text-show">
             {{ content.title_four }}
           </span>
         </span>
@@ -67,11 +67,16 @@ export default {
       }
     }
   },
+
   mounted () {
     this._setupEventListeners()
     this._setCanvas()
     this._setupTimelines()
     this._setCoverStyles()
+  },
+
+  beforeDestroy () {
+    window.removeEventListener('resize', this.$data.debounceResize)
   },
 
   methods: {
@@ -162,10 +167,6 @@ export default {
     _resizeHandler () {
       window.addEventListener('resize', debounce(this._resizeOnIntro.bind(this), 250))
     }
-  },
-
-  beforeDestroy () {
-    window.removeEventListener('resize', this.$data.debounceResize)
   }
 }
 </script>

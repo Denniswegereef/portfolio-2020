@@ -28,10 +28,12 @@ export default {
         })
 
         this.$data.lmS.on('call', (eventName, state, event) => {
-          if (!this[`_${eventName}`]) {
-            console.log('No event found with the name' + eventName)
-            return
-          }
+          // if (!this[`_${eventName}`]) {
+          //   console.log('No event found with the name' + eventName)
+          //   return
+          // }
+
+          if (!this[`_${eventName}`]) return
 
           this[`_${eventName}`](event)
         })

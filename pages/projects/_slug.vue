@@ -1,34 +1,43 @@
 <template>
   <div class="project">
-    <canvas class="project__canvas" ref="canvas" data-scroll data-scroll-sticky data-scroll-target="#js-scroll" />
+    <canvas ref="canvas" class="project__canvas" data-scroll data-scroll-sticky data-scroll-target="#js-scroll" />
 
-    <div class="project__container" ref="container">
-      <a class="button smallheading project__back" :href="content.back.href" ref="back" @click="_backButtonHandler">{{ content.back.text }}</a>
+    <div ref="container" class="project__container">
+      <a ref="back" class="button smallheading project__back" :href="content.back.href" @click="_backButtonHandler">{{ content.back.text }}</a>
 
-      <div class="project__title-container" ref="title_container">
-        <h1 class="heading project__title" ref="title">{{ work.title }} <span class="subheading project__date" ref="date">{{ work.date }}</span></h1>
+      <div ref="title_container" class="project__title-container">
+        <h1 ref="title" class="heading project__title">
+          {{ work.title }}
+          <span ref="date" class="subheading project__date">{{ work.date }}</span>
+        </h1>
       </div>
 
-      <p class="subheading project__body" ref="body_text">{{ work.description }}</p>
+      <p ref="body_text" class="subheading project__body">
+        {{ work.description }}
+      </p>
 
-      <div class="project__line" ref="line" data-scroll data-scroll-ofset="100px 0" data-scroll-call="meta_container_animation"/>
+      <div ref="line" class="project__line" data-scroll data-scroll-ofset="100px 0" data-scroll-call="meta_container_animation" />
 
       <div class="project__link-container">
         <ul class="project__meta-list">
-           <li v-for="(item, index) in work.meta" :key="index" class="project__meta-list-item" ref="meta_item">
-             <p class="project__meta-title-small subheading">{{ item.title_small }}</p>
-             <p class="project__meta-title-big subheading">{{ item.title_big }}</p>
-           </li>
+          <li v-for="(item, index) in work.meta" :key="index" ref="meta_item" class="project__meta-list-item">
+            <p class="project__meta-title-small subheading">
+              {{ item.title_small }}
+            </p>
+            <p class="project__meta-title-big subheading">
+              {{ item.title_big }}
+            </p>
+          </li>
         </ul>
         <div class="project__meta-links">
-          <a :href="work.github" target="_blank" class="smallheading button project__link" ref="meta_github">{{ content.github }}</a>
-          <a :href="work.online" target="_blank" class="smallheading button project__link" ref="meta_online">{{ content.online }}</a>
+          <a ref="meta_github" :href="work.github" target="_blank" class="smallheading button project__link">{{ content.github }}</a>
+          <a ref="meta_online" :href="work.online" target="_blank" class="smallheading button project__link">
+            {{ content.online }}
+          </a>
         </div>
       </div>
 
-      <div class="project__gif-container">
-
-      </div>
+      <div class="project__gif-container" />
     </div>
   </div>
 </template>
@@ -49,6 +58,8 @@ export default {
   validate ({ params, route }) {
     if (data.work.find(item => item.slug === params.slug)) return true
   },
+
+  mixins: [locomotive],
 
   asyncData () {
     return { data }
@@ -89,7 +100,13 @@ export default {
     }
   },
 
-  mixins: [locomotive],
+  watch: {
+    work: {
+      handler () {
+        this._splitText()
+      }
+    }
+  },
 
   beforeMount () {
     this.$data.work = data.work.find(item => item.slug === this.$route.params.slug)
@@ -100,18 +117,15 @@ export default {
     if (this.$data.routeBefore || checkQuery) this.$router.replace({ query: null })
   },
 
-  watch: {
-    work: {
-      handler () {
-        this._splitText()
-      }
-    }
-  },
-
   mounted () {
     this.initScroll()
     this._setupEventListeners()
     this._setCanvas()
+  },
+
+  beforeDestroy () {
+    gsap.ticker.remove(this._drawCanvas)
+    window.removeEventListener('resize', this.$data.debounceResize)
   },
 
   methods: {
@@ -186,8 +200,6 @@ export default {
 
       this.$data.canvas.ctx = this.$refs.canvas.getContext('2d')
 
-      console.log(this.$refs.canvas.getBoundingClientRect().top)
-
       gsap.set(this.$refs.canvas, { top: `${Math.abs(this.$refs.canvas.getBoundingClientRect().top)}px` })
 
       this.$data.canvas.noiseData = []
@@ -251,11 +263,6 @@ export default {
     _tickHandler () {
       gsap.ticker.add(this._drawCanvas)
     }
-  },
-
-  beforeDestroy () {
-    gsap.ticker.remove(this._drawCanvas)
-    window.removeEventListener('resize', this.$data.debounceResize)
   }
 }
 </script>
