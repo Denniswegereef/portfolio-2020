@@ -29,12 +29,6 @@ export default {
     tl.to(this.$refs.small, { duration: 1.5, opacity: 1, y: 0, easing: 'Power3.easeOut' }, 1.7)
 
     tl.play()
-  },
-
-  head: {
-    meta: [
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
-    ]
   }
 }
 </script>

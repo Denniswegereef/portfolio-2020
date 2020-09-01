@@ -96,6 +96,12 @@ export default {
       split: {
         container: [],
         child: []
+      },
+      meta: {
+        title: '| Dennis Wegereef',
+        hid: 'description',
+        name: 'description',
+        content: 'asdf'
       }
     }
   },
@@ -112,9 +118,9 @@ export default {
     this.$data.work = data.work.find(item => item.slug === this.$route.params.slug)
 
     // Some query checking if route is coming form a page or a hard refresh
-    const checkQuery = this.$data.queryToCheck in this.$route.query
-    checkQuery ? this.$data.routeBefore = true : this.$data.routeBefore = false
-    if (this.$data.routeBefore || checkQuery) this.$router.replace({ query: null })
+    // const checkQuery = this.$data.queryToCheck in this.$route.query
+    // checkQuery ? this.$data.routeBefore = true : this.$data.routeBefore = false
+    // if (this.$data.routeBefore || checkQuery) this.$router.replace({ query: null })
   },
 
   mounted () {
@@ -200,8 +206,6 @@ export default {
 
       this.$data.canvas.ctx = this.$refs.canvas.getContext('2d')
 
-      gsap.set(this.$refs.canvas, { top: `${Math.abs(this.$refs.canvas.getBoundingClientRect().top)}px` })
-
       this.$data.canvas.noiseData = []
       for (let i = 0; i < 10; i++) this._createNoise()
     },
@@ -227,14 +231,20 @@ export default {
       this._paintNoise(this.$data.canvas.frame)
     },
 
+    _resizePage () {
+      this._setCanvas()
+      gsap.set(this.$refs.canvas, { top: `${Math.abs(this.$refs.canvas.getBoundingClientRect().top)}px` })
+    },
+
     _leavePage (path) {
       this.toggleScroll()
       this.$data.timelines.leave.play()
     },
+
     // Handlers
 
     _resizeHandler () {
-      this.$data.debounceResize = debounce(this._setCanvas.bind(this), 250)
+      this.$data.debounceResize = debounce(this._resizePage.bind(this), 250)
       window.addEventListener('resize', this.$data.debounceResize)
     },
 
@@ -262,6 +272,19 @@ export default {
 
     _tickHandler () {
       gsap.ticker.add(this._drawCanvas)
+    }
+  },
+
+  head () {
+    return {
+      title: `${this.work.title} ${this.meta.title}`,
+      meta: [
+        {
+          hid: this.meta.hid,
+          name: this.work.title,
+          content: this.meta.content
+        }
+      ]
     }
   }
 }
@@ -332,6 +355,7 @@ export default {
   left: rem(3px);
 
   font-size: rem(10px);
+  font-weight: 100;
 }
 
 .project__meta-list {

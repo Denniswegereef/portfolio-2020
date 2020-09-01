@@ -59,6 +59,10 @@ export default {
     this._setUpTimelines()
   },
 
+  beforeDestroy () {
+    window.removeEventListener('resize', this.$data.debounceResize)
+  },
+
   methods: {
     _setupEventListeners () {
       this._resizeHandler()
@@ -123,7 +127,8 @@ export default {
     },
 
     _resizeHandler () {
-      window.addEventListener('resize', debounce(this._resizeScreen.bind(this), 20))
+      this.$data.debounceResize = debounce(this._resizeScreen.bind(this), 250)
+      window.addEventListener('resize', this.$data.debounceResize)
     }
   }
 }

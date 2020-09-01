@@ -17,11 +17,11 @@ export default {
       socials: [
         {
           name: 'Fb',
-          link: 'https://www.linkedin.com/in/dennis-wegereef-84bb9ba7'
+          link: 'https://www.facebook.com/dennis.wegereef/'
         },
         {
           name: 'Git',
-          link: 'https://www.linkedin.com/in/dennis-wegereef-84bb9ba7'
+          link: 'https://github.com/Denniswegereef'
         },
         {
           name: 'In',

@@ -6,7 +6,7 @@
     data-scroll
     data-scroll-sticky
     data-scroll-target="#js-scroll">
-    <div class="mouse-move__pointer" />
+    <div ref="pointer" class="mouse-move__pointer" />
   </div>
 </template>
 
@@ -29,7 +29,14 @@ export default {
         height: 12
       },
       lerpAlpha: 0.2,
-      isTouch: false
+      isTouch: false,
+      classSubPage: 'sub-page'
+    }
+  },
+
+  watch: {
+    $route () {
+      this._checkSubPage()
     }
   },
 
@@ -40,6 +47,7 @@ export default {
     if (isScreenTouch) return
 
     this._setupEventListeners()
+    this._checkSubPage()
   },
 
   methods: {
@@ -47,6 +55,10 @@ export default {
       this._mouseMoveHandler()
       this._mouseLeaveHandler()
       this._tickHandler()
+    },
+
+    _checkSubPage () {
+      Object.keys(this.$route.params).length === 0 ? this.$refs.pointer.classList.remove(this.$data.classSubPage) : this.$refs.pointer.classList.add(this.$data.classSubPage)
     },
 
     _updateMousePositions (e) {
@@ -133,7 +145,12 @@ export default {
 
   background: $color-black;
 
-  transition: transform 0.3s;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.sub-page {
+  background: $color-primary;
+  border: 2px solid $color-black;
 }
 
 .js-active-hover {
@@ -141,6 +158,10 @@ export default {
     background: $color-primary;
 
     transform: scale(1.5);
+  }
+
+  .sub-page {
+    background: $color-background
   }
 }
 </style>

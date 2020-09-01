@@ -48,9 +48,6 @@ import isTouch from '~/helpers/isTouch'
 
 import data from '~/static/data/work.json'
 
-// TODO
-// MOBILE DISABLING!
-// OPTIMIZE WHEN NOT IN VIEW?
 export default {
   asyncData () {
     return { data }

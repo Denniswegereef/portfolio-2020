@@ -36,6 +36,12 @@ export default {
         narrow: 480,
         regular: 767,
         wide: 1024
+      },
+      meta: {
+        title: 'Dennis Wegereef | Creative developer portfolio',
+        hid: 'description',
+        name: 'description',
+        content: 'asdf'
       }
     }
   },
@@ -59,6 +65,19 @@ export default {
 
     _about_body_animation (e) {
       this.$refs.aboutComponent.startAnimateBody(e)
+    }
+  },
+
+  head () {
+    return {
+      title: this.meta.title,
+      meta: [
+        {
+          hid: this.meta.hid,
+          name: this.meta.name,
+          content: this.meta.content
+        }
+      ]
     }
   }
 }
