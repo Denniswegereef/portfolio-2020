@@ -54,53 +54,47 @@ export default {
 
 <style lang="scss" scoped>
 .socials {
-  position: fixed;
-  display: flex;
-  align-items: center;
-  top: 0;
-  bottom: 0;
-  right: g(1, 24);
-}
-
-.socials__list {
-  text-align: right;
-}
-
-.socials__item {
-  padding-bottom: rem(10px);
-
-  &:last-of-type {
-    padding-bottom: 0;
-  }
-}
-
-.socials__link {
-  @include unselectable;
-
-  padding: 0;
-
-  color: $color-primary;
-
-  &:before {
-    background:$color-primary;
-  }
+  display: none;
 }
 
 @include mq-regular {
   .socials {
-    // top: 20vh;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    top: 0;
+    bottom: 0;
+    right: g(1, 24);
+  }
+
+  .socials__list {
+    text-align: right;
   }
 
   .socials__item {
     padding-bottom: rem(20px);
 
-    font-size: rem(20px);
+    &:last-of-type {
+      padding-bottom: 0;
+    }
+  }
+
+  .socials__link {
+    @include unselectable;
+
+    padding: 0;
+
+    color: $color-primary;
+
+    &:before {
+      background:$color-primary;
+    }
   }
 }
 
 @include mq-wide {
   .socials {
-    // top: 20vh;
+    right: g(0.5, 24);
   }
 }
 </style>

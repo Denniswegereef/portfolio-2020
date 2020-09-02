@@ -24,7 +24,8 @@ export default {
 
         this.$data.lmS = new this.LocomotiveScroll({
           el: scrollerElement,
-          smooth: true
+          smooth: true,
+          smoothMobile: true
         })
 
         this.$data.lmS.on('call', (eventName, state, event) => {

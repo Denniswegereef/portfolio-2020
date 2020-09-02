@@ -157,13 +157,13 @@ export default {
 
   overflow: hidden;
 
-  width: 100%;
+  width: 80%;
+  margin-left: 10%;
 }
 
 .about__image {
   position: relative;
-  width: 80%;
-  margin-left: 10%;
+  width: 100%;
 }
 
 .about__image-cover {
