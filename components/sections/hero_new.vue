@@ -49,7 +49,7 @@ export default {
   data () {
     return {
       tl: gsap.timeline({ paused: true }),
-      dev: false,
+      dev: true,
       animationComplete: false,
       content: {
         title_one: 'Dennis',
@@ -227,6 +227,8 @@ export default {
   flex-direction: column;
 
   font-size: 17vw;
+
+  color: $color-primary;
 }
 
 %hero__text-small {

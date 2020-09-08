@@ -20,7 +20,11 @@
         }
       ],
       "online": "https://www.google.nl/",
-      "github": "https://github.com/Denniswegereef"
+      "github": "https://github.com/Denniswegereef",
+      "full": {
+        "alt": "Mediatonic",
+        "url": "mediatonic_full.jpg"
+      }
     },
     {
       "title": "DFNS",

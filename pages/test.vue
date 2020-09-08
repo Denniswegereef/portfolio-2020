@@ -4,7 +4,7 @@
     <Hero />
     <Work ref="workComponent" />
     <About ref="aboutComponent" />
-    <Footer />
+    <Footer ref="footerComponent" />
   </div>
 </template>
 
@@ -65,6 +65,10 @@ export default {
 
     _about_body_animation (e) {
       this.$refs.aboutComponent.startAnimateBody(e)
+    },
+
+    _footer_intro_animation (e) {
+      this.$refs.footerComponent.startAnimateInto()
     }
   },
 

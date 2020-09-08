@@ -8,7 +8,7 @@
     </p>
     <ul ref="list" class="header__list">
       <li v-for="(item, index) in content.links" :key="index" class="header__list-item">
-        <a href="#" :data-link="item.href" class="header__link button smallheading" @click="_linkHandler">{{ item.text }}</a>
+        <a ref="link" href="#" :data-link="item.href" class="header__link button smallheading" @click="_linkHandler">{{ item.text }}</a>
       </li>
     </ul>
   </header>
@@ -54,6 +54,7 @@ export default {
       tlIntro.eventCallback('onComplete', this._timelineCompleteHandler)
       tlIntro.set(allElements, { opacity: 0, yPercent: 100 }, 0.0)
       tlIntro.to(allElements, { duration: 0.5, yPercent: 0, opacity: 1, stagger: 0.2 }, 3.8)
+      tlIntro.to(this.$refs.link, { duration: 0.5, color: process.env.colorPrimary }, 4.7)
     },
 
     // Handlers
@@ -101,7 +102,7 @@ export default {
 }
 
 .header__link {
-  color: $color-primary;
+  color: $color-black;
 
   cursor: pointer;
 }

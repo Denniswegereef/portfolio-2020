@@ -149,7 +149,7 @@ export default {
       tlTransistion.eventCallback('onComplete', this._onCompleteTimelineTransistionHandler)
 
       const lines = [...this.$refs.line, this.$refs.lastLine]
-      const sideElements = [document.getElementById('js-hero'), document.getElementById('js-header')]
+      const sideElements = [document.getElementById('js-hero'), document.getElementById('js-header'), document.getElementById('js-about')]
 
       tlTransistion.to(sideElements, { duration: 0.5, opacity: 0 }, 0.3)
       tlTransistion.to(hoverElement, { duration: 1.0, scale: 1 }, 0.0)

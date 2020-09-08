@@ -1,11 +1,15 @@
 <template>
-  <footer class="footer">
-    <div class="footer__line" />
+  <footer
+    class="footer"
+    data-scroll
+    data-scroll-offset="100px 0"
+    data-scroll-call="footer_intro_animation">
+    <div ref="line" class="footer__line" />
     <div class="footer__content">
-      <a class="button smallheading footer__mail" :href="`mailto:${content.mail}`">{{ content.mail }}</a>
+      <a ref="mail" class="button smallheading footer__mail" :href="`mailto:${content.mail}`">{{ content.mail }}</a>
       <ul class="footer__list">
         <li v-for="(item, index) in socials" :key="index" ref="link" class="footer__item">
-          <a :href="item.link" target="_blank" class="button smallheading footer__item">{{ item.name }}</a>
+          <a ref="footer__anchor" :href="item.link" target="_blank" class="button smallheading footer__item">{{ item.name }}</a>
         </li>
       </ul>
     </div>
@@ -37,6 +41,32 @@ export default {
         }
       ]
     }
+  },
+
+  mounted () {
+    this._setUpTimelines()
+  },
+
+  methods: {
+    startAnimateInto () {
+      this.$data.tl.play()
+    },
+
+    _setUpTimelines () {
+      const tl = this.$data.tl
+      const links = [this.$refs.mail, ...this.$refs.link]
+
+      gsap.set(links, { opacity: 0, yPercent: 100 }, 0.0)
+
+      tl.eventCallback('onComplete', this._timelineCompleteHandler)
+      tl.to(this.$refs.line, { duration: 0.9, scaleX: 1 }, 0.0)
+      tl.to(links, { duration: 0.5, yPercent: 0, opacity: 1, stagger: 0.15 }, 0.4)
+      tl.to([this.$refs.mail, ...this.$refs.footer__anchor], { duration: 0.5, color: process.env.colorPrimary }, 1.0)
+    },
+
+    _timelineCompleteHandler () {
+      this.$data.tl.kill()
+    }
   }
 }
 </script>
@@ -48,8 +78,6 @@ export default {
   width: g(10, 12);
   margin: 0 auto;
   padding: rem($narrow-spacing / 4) 0;
-
-  color: $color-primary;
 }
 
 .footer__line {
@@ -59,6 +87,9 @@ export default {
   background: $color-black;
 
   margin-bottom: rem($narrow-spacing / 5);
+
+  transform: scaleX(0.0);
+  transform-origin: left;
 }
 
 .footer__content {
@@ -70,8 +101,14 @@ export default {
   display: flex;
 }
 
+.footer__mail {
+  color: $color-black;
+}
+
 .footer__item {
   margin-right: rem(25px);
+
+  color: $color-black;
 
   &:last-of-type {
     margin-right: 0;

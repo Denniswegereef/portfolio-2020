@@ -18,7 +18,6 @@ export default {
   },
   mounted () {
     const color = '#A7ADA9'
-    // const colorRed = '#E10E12'
     const tl = this.$data.tl
 
     gsap.set(this.$refs.heading, { opacity: 0, yPercent: 5 })

@@ -37,7 +37,9 @@
         </div>
       </div>
 
-      <div class="project__gif-container" />
+      <div ref="image_container" class="project__image-container" data-scroll data-scroll-call="image_intro_animation">
+        <img ref="image" class="project__image" :src="imagePath">
+      </div>
     </div>
   </div>
 </template>
@@ -71,11 +73,13 @@ export default {
       imageCover: null,
       routeBefore: false,
       queryToCheck: 'routeBefore',
+      imagePath: '',
       leaveDuration: 2.2,
       timelines: {
         enter: gsap.timeline({ paused: true }),
         enterMeta: gsap.timeline({ paused: true }),
-        leave: gsap.timeline({ paused: true })
+        leave: gsap.timeline({ paused: true }),
+        enterImage: gsap.timeline({ paused: true })
       },
       canvas: {
         ctx: null,
@@ -90,13 +94,13 @@ export default {
         online: 'Online link',
         github: 'Github'
       },
-      colorLink: '#E10E12',
       spanTagOpening: `<span class="${CLASS_NAME_SPLIT_CONTAINER}"><span class="${CLASS_NAME_SPLIT_CHILD}">`,
       spanTagClosing: '</span></span>',
       split: {
         container: [],
         child: []
       },
+      clipPathOffset: 15,
       meta: {
         title: '| Dennis Wegereef',
         hid: 'description',
@@ -110,6 +114,7 @@ export default {
     work: {
       handler () {
         this._splitText()
+        this._getImagePath()
       }
     }
   },
@@ -128,6 +133,11 @@ export default {
     this._setCanvas()
     this.initScroll()
     this.toggleScroll()
+
+    setTimeout(() => {
+      this.updateScroll()
+      this.toggleScroll()
+    }, 500)
   },
 
   beforeDestroy () {
@@ -155,7 +165,7 @@ export default {
       tl.set(this.$refs.title_container, { overflow: 'visible' }, 1.9)
       tl.to(this.$refs.date, { duration: 0.5, opacity: 1, yPercent: 0 }, 2.0)
       tl.to(this.$refs.back, { duration: 0.5, opacity: 1, xPercent: 0 }, 2.2)
-      tl.to(this.$refs.back, { duration: 0.5, color: this.$data.colorLink }, 2.9)
+      tl.to(this.$refs.back, { duration: 0.5, color: process.env.colorPrimary }, 2.9)
 
       tl.play()
 
@@ -167,7 +177,7 @@ export default {
       tlEnter.eventCallback('onComplete', this._onCompleteTimelineMetalHandler, [tlEnter])
       tlEnter.to(this.$refs.line, { duration: 0.9, scaleX: 1 }, 0.0)
       tlEnter.from([...this.$refs.meta_item, ...metaLinks], { duration: 0.3, y: '40px', stagger: 0.2, delay: 0.1, opacity: 0 }, 0.2)
-      tlEnter.to(metaLinks, { duration: 0.5, color: this.$data.colorLink }, 1.6)
+      tlEnter.to(metaLinks, { duration: 0.5, color: process.env.colorPrimary }, 1.6)
 
       // Leave timeline
       const tlLeave = this.$data.timelines.leave
@@ -181,6 +191,20 @@ export default {
       tlLeave.to(this.$refs.title, { duration: 1.2, yPercent: 100, ease: 'power4Out' }, 0.4)
       tlLeave.to([...this.$refs.meta_item, ...metaLinks], { duration: 0.2, y: '40px', stagger: 0.2, delay: 0.1, opacity: 0, ease: 'power4Out' }, 0.5)
       // tlLeave.to(this.$refs.canvas, { duration: this.$data.leaveDuration, opacity: 0.0 }, 0.0)
+
+      // Image intro animation
+      const tlImageEnter = this.$data.timelines.enterImage
+      const offset = this.$data.clipPathOffset
+      const clipPath = `${offset}% 0%, ${100 - offset}% 0%, ${100 - offset}% 100%, ${offset}% 100%`
+      // clip-path: polygon(20% 0%, 80% 0%, 80% 100%, 20% 100%);
+
+      gsap.set(this.$refs.image_container, { clipPath: `polygon(${clipPath})` })
+      gsap.set(this.$refs.image, { scale: 1.2 })
+
+      tlImageEnter.to(this.$refs.image_container, { duration: 0.8, clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)', ease: 'Power4.easeInOut' }, 0.0)
+      tlImageEnter.to(this.$refs.image, { duration: 1.2, scale: 1.0 }, 0.2)
+
+      // tlTransistion.to(this.$refs.hover_element, { duration: 1.2, clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)', ease: 'Power4.easeInOut' }, 0.2)
     },
 
     _meta_container_animation () {
@@ -242,6 +266,14 @@ export default {
       this.$data.timelines.leave.play()
     },
 
+    _getImagePath () {
+      this.$data.imagePath = require(`~/static/images/projects/${this.$data.work.full.url}`)
+    },
+
+    _image_intro_animation () {
+      this.$data.timelines.enterImage.play()
+    },
+
     // Handlers
 
     _resizeHandler () {
@@ -258,8 +290,8 @@ export default {
     _onCompleteTimelineEnterHandler (tl) {
       this.$data.introComplete = true
 
-      this.updateScroll()
-      this.toggleScroll()
+      // this.updateScroll()
+      // this.toggleScroll()
 
       tl.kill()
     },
@@ -334,10 +366,6 @@ export default {
   color: $color-background;
 
   opacity: 0;
-}
-
-.project__image-cover {
-  width: 100%;
 }
 
 .project__title-container {
@@ -433,13 +461,14 @@ export default {
   }
 }
 
-.project__gif-container {
+.project__image-container {
   width: 110%;
-  min-height: rem(250px);
 
   margin-left: -5%;
+}
 
-  background: red;
+.project__image {
+  width: 100%;
 }
 
 @include mq-regular {
@@ -505,13 +534,10 @@ export default {
     margin-bottom: rem($wide-spacing / 2);
   }
 
-  .project__gif-container {
+  .project__image-container {
     width: 150%;
-    min-height: rem(750px);
 
     margin-left: -25%;
-
-    background: red;
   }
 }
 </style>

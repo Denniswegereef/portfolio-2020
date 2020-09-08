@@ -16,6 +16,10 @@ export default {
   },
   globalName: 'app',
 
+  env: {
+    colorPrimary: process.env.COLOR_PRIMARY || '#E10E12'
+  },
+
   /*
   ** Global CSS
   */
