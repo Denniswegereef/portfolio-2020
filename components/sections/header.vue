@@ -133,7 +133,9 @@ export default {
   }
 
   .header__text {
-    max-width: g(2, 10);
+    max-width: g(3, 10);
+
+    text-align: left;
   }
 
   .header__list {

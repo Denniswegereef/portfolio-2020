@@ -18,7 +18,7 @@
         </p>
       </div>
 
-      <div ref="line" class="project__line" data-scroll-call="meta_container_animation" />
+      <div ref="line" class="project__line" data-scroll data-scroll-call="meta_container_animation" />
 
       <div class="project__link-container">
         <ul class="project__meta-list">
@@ -187,7 +187,7 @@ export default {
       // tlLeave.to(this.$refs.container, { duration: this.$data.leaveDuration, opacity: 0.5 }, 0.0)
       tlLeave.to(this.$refs.back, { duration: 0.5, opacity: 0, yPercent: -20 }, 0.0)
       tlLeave.to(this.$data.split.child, { duration: 0.4, yPercent: -50, ease: 'power4', opacity: 0, stagger: 0.04 }, 0.2)
-      tlLeave.to(this.$refs.title, { duration: 1.2, yPercent: 100, ease: 'power4Out' }, 0.4)
+      tlLeave.to(this.$refs.title, { duration: 0.8, yPercent: 100, ease: 'power4Out' }, 0.4)
       tlLeave.to([...this.$refs.meta_item, ...this.$refs.meta_link], { duration: 0.2, y: '40px', stagger: 0.2, delay: 0.1, opacity: 0, ease: 'power4Out' }, 0.5)
       // tlLeave.to(this.$refs.canvas, { duration: this.$data.leaveDuration, opacity: 0.0 }, 0.0)
 
@@ -205,6 +205,7 @@ export default {
     },
 
     _meta_container_animation () {
+      console.log('test')
       this.$data.timelines.enterMeta.play()
     },
 
@@ -511,6 +512,8 @@ export default {
     justify-content: space-between;
     align-items: flex-end;
 
+    width: 100%;
+
     margin: rem($regular-spacing / 2) 0;
   }
 
@@ -541,9 +544,9 @@ export default {
   }
 
   .project__image-container {
-    width: 150%;
-
-    margin-left: -25%;
+    width: 90vw;
+    max-width: 150%;
+    margin-left: -10vw;
   }
 }
 </style>

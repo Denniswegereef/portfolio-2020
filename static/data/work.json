@@ -33,8 +33,6 @@
           "url": "#"
         }
       ],
-      "online": "https://www.google.nl/",
-      "github": "https://github.com/Denniswegereef",
       "full": {
         "alt": "Mediatonic",
         "url": "mediatonic_full.jpg"
@@ -47,7 +45,11 @@
         "alt": "DFNS photo",
         "url": "dfns.png"
       },
-      "description": "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee",
+      "description": [
+        "Recharge is an interactive proof of concept for users who drive electric vehicles in Amsterdam to report problems that occur when trying to charge their electric cars. It is a web application with an app and a dashboard. The app provides easy access for electric car drivers so that they can quickly share their complaints. With the most common problems already provided as standard options, they can immediately report it and find the nearby charging station where the issue occurs. The dashboard is for the companies involved in the charging stations, and they are responsible for maintaining them. The dashboard gives them insight into all the issues at the moment that occurs. More information is available in the project repository where the design choices are documented.",
+        "The front-end has been build with Nuxt.js, a Vue.js framework for server-side rendering. On the backend, there is a typescript environment with GraphQL connected to a MongoDB database. My role project was creating the flow of the application, visualizing it, and building the front-end of the app. Also, I was in charge of making sure our online server was running two parallel applications together than can communicate with each other — all managed by continuous integration with Codeship.",
+        "Recharge is one of the 21 projects nominated for the Golden Dot Awards 2019, the best student work of the study Communication Multimedia Design at the Amsterdam University of Applied Sciences."
+      ],
       "date": 2019,
       "meta": [
         {
@@ -59,8 +61,20 @@
           "title_big": "Development"
         }
       ],
-      "online": "https://www.google.nl/",
-      "github": "https://github.com/Denniswegereef"
+      "links": [
+        {
+          "label": "Github",
+          "url": "#"
+        },
+        {
+          "label": "Github",
+          "url": "#"
+        }
+      ],
+      "full": {
+        "alt": "Mediatonic",
+        "url": "mediatonic_full.jpg"
+      }
     },
     {
       "title": "Mediatonic",
@@ -69,8 +83,12 @@
         "alt": "Mediatonic photo",
         "url": "mediatonic.png"
       },
-      "description": "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee",
-      "date": 2020,
+      "description": [
+        "Recharge is an interactive proof of concept for users who drive electric vehicles in Amsterdam to report problems that occur when trying to charge their electric cars. It is a web application with an app and a dashboard. The app provides easy access for electric car drivers so that they can quickly share their complaints. With the most common problems already provided as standard options, they can immediately report it and find the nearby charging station where the issue occurs. The dashboard is for the companies involved in the charging stations, and they are responsible for maintaining them. The dashboard gives them insight into all the issues at the moment that occurs. More information is available in the project repository where the design choices are documented.",
+        "The front-end has been build with Nuxt.js, a Vue.js framework for server-side rendering. On the backend, there is a typescript environment with GraphQL connected to a MongoDB database. My role project was creating the flow of the application, visualizing it, and building the front-end of the app. Also, I was in charge of making sure our online server was running two parallel applications together than can communicate with each other — all managed by continuous integration with Codeship.",
+        "Recharge is one of the 21 projects nominated for the Golden Dot Awards 2019, the best student work of the study Communication Multimedia Design at the Amsterdam University of Applied Sciences."
+      ],
+      "date": 2019,
       "meta": [
         {
           "title_small": "Agency",
@@ -81,8 +99,20 @@
           "title_big": "Development"
         }
       ],
-      "online": "https://www.google.nl/",
-      "github": "https://github.com/Denniswegereef"
+      "links": [
+        {
+          "label": "Github",
+          "url": "#"
+        },
+        {
+          "label": "Github",
+          "url": "#"
+        }
+      ],
+      "full": {
+        "alt": "Mediatonic",
+        "url": "mediatonic_full.jpg"
+      }
     },
     {
       "title": "L''OR Espresso AR",
@@ -91,7 +121,11 @@
         "alt": "L'OR Espresso AR photo",
         "url": "lor.png"
       },
-      "description": "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee",
+      "description": [
+        "Recharge is an interactive proof of concept for users who drive electric vehicles in Amsterdam to report problems that occur when trying to charge their electric cars. It is a web application with an app and a dashboard. The app provides easy access for electric car drivers so that they can quickly share their complaints. With the most common problems already provided as standard options, they can immediately report it and find the nearby charging station where the issue occurs. The dashboard is for the companies involved in the charging stations, and they are responsible for maintaining them. The dashboard gives them insight into all the issues at the moment that occurs. More information is available in the project repository where the design choices are documented.",
+        "The front-end has been build with Nuxt.js, a Vue.js framework for server-side rendering. On the backend, there is a typescript environment with GraphQL connected to a MongoDB database. My role project was creating the flow of the application, visualizing it, and building the front-end of the app. Also, I was in charge of making sure our online server was running two parallel applications together than can communicate with each other — all managed by continuous integration with Codeship.",
+        "Recharge is one of the 21 projects nominated for the Golden Dot Awards 2019, the best student work of the study Communication Multimedia Design at the Amsterdam University of Applied Sciences."
+      ],
       "date": 2019,
       "meta": [
         {
@@ -103,8 +137,20 @@
           "title_big": "Development"
         }
       ],
-      "online": "https://www.google.nl/",
-      "github": "https://github.com/Denniswegereef"
+      "links": [
+        {
+          "label": "Github",
+          "url": "#"
+        },
+        {
+          "label": "Github",
+          "url": "#"
+        }
+      ],
+      "full": {
+        "alt": "Mediatonic",
+        "url": "mediatonic_full.jpg"
+      }
     },
     {
       "title": "Recharge",
@@ -113,7 +159,11 @@
         "alt": "Recharge photo",
         "url": "recharge.png"
       },
-      "description": "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee",
+      "description": [
+        "Recharge is an interactive proof of concept for users who drive electric vehicles in Amsterdam to report problems that occur when trying to charge their electric cars. It is a web application with an app and a dashboard. The app provides easy access for electric car drivers so that they can quickly share their complaints. With the most common problems already provided as standard options, they can immediately report it and find the nearby charging station where the issue occurs. The dashboard is for the companies involved in the charging stations, and they are responsible for maintaining them. The dashboard gives them insight into all the issues at the moment that occurs. More information is available in the project repository where the design choices are documented.",
+        "The front-end has been build with Nuxt.js, a Vue.js framework for server-side rendering. On the backend, there is a typescript environment with GraphQL connected to a MongoDB database. My role project was creating the flow of the application, visualizing it, and building the front-end of the app. Also, I was in charge of making sure our online server was running two parallel applications together than can communicate with each other — all managed by continuous integration with Codeship.",
+        "Recharge is one of the 21 projects nominated for the Golden Dot Awards 2019, the best student work of the study Communication Multimedia Design at the Amsterdam University of Applied Sciences."
+      ],
       "date": 2019,
       "meta": [
         {
@@ -125,8 +175,20 @@
           "title_big": "Development"
         }
       ],
-      "online": "https://www.google.nl/",
-      "github": "https://github.com/Denniswegereef"
+      "links": [
+        {
+          "label": "Github",
+          "url": "#"
+        },
+        {
+          "label": "Github",
+          "url": "#"
+        }
+      ],
+      "full": {
+        "alt": "Mediatonic",
+        "url": "mediatonic_full.jpg"
+      }
     },
     {
       "title": "Matise",
@@ -157,8 +219,12 @@
         "alt": "Glitching photo",
         "url": "glitching.png"
       },
-      "description": "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee",
-      "date": 2020,
+      "description": [
+        "Recharge is an interactive proof of concept for users who drive electric vehicles in Amsterdam to report problems that occur when trying to charge their electric cars. It is a web application with an app and a dashboard. The app provides easy access for electric car drivers so that they can quickly share their complaints. With the most common problems already provided as standard options, they can immediately report it and find the nearby charging station where the issue occurs. The dashboard is for the companies involved in the charging stations, and they are responsible for maintaining them. The dashboard gives them insight into all the issues at the moment that occurs. More information is available in the project repository where the design choices are documented.",
+        "The front-end has been build with Nuxt.js, a Vue.js framework for server-side rendering. On the backend, there is a typescript environment with GraphQL connected to a MongoDB database. My role project was creating the flow of the application, visualizing it, and building the front-end of the app. Also, I was in charge of making sure our online server was running two parallel applications together than can communicate with each other — all managed by continuous integration with Codeship.",
+        "Recharge is one of the 21 projects nominated for the Golden Dot Awards 2019, the best student work of the study Communication Multimedia Design at the Amsterdam University of Applied Sciences."
+      ],
+      "date": 2019,
       "meta": [
         {
           "title_small": "Agency",
@@ -169,8 +235,20 @@
           "title_big": "Development"
         }
       ],
-      "online": "https://www.google.nl/",
-      "github": "https://github.com/Denniswegereef"
+      "links": [
+        {
+          "label": "Github",
+          "url": "#"
+        },
+        {
+          "label": "Github",
+          "url": "#"
+        }
+      ],
+      "full": {
+        "alt": "Mediatonic",
+        "url": "mediatonic_full.jpg"
+      }
     }
   ]
 }
