@@ -86,6 +86,8 @@ export default {
 
 .header__text {
   padding-bottom: rem(12px);
+
+  text-align: center;
 }
 
 .header__list {

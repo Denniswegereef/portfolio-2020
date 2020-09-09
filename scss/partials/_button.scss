@@ -38,3 +38,15 @@
     }
   }
 }
+
+.button-inline {
+  transition: color .3s ease-in-out;
+
+  &:before {
+    bottom: rem(2px);
+  }
+
+  &:hover {
+    color: $color-primary;
+  }
+}

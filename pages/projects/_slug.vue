@@ -12,11 +12,13 @@
         </h1>
       </div>
 
-      <p ref="body_text" class="subheading project__body">
-        {{ work.description }}
-      </p>
+      <div class="project__body-content">
+        <p v-for="(item, index) in work.description" :key="index" ref="body_text" class="subheading project__body">
+          {{ item }}
+        </p>
+      </div>
 
-      <div ref="line" class="project__line" data-scroll data-scroll-ofset="100px 0" data-scroll-call="meta_container_animation" />
+      <div ref="line" class="project__line" data-scroll-call="meta_container_animation" />
 
       <div class="project__link-container">
         <ul class="project__meta-list">
@@ -29,12 +31,11 @@
             </p>
           </li>
         </ul>
-        <div class="project__meta-links">
-          <a ref="meta_github" :href="work.github" target="_blank" class="smallheading button project__link">{{ content.github }}</a>
-          <a ref="meta_online" :href="work.online" target="_blank" class="smallheading button project__link">
-            {{ content.online }}
-          </a>
-        </div>
+        <ul class="project__link-list">
+          <li v-for="(item, index) in work.links" :key="index" ref="meta_link" class="project__link-list-item">
+            <a ref="meta__link_anchor" :href="item.url" target="_blank" class="smallheading button project__link">{{ item.label }}</a>
+          </li>
+        </ul>
       </div>
 
       <div ref="image_container" class="project__image-container" data-scroll data-scroll-call="image_intro_animation">
@@ -172,12 +173,10 @@ export default {
       // Enter meta timeline
       const tlEnter = this.$data.timelines.enterMeta
 
-      const metaLinks = [this.$refs.meta_github, this.$refs.meta_online]
-
       tlEnter.eventCallback('onComplete', this._onCompleteTimelineMetalHandler, [tlEnter])
       tlEnter.to(this.$refs.line, { duration: 0.9, scaleX: 1 }, 0.0)
-      tlEnter.from([...this.$refs.meta_item, ...metaLinks], { duration: 0.3, y: '40px', stagger: 0.2, delay: 0.1, opacity: 0 }, 0.2)
-      tlEnter.to(metaLinks, { duration: 0.5, color: process.env.colorPrimary }, 1.6)
+      tlEnter.from([...this.$refs.meta_item, ...this.$refs.meta_link], { duration: 0.3, y: '40px', stagger: 0.2, delay: 0.1, opacity: 0 }, 0.2)
+      tlEnter.to(this.$refs.meta__link_anchor, { duration: 0.5, color: process.env.colorPrimary }, 1.6)
 
       // Leave timeline
       const tlLeave = this.$data.timelines.leave
@@ -189,22 +188,20 @@ export default {
       tlLeave.to(this.$refs.back, { duration: 0.5, opacity: 0, yPercent: -20 }, 0.0)
       tlLeave.to(this.$data.split.child, { duration: 0.4, yPercent: -50, ease: 'power4', opacity: 0, stagger: 0.04 }, 0.2)
       tlLeave.to(this.$refs.title, { duration: 1.2, yPercent: 100, ease: 'power4Out' }, 0.4)
-      tlLeave.to([...this.$refs.meta_item, ...metaLinks], { duration: 0.2, y: '40px', stagger: 0.2, delay: 0.1, opacity: 0, ease: 'power4Out' }, 0.5)
+      tlLeave.to([...this.$refs.meta_item, ...this.$refs.meta_link], { duration: 0.2, y: '40px', stagger: 0.2, delay: 0.1, opacity: 0, ease: 'power4Out' }, 0.5)
       // tlLeave.to(this.$refs.canvas, { duration: this.$data.leaveDuration, opacity: 0.0 }, 0.0)
 
       // Image intro animation
       const tlImageEnter = this.$data.timelines.enterImage
       const offset = this.$data.clipPathOffset
       const clipPath = `${offset}% 0%, ${100 - offset}% 0%, ${100 - offset}% 100%, ${offset}% 100%`
-      // clip-path: polygon(20% 0%, 80% 0%, 80% 100%, 20% 100%);
 
       gsap.set(this.$refs.image_container, { clipPath: `polygon(${clipPath})` })
       gsap.set(this.$refs.image, { scale: 1.2 })
 
+      tlImageEnter.eventCallback('onComplete', this._onCompleteTimelineMetaHandler, [tlImageEnter])
       tlImageEnter.to(this.$refs.image_container, { duration: 0.8, clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)', ease: 'Power4.easeInOut' }, 0.0)
       tlImageEnter.to(this.$refs.image, { duration: 1.2, scale: 1.0 }, 0.2)
-
-      // tlTransistion.to(this.$refs.hover_element, { duration: 1.2, clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)', ease: 'Power4.easeInOut' }, 0.2)
     },
 
     _meta_container_animation () {
@@ -213,7 +210,7 @@ export default {
 
     _splitText () {
       this.$nextTick(() => {
-        splitText(this.$refs.body_text, this.$data.spanTagOpening, this.$data.spanTagClosing)
+        for (let i = 0; i < this.$refs.body_text.length; i++) splitText(this.$refs.body_text[i], this.$data.spanTagOpening, this.$data.spanTagClosing)
 
         this.$data.split.container = document.querySelectorAll('.project__body .' + CLASS_NAME_SPLIT_CONTAINER)
         this.$data.split.child = document.querySelectorAll('.project__body .' + CLASS_NAME_SPLIT_CHILD)
@@ -296,7 +293,7 @@ export default {
       tl.kill()
     },
 
-    _onCompleteTimelineMetalHandler (tl) {
+    _onCompleteTimelineMetaHandler (tl) {
       tl.kill()
     },
 
@@ -406,6 +403,14 @@ export default {
   }
 }
 
+.project__link-list-item {
+  padding-right: rem($narrow-spacing / 4);
+
+  &:last-of-type {
+    padding-right: 0;
+  }
+}
+
 .project__meta-title-small {
   padding-bottom: rem(5px);
 
@@ -424,12 +429,18 @@ export default {
 .project__body {
   position: relative;
 
-  padding-bottom: rem($narrow-spacing / 2);
+  padding-bottom: rem($narrow-spacing / 4);
 
   font-size: rem(13px);
   line-height: rem(22px);
 
   color: $color-background;
+
+  font-weight: 200;
+
+  &:first-of-type {
+    font-weight: bold;
+  }
 }
 
 .project__line {
@@ -449,7 +460,7 @@ export default {
   margin: rem($narrow-spacing / 2) 0;
 }
 
-.project__meta-links {
+.project__link-list {
   display: flex;
 }
 
@@ -489,7 +500,7 @@ export default {
   }
 
   .project__body {
-    padding-bottom: rem($regular-spacing / 2);
+    padding-bottom: rem($regular-spacing / 8);
 
     font-size: rem(20px);
     line-height: rem(30px);
@@ -512,7 +523,6 @@ export default {
   .project__container {
     max-width: rem($wide-container * 0.6);
 
-    // padding: 0;
     padding-left: 0;
     padding-right: 0;
     margin: 0 auto rem($wide-spacing);
@@ -522,12 +532,8 @@ export default {
     margin-bottom: rem($wide-spacing / 2);
   }
 
-  .project__title {
-  }
-
   .project__body {
-    // margin-bottom: rem($wide-spacing / 4);
-    padding-bottom: rem($wide-spacing / 4);
+    padding-bottom: rem($narrow-spacing / 4);
   }
 
   .project__link-container {
