@@ -9,7 +9,7 @@
       {{ content.intro }}
     </p>
     <div class="about__image-container" data-scroll data-scroll-speed="1.5">
-      <img ref="image" class="about__image" src="~/static/images/portrait_test.png" alt="portrait image">
+      <img ref="image" class="about__image" src="~/static/images/portrait.png" alt="portrait image">
       <div ref="cover" class="about__image-cover" />
     </div>
     <p
@@ -18,9 +18,8 @@
       data-scroll
       data-scroll-offset="100px 0"
       data-scroll-call="about_body_animation">
-      {{ content.body }}
-      {{ content.body }}
-      {{ content.body }}
+      {{ content.bodyOne }}
+      {{ content.bodyTwo }}
     </p>
   </section>
 </template>
@@ -39,8 +38,9 @@ export default {
   data () {
     return {
       content: {
-        intro: '' + `${''} My name is Dennis Wegereef 24-year-old dutch guy, and I am living in Amsterdam. I'm a student at the University of Applied Sciences Amsterdam, studying Communication Multimedia Design. The study is focusing on concepts, user experience, and creating digital products while keeping the end-user in mind. Confidently in 9 days, I graduate there with my thesis I've worked on for the past 6 months.  So a little about me, I'm an avid sneaker collector trying to get the most exclusive Nike Air Max 1s. But my passion doesn't stop there, together with two friends we have a webshop called Outsole.nl.`,
-        body: '' + `${''} At the moment, I've just finished my thesis working on a platform where I did the visual and user experience design. But my passion and interest will be at frontend development. During my study, I've had 2 internships, both in Amsterdam, and a minor Web Development at the University of Applied Sciences, where I learned a lot throughout the way. The first internship was at Matise, and the second at Superhero Cheesecake, where I worked as a creative developer.`
+        intro: '' + `${''} My name is Dennis Wegereef, a 24-year-old Dutch guy living in Amsterdam. Recently I received my bachelor's degree in Communication & Multimedia Design from the Amsterdam University of Applied Sciences. During my studies, I created digital concepts, experiences, and products in a user-centered way. `,
+        bodyOne: '' + `${''} While working as an intern at Superhero Cheesecake and Matise I developed a passion for frontend development. Currently, I'm looking for a full-time job as a developer to work on great projects with inspiring people.`,
+        bodyTwo: '' + `${''} In the past few years, I've gained experience with and developed a great understanding of topics like accessibility, real-time connections, performance, AR, and progressive enhancement. I have some experience with OpenGL and WebGL through ThreeJs and I would love to expand my knowledge of this creative side of development.`
       },
       offSetMobileImage: 30,
       timelines: {
@@ -194,6 +194,7 @@ export default {
     position: initial;
 
     width: g(4, 12);
+    margin-left: 0;
   }
 
   .about__image {

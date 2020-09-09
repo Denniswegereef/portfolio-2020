@@ -17,6 +17,7 @@ module.exports = {
     "vue/html-closing-bracket-newline": [1, {
       "singleline": "never",
       "multiline": "never"
-    }]
+    }],
+    'vue/no-v-html': 0
   }
 }

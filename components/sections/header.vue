@@ -1,14 +1,11 @@
 <template>
   <header id="js-header" class="header">
-    <p ref="heading_one" class="header__text smallheading">
-      {{ content.text_one }}
-    </p>
-    <p ref="heading_two" class="header__text smallheading">
-      {{ content.text_two }}
-    </p>
+    <p ref="heading_one" class="header__text smallheading" v-html="content.text_one" />
+    <p ref="heading_two" class="header__text smallheading" v-html="content.text_two" />
+
     <ul ref="list" class="header__list">
       <li v-for="(item, index) in content.links" :key="index" class="header__list-item">
-        <a ref="link" href="#" :data-link="item.href" class="header__link button smallheading" @click="_linkHandler">{{ item.text }}</a>
+        <a ref="link" :href="item.href" :data-link="item.href" class="header__link button smallheading" @click="_linkHandler">{{ item.text }}</a>
       </li>
     </ul>
   </header>
@@ -24,8 +21,8 @@ export default {
         intro: gsap.timeline({ paused: true })
       },
       content: {
-        text_one: 'Just graduated and looking for a job',
-        text_two: 'Portfolio selected work',
+        text_one: 'Recently graduated<br>looking for an adventure',
+        text_two: 'Selected work /<br>2018-2020',
         links: [
           {
             href: '#js-work',
