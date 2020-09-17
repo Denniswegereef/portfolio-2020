@@ -40,9 +40,9 @@ export default {
   data () {
     return {
       content: {
-        intro: "Some info about me. I'm an avid sneaker collector, trying to get the most exclusive Nike Air Max 1s. My passion doesn't stop there. With two friends, we have a web shop called Outsole.nl. Through Outsole we sell collectible sneakers all around the world. I've been part of creating both the brand and online shop. Also, I helped to produce content for their social channels, including graphic work and photography.",
+        intro: "My name is Dennis Wegereef, a 24-year-old Dutch guy living in Amsterdam. Recently I received my bachelor's degree in Communication & Multimedia Design from the Amsterdam University of Applied Sciences. During my studies, I created digital concepts, experiences, and products in a user centered way. While working as an intern at Superhero Cheesecake and Matise I developed a passion for frontend development. Currently, I'm looking for a full-time job as a developer to work on great projects with inspiring people.",
         description: [
-          "So a little about me I'm an avid sneaker collector trying to get the most exclusive Nike Air Max 1s. My passion doesn't stop there, with two friends. We have a webshop called Outsole.nl, where we sell more collectible sneakers all around the world. I mostly helped to create and build the shop and the brand. Also, I helped to produce content for their social channels, including graphic work and photography.",
+          "Some info about me. I'm an avid sneaker collector, trying to get the most exclusive Nike Air Max 1s. My passion doesn't stop there. With two friends, we have a web shop called Outsole.nl. Through Outsole we sell collectible sneakers all around the world. I've been part of creating both the brand and online shop. Also, I helped to produce content for their social channels, including graphic work and photography.",
           "In the past few years, I've gained experience with and developed a great understanding of topics like accessibility, real-time connections, performance, AR, and progressive enhancement. I have some experience with OpenGL and WebGL through ThreeJs and I would love to expand my knowledge of this creative side of development."
         ]
       },
@@ -55,15 +55,15 @@ export default {
       spanTagClosing: '</span></span>',
       replaceRegex: [
         {
-          string: /Outsole.nl(?!\.)/g,
-          tag: '<a href="https://www.outsole.nl" class="button button-inline" target="_blank">Outsole.nl</a>'
+          regex: /Outsole.nl.(?!\.)/g,
+          tag: '<a href="https://www.outsole.nl" class="button button-inline" target="_blank">Outsole.nl.</a>'
         },
         {
-          string: /Superhero Cheesecake(?!\.)/g,
+          regex: /Superhero Cheesecake(?!\.)/g,
           tag: '<a href="https://superherocheesecake.com/" class="button button-inline" target="_blank">Superhero Cheesecake</a>'
         },
         {
-          string: /Matise(?!\.)/g,
+          regex: /Matise(?!\.)/g,
           tag: '<a href="https://www.matise.nl/" class="button button-inline" target="_blank">Matise</a>'
         }
       ]
@@ -129,10 +129,6 @@ export default {
     _splitText () {
       splitText(this.$refs.intro, this.$data.spanTagOpening, this.$data.spanTagClosing)
       for (let i = 0; i < this.$refs.body.length; i++) splitText(this.$refs.body[i], this.$data.spanTagOpening, this.$data.spanTagClosing)
-    },
-
-    _wrapAnchor (elementsToCheck) {
-      for (let i = 0; i < elementsToCheck.length; i++) for (let j = 0; j < this.$data.replaceRegex.length; j++) elementsToCheck[i].innerHTML = elementsToCheck[i].innerHTML.replace(this.$data.replaceRegex[j].regex, this.$data.replaceRegex[j].tag)
     },
 
     startAnimateIntro () {

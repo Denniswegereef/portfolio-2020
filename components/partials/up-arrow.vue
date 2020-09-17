@@ -1,6 +1,7 @@
 <template>
   <div
     class="arrow"
+    :class="color"
     data-scroll
     data-scroll-sticky
     data-scroll-target="#js-scroll"
@@ -24,6 +25,19 @@
 import { gsap } from 'gsap'
 
 export default {
+  props: {
+    color: {
+      default: 'black',
+      type: String
+    }
+  },
+
+  data () {
+    return {
+      arrowClass: 'black'
+    }
+  },
+
   watch: {
     '$parent.lmS': {
       handler () {
@@ -33,6 +47,7 @@ export default {
   },
 
   mounted () {
+    // this.$data.arrowClass = this.$props.color
     gsap.set(this.$refs.arrow, { opacity: 0, yPercent: 50 })
   },
 
@@ -72,5 +87,16 @@ export default {
 
 .arrow__svg {
   transform: rotate(180deg);
+  transition: fill .3s ease-in;
+
+  &:hover {
+    fill: $color-primary;
+  }
+}
+
+.white {
+  svg {
+    fill: $color-white;
+  }
 }
 </style>

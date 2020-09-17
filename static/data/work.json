@@ -8,34 +8,34 @@
         "url": "the-one-guide.png"
       },
       "description": [
-        "Recharge is an interactive proof of concept for users who drive electric vehicles in Amsterdam to report problems that occur when trying to charge their electric cars. It is a web application with an app and a dashboard. The app provides easy access for electric car drivers so that they can quickly share their complaints. With the most common problems already provided as standard options, they can immediately report it and find the nearby charging station where the issue occurs. The dashboard is for the companies involved in the charging stations, and they are responsible for maintaining them. The dashboard gives them insight into all the issues at the moment that occurs. More information is available in the project repository where the design choices are documented.",
-        "The front-end has been build with Nuxt.js, a Vue.js framework for server-side rendering. On the backend, there is a typescript environment with GraphQL connected to a MongoDB database. My role project was creating the flow of the application, visualizing it, and building the front-end of the app. Also, I was in charge of making sure our online server was running two parallel applications together than can communicate with each other — all managed by continuous integration with Codeship.",
-        "Recharge is one of the 21 projects nominated for the Golden Dot Awards 2019, the best student work of the study Communication Multimedia Design at the Amsterdam University of Applied Sciences."
+        "1",
+        "2",
+        "3"
       ],
-      "date": 2019,
+      "date": 2020,
       "meta": [
         {
-          "title_small": "Agency",
-          "title_big": "Superhero Cheesecake"
+          "title_small": "Client",
+          "title_big": "Outsole"
         },
         {
           "title_small": "Role",
-          "title_big": "Development"
+          "title_big": "UX & Visual design"
         }
       ],
       "links": [
         {
-          "label": "Github",
-          "url": "#"
+          "label": "Prototype",
+          "url": "https://xd.adobe.com/view/8055ac5a-c5a9-415d-41e4-edd29b849c8a-f664/screen/a0e522cf-9acc-4d14-a58d-8f214db94272/"
         },
         {
-          "label": "Github",
-          "url": "#"
+          "label": "Project summary",
+          "url": "https://www.notion.so/scriptiedennis/Design-rationale-v1-0-8dcfd26aea734e36bc6214c7bf474fba"
         }
       ],
       "full": {
-        "alt": "Mediatonic",
-        "url": "mediatonic_full.jpg"
+        "alt": "The one guide images",
+        "url": "the_one_guide_full.png"
       }
     },
     {
@@ -46,8 +46,9 @@
         "url": "dfns.png"
       },
       "description": [
-        "DFNS (Defense) offers products to clean clothing and shoes / sneakers. They do this, among other things, by responding to the sustainability of the products. I contributed to the realization of the website.",
-        "My role in the project was to translate the design to the web. To set up everything as modularly as possible so that components can also be used in other places. Where it had to be taken into account that everything is scalable on any device. It is built with twig in conjunction with native javascript."
+        "1",
+        "2",
+        "3"
       ],
       "date": 2019,
       "meta": [
@@ -62,17 +63,13 @@
       ],
       "links": [
         {
-          "label": "Github",
-          "url": "#"
-        },
-        {
-          "label": "Github",
-          "url": "#"
+          "label": "View online",
+          "url": "https://www.dfns.com/"
         }
       ],
       "full": {
         "alt": "Mediatonic",
-        "url": "mediatonic_full.jpg"
+        "url": "dfns_full.jpg"
       }
     },
     {
@@ -83,9 +80,9 @@
         "url": "mediatonic.png"
       },
       "description": [
-        "Recharge is an interactive proof of concept for users who drive electric vehicles in Amsterdam to report problems that occur when trying to charge their electric cars. It is a web application with an app and a dashboard. The app provides easy access for electric car drivers so that they can quickly share their complaints. With the most common problems already provided as standard options, they can immediately report it and find the nearby charging station where the issue occurs. The dashboard is for the companies involved in the charging stations, and they are responsible for maintaining them. The dashboard gives them insight into all the issues at the moment that occurs. More information is available in the project repository where the design choices are documented.",
-        "The front-end has been build with Nuxt.js, a Vue.js framework for server-side rendering. On the backend, there is a typescript environment with GraphQL connected to a MongoDB database. My role project was creating the flow of the application, visualizing it, and building the front-end of the app. Also, I was in charge of making sure our online server was running two parallel applications together than can communicate with each other — all managed by continuous integration with Codeship.",
-        "Recharge is one of the 21 projects nominated for the Golden Dot Awards 2019, the best student work of the study Communication Multimedia Design at the Amsterdam University of Applied Sciences."
+        "1",
+        "2",
+        "3"
       ],
       "date": 2019,
       "meta": [
@@ -100,12 +97,8 @@
       ],
       "links": [
         {
-          "label": "Github",
-          "url": "#"
-        },
-        {
-          "label": "Github",
-          "url": "#"
+          "label": "Online link",
+          "url": "https://www.mediatonicgames.com/"
         }
       ],
       "full": {
@@ -121,9 +114,9 @@
         "url": "lor.png"
       },
       "description": [
-        "Recharge is an interactive proof of concept for users who drive electric vehicles in Amsterdam to report problems that occur when trying to charge their electric cars. It is a web application with an app and a dashboard. The app provides easy access for electric car drivers so that they can quickly share their complaints. With the most common problems already provided as standard options, they can immediately report it and find the nearby charging station where the issue occurs. The dashboard is for the companies involved in the charging stations, and they are responsible for maintaining them. The dashboard gives them insight into all the issues at the moment that occurs. More information is available in the project repository where the design choices are documented.",
-        "The front-end has been build with Nuxt.js, a Vue.js framework for server-side rendering. On the backend, there is a typescript environment with GraphQL connected to a MongoDB database. My role project was creating the flow of the application, visualizing it, and building the front-end of the app. Also, I was in charge of making sure our online server was running two parallel applications together than can communicate with each other — all managed by continuous integration with Codeship.",
-        "Recharge is one of the 21 projects nominated for the Golden Dot Awards 2019, the best student work of the study Communication Multimedia Design at the Amsterdam University of Applied Sciences."
+        "L’OR Espresso Augmented Reality Proof of Concept",
+        "2",
+        "3"
       ],
       "date": 2019,
       "meta": [
@@ -133,22 +126,18 @@
         },
         {
           "title_small": "Role",
-          "title_big": "Development"
+          "title_big": "AR Development"
         }
       ],
       "links": [
         {
-          "label": "Github",
-          "url": "#"
-        },
-        {
-          "label": "Github",
-          "url": "#"
+          "label": "Video",
+          "url": "https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fplayer.vimeo.com%2Fvideo%2F381997343%3Fapp_id%3D122963&dntp=1&url=https%3A%2F%2Fvimeo.com%2F381997343%2F997bec92bd&image=https%3A%2F%2Fi.vimeocdn.com%2Fvideo%2F842954190_1280.jpg&key=a19fcc184b9711e1b4764040d3dc5c07&type=text%2Fhtml&schema=vimeo"
         }
       ],
       "full": {
-        "alt": "Mediatonic",
-        "url": "mediatonic_full.jpg"
+        "alt": "",
+        "url": ""
       }
     },
     {
@@ -159,34 +148,34 @@
         "url": "recharge.png"
       },
       "description": [
-        "Recharge is an interactive proof of concept for users who drive electric vehicles in Amsterdam to report problems that occur when trying to charge their electric cars. It is a web application with an app and a dashboard. The app provides easy access for electric car drivers so that they can quickly share their complaints. With the most common problems already provided as standard options, they can immediately report it and find the nearby charging station where the issue occurs. The dashboard is for the companies involved in the charging stations, and they are responsible for maintaining them. The dashboard gives them insight into all the issues at the moment that occurs. More information is available in the project repository where the design choices are documented.",
-        "The front-end has been build with Nuxt.js, a Vue.js framework for server-side rendering. On the backend, there is a typescript environment with GraphQL connected to a MongoDB database. My role project was creating the flow of the application, visualizing it, and building the front-end of the app. Also, I was in charge of making sure our online server was running two parallel applications together than can communicate with each other — all managed by continuous integration with Codeship.",
-        "Recharge is one of the 21 projects nominated for the Golden Dot Awards 2019, the best student work of the study Communication Multimedia Design at the Amsterdam University of Applied Sciences."
+        "1",
+        "2",
+        "3"
       ],
       "date": 2019,
       "meta": [
         {
-          "title_small": "Agency",
-          "title_big": "Superhero Cheesecake"
+          "title_small": "Client",
+          "title_big": "IDOLaad"
         },
         {
           "title_small": "Role",
-          "title_big": "Development"
+          "title_big": "Visuel & development"
         }
       ],
       "links": [
         {
           "label": "Github",
-          "url": "#"
+          "url": "https://github.com/timruiterkamp/laadpalen-app"
         },
         {
-          "label": "Github",
-          "url": "#"
+          "label": "Summary",
+          "url": "https://github.com/timruiterkamp/laadpalen-app/blob/master/README.md"
         }
       ],
       "full": {
-        "alt": "Mediatonic",
-        "url": "mediatonic_full.jpg"
+        "alt": "Recharge",
+        "url": "recharge_full.png"
       }
     },
     {
@@ -196,20 +185,32 @@
         "alt": "Matise photo",
         "url": "matise.png"
       },
-      "description": "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure? On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee",
-      "date": 2020,
+      "description": [
+        "1",
+        "2",
+        "3"
+      ],
+      "date": 2018,
       "meta": [
         {
           "title_small": "Agency",
-          "title_big": "Superhero Cheesecake"
+          "title_big": "Matise"
         },
         {
           "title_small": "Role",
           "title_big": "Development"
         }
       ],
-      "online": "https://www.google.nl/",
-      "github": "https://github.com/Denniswegereef"
+      "links": [
+        {
+          "label": "View online",
+          "url": "https://www.matise.nl/"
+        }
+      ],
+      "full": {
+        "alt": "Matise homepage",
+        "url": "matise_full.png"
+      }
     },
     {
       "title": "Glitching article",
@@ -219,11 +220,11 @@
         "url": "glitching.png"
       },
       "description": [
-        "Recharge is an interactive proof of concept for users who drive electric vehicles in Amsterdam to report problems that occur when trying to charge their electric cars. It is a web application with an app and a dashboard. The app provides easy access for electric car drivers so that they can quickly share their complaints. With the most common problems already provided as standard options, they can immediately report it and find the nearby charging station where the issue occurs. The dashboard is for the companies involved in the charging stations, and they are responsible for maintaining them. The dashboard gives them insight into all the issues at the moment that occurs. More information is available in the project repository where the design choices are documented.",
-        "The front-end has been build with Nuxt.js, a Vue.js framework for server-side rendering. On the backend, there is a typescript environment with GraphQL connected to a MongoDB database. My role project was creating the flow of the application, visualizing it, and building the front-end of the app. Also, I was in charge of making sure our online server was running two parallel applications together than can communicate with each other — all managed by continuous integration with Codeship.",
-        "Recharge is one of the 21 projects nominated for the Golden Dot Awards 2019, the best student work of the study Communication Multimedia Design at the Amsterdam University of Applied Sciences."
+        "1",
+        "2",
+        "3"
       ],
-      "date": 2019,
+      "date": 2018,
       "meta": [
         {
           "title_small": "Agency",
@@ -237,16 +238,16 @@
       "links": [
         {
           "label": "Github",
-          "url": "#"
+          "url": "https://github.com/Denniswegereef/css-to-the-rescue-1819"
         },
         {
-          "label": "Github",
-          "url": "#"
+          "label": "View online",
+          "url": "https://denniswegereef.github.io/css-to-the-rescue-1819/src/"
         }
       ],
       "full": {
-        "alt": "Mediatonic",
-        "url": "mediatonic_full.jpg"
+        "alt": "Screenshot of glitching page",
+        "url": "glitching_full.png"
       }
     }
   ]

@@ -28,7 +28,7 @@ export default {
         width: 12,
         height: 12
       },
-      lerpAlpha: 0.2,
+      lerpAlpha: 0.15,
       isTouch: false,
       classSubPage: 'sub-page'
     }

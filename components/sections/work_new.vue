@@ -19,7 +19,7 @@
         class="work__list-item"
         data-scroll
         :data-index="index"
-        data-scroll-offset="100px 0"
+        data-scroll-offset="50px 0"
         data-scroll-call="project_item_animation">
         <a
           class="work__link"

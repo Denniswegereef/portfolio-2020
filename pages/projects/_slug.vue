@@ -38,16 +38,20 @@
         </ul>
       </div>
 
-      <div ref="image_container" class="project__image-container" data-scroll data-scroll-call="image_intro_animation">
+      <div v-if="imagePath" ref="image_container" class="project__image-container" data-scroll data-scroll-call="image_intro_animation">
         <img ref="image" class="project__image" :src="imagePath">
       </div>
     </div>
+
+    <upArrow :color="'white'" />
   </div>
 </template>
 
 <script>
 import { gsap } from 'gsap'
 import debounce from 'lodash.debounce'
+
+import UpArrow from '~/components/partials/up-arrow.vue'
 
 import splitText from '~/helpers/splitText'
 
@@ -58,6 +62,10 @@ const CLASS_NAME_SPLIT_CONTAINER = 'js-split-container-intro'
 const CLASS_NAME_SPLIT_CHILD = 'js-split-child-intro'
 
 export default {
+  components: {
+    UpArrow
+  },
+
   validate ({ params, route }) {
     if (data.work.find(item => item.slug === params.slug)) return true
   },
@@ -89,7 +97,7 @@ export default {
       },
       content: {
         back: {
-          href: '/test',
+          href: '/',
           text: 'Go back'
         },
         online: 'Online link',
@@ -160,7 +168,7 @@ export default {
       tl.set(this.$refs.container, { opacity: 1 }, 0.0)
       tl.set(this.$refs.back, { xPercent: 25 }, 0.5)
       tl.set(this.$refs.date, { opacity: 0, yPercent: 25 }, 0.0)
-      tl.to(this.$refs.canvas, { duration: 1.5, opacity: 0.3 }, 0.2)
+      tl.to(this.$refs.canvas, { duration: 1.5, opacity: 0.6 }, 0.2)
       tl.to(this.$refs.title, { duration: 1.0, yPercent: 0, ease: 'power4', stagger: 0.1 }, 0.9)
       tl.to(this.$data.split.child, { duration: 1.0, yPercent: 0, ease: 'power4', stagger: 0.1 }, 1.3)
       tl.set(this.$refs.title_container, { overflow: 'visible' }, 1.9)
@@ -189,9 +197,13 @@ export default {
       tlLeave.to(this.$data.split.child, { duration: 0.4, yPercent: -50, ease: 'power4', opacity: 0, stagger: 0.04 }, 0.2)
       tlLeave.to(this.$refs.title, { duration: 0.8, yPercent: 100, ease: 'power4Out' }, 0.4)
       tlLeave.to([...this.$refs.meta_item, ...this.$refs.meta_link], { duration: 0.2, y: '40px', stagger: 0.2, delay: 0.1, opacity: 0, ease: 'power4Out' }, 0.5)
+      tlLeave.to(this.$refs.line, { duration: 0.9, scaleX: 0 }, 0.5)
+      tlLeave.to(this.$refs.image_container, { duration: 0.5, opacity: 0 }, 0.6)
       // tlLeave.to(this.$refs.canvas, { duration: this.$data.leaveDuration, opacity: 0.0 }, 0.0)
 
       // Image intro animation
+      if (!this.$refs.image_container) return
+
       const tlImageEnter = this.$data.timelines.enterImage
       const offset = this.$data.clipPathOffset
       const clipPath = `${offset}% 0%, ${100 - offset}% 0%, ${100 - offset}% 100%, ${offset}% 100%`
@@ -264,11 +276,11 @@ export default {
     },
 
     _getImagePath () {
-      this.$data.imagePath = require(`~/static/images/projects/${this.$data.work.full.url}`)
+      this.$data.imagePath = this.$data.work.full.url ? require(`~/static/images/projects/${this.$data.work.full.url}`) : ''
     },
 
     _image_intro_animation () {
-      this.$data.timelines.enterImage.play()
+      if (this.$refs.image_container) this.$data.timelines.enterImage.play()
     },
 
     // Handlers
@@ -519,6 +531,11 @@ export default {
   .project__meta-list {
     margin: 0;
   }
+
+  .project__image-container {
+    width: 140%;
+    margin-left: -20%;
+  }
 }
 
 @include mq-wide {
@@ -543,9 +560,8 @@ export default {
   }
 
   .project__image-container {
-    width: 90vw;
-    max-width: 150%;
-    margin-left: -10vw;
+    width: 140%;
+    margin-left: -20%;
   }
 }
 </style>

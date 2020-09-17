@@ -49,8 +49,8 @@ export default {
   data () {
     return {
       tl: gsap.timeline({ paused: true }),
-      dev: false,
-      animationComplete: false,
+      dev: true,
+      animationComplete: true,
       content: {
         title_one: 'Dennis',
         title_two: 'Wegereef',
@@ -94,10 +94,12 @@ export default {
       const titleRefsFirst = [this.$refs.title_one[0], this.$refs.title_two[0], this.$refs.title_three[0], this.$refs.title_four[0]]
 
       tl.eventCallback('onComplete', this._timelineCompleteHandler)
+
       tl.add(this.$parent.toggleScroll(), 0.0)
+
       tl.set(titleRefsFirst, { yPercent: 100 }, 0.0)
       tl.set(this.$refs.cover_start, { opacity: 0 }, 0.0)
-      tl.to(this.$refs.canvas[0], { duration: 1.5, opacity: 0.3 }, 0.0)
+      tl.to(this.$refs.canvas[0], { duration: 1.5, opacity: 0.7 }, 0.2)
       tl.to(titleRefsFirst, { yPercent: 0, duration: 0.9, stagger: 0.2, delay: 0.7, ease: 'Expo.easeOut' }, 0.6)
       tl.to(this.$refs.hero_cover[0], { duration: 2.4, clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)', ease: 'Power4.easeInOut' }, 2.6)
       tl.to(this.$refs.title_container, { duration: 1.1, yPercent: -5, ease: 'Power1.easeInOut' }, 2.8)

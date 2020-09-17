@@ -1,81 +1,96 @@
-!<template>
-  <div ref="intro" class="intro">
-    <h1 ref="heading" class="heading intro__heading">
-      Dennis <br>Wegereef<br>
-      <span ref="small" class="smallheading">Portfolio 2020</span>
-    </h1>
+<template>
+  <div>
+    <Header />
+    <Hero />
+    <Work ref="workComponent" />
+    <About ref="aboutComponent" />
+    <Footer ref="footerComponent" />
+
+    <upArrow />
   </div>
 </template>
 
 <script>
-import { gsap } from 'gsap'
+import locomotive from '~/mixins/locomotiveScroll.js'
+
+import Header from '~/components/sections/header.vue'
+import Hero from '~/components/sections/hero_new.vue'
+import Work from '~/components/sections/work_new.vue'
+import About from '~/components/sections/about.vue'
+import Footer from '~/components/sections/footer.vue'
+
+import UpArrow from '~/components/partials/up-arrow.vue'
+// import Work from '~/components/sections/work_new.vue'
 
 export default {
+  components: {
+    Hero,
+    Header,
+    Work,
+    About,
+    Footer,
+    UpArrow
+  },
+
+  mixins: [locomotive],
+
   data () {
     return {
-      tl: gsap.timeline({ paused: true })
+      scrollActive: true,
+      breakpoint: {
+        narrow: 480,
+        regular: 767,
+        wide: 1024
+      },
+      meta: {
+        title: 'Dennis Wegereef | Creative developer portfolio',
+        hid: 'description',
+        name: 'description',
+        content: 'asdf'
+      }
     }
   },
+
   mounted () {
-    const color = '#A7ADA9'
-    const tl = this.$data.tl
+    this.initScroll()
+  },
 
-    gsap.set(this.$refs.heading, { opacity: 0, yPercent: 5 })
-    gsap.set(this.$refs.small, { opacity: 0, y: '-15' })
+  methods: {
+    scrollTo (target) {
+      this.$data.lmS.scrollTo(target)
+    },
 
-    tl.to(this.$refs.intro, { duration: 2.5, background: color }, 1.1)
-    tl.to(this.$refs.heading, { duration: 1.5, opacity: 1, yPercent: 0, easing: 'Power3.easeInOut' }, 1.2)
-    tl.to(this.$refs.small, { duration: 1.5, opacity: 1, y: 0, easing: 'Power3.easeOut' }, 1.7)
+    _project_item_animation (e) {
+      this.$refs.workComponent.enterAnimation(e)
+    },
 
-    tl.play()
+    _about_intro_animation (e) {
+      this.$refs.aboutComponent.startAnimateIntro(e)
+    },
+
+    _about_body_animation (e) {
+      this.$refs.aboutComponent.startAnimateBody(e)
+    },
+
+    _footer_intro_animation (e) {
+      this.$refs.footerComponent.startAnimateInto()
+    }
+  },
+
+  head () {
+    return {
+      title: this.meta.title,
+      meta: [
+        {
+          hid: this.meta.hid,
+          name: this.meta.name,
+          content: this.meta.content
+        }
+      ]
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.intro {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  width: 100%;
-  text-align: center;
-
-  background: $color-black;
-
-  h1 {
-    opacity: 0;
-    font-size: 20vw;
-  }
-
-  span {
-    position: relative;
-    display: inline-block;
-    font-size: 4vw;
-  }
-}
-
-@include mq-regular {
-  .intro {
-    h1 {
-      font-size: 16vw;
-    }
-
-    span {
-      font-size: 3vw;
-    }
-  }
-}
-
-@include mq-wide {
-  .intro {
-    h1 {
-      font-size: 12vw;
-    }
-
-    span {
-      font-size: 2vw;
-    }
-  }
-}
 </style>
