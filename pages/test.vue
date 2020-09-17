@@ -5,6 +5,8 @@
     <Work ref="workComponent" />
     <About ref="aboutComponent" />
     <Footer ref="footerComponent" />
+
+    <upArrow />
   </div>
 </template>
 
@@ -16,6 +18,8 @@ import Hero from '~/components/sections/hero_new.vue'
 import Work from '~/components/sections/work_new.vue'
 import About from '~/components/sections/about.vue'
 import Footer from '~/components/sections/footer.vue'
+
+import UpArrow from '~/components/partials/up-arrow.vue'
 // import Work from '~/components/sections/work_new.vue'
 
 export default {
@@ -24,7 +28,8 @@ export default {
     Header,
     Work,
     About,
-    Footer
+    Footer,
+    UpArrow
   },
 
   mixins: [locomotive],

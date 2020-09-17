@@ -205,7 +205,6 @@ export default {
     },
 
     _meta_container_animation () {
-      console.log('test')
       this.$data.timelines.enterMeta.play()
     },
 
