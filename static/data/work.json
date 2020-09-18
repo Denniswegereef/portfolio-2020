@@ -81,7 +81,8 @@
         "url": "mediatonic.png"
       },
       "description": [
-        "Coming"
+        "Mediatonic is a game studio in the United Kingdom. Among others the makers of the popular game Fall guys at the moment. I contributed to the development of their new company website with other developers from Superhero Cheesecake.",
+        "My role was to ensure that the quality of each component is up to standard. Think of ensuring that it is visible and properly scaled on every screen size, that everything works well on every browser down to IE11, animations run smoothly, and that the data from the CMS is properly displayed. The project was built with Craft CMS in combination with twig and native javascript."
       ],
       "date": 2019,
       "meta": [
