@@ -8,9 +8,11 @@
         "url": "the-one-guide.png"
       },
       "description": [
-        "1",
-        "2",
-        "3"
+        "A mobile platform designed for the Nike Air Max 1 enthusiasts. With different functionalities to inspire and stimulate the collection. All this by making information easy to find and keeping track of your collection. This way you can create unique cards for your collection and by adding them 'the library' is filled with general information about sneakers.",
+        "Together with Outsole, I looked at how we can help collectors make it more fun and interesting. Here I researched in 6 months, developing concepts, prototyping, testing and validating. The full focus was on user experience and visual design. The challenge was therefore how I can distinguish myself from other collection apps and make something unique em memeroble.",
+        "Thus, users can work together to create a full library of information and correct each other. Because users can keep track of their collections, unique cards are made of every sneaker they own. To give digital collecting a physical and personal turn.",
+        "I challenged myself by not just focusing on technology, which is what I have done my entire study. And I chose to prove to myself as a graduation project that it also possible to graduate on user experience and visual design. And ofcourse create a suitable product of the end user tailored to their needs.",
+        "It has been assessed with an 8.5 and The one guide is one of the 36 projects nominated for the Golden Dot Awards 2020, the best student work of the study Communication Multimedia Design at the Amsterdam University of Applied Sciences.        "
       ],
       "date": 2020,
       "meta": [
@@ -46,9 +48,8 @@
         "url": "dfns.png"
       },
       "description": [
-        "1",
-        "2",
-        "3"
+        "DFNS (Defense) offers products to clean clothing and shoes / sneakers. They do this, among other things, by responding to the sustainability of the products. I contributed to the realization of their website.",
+        "My role in the project was to translate the design to the web. To set up everything as modularly as possible so that components can be used everywhere. Where it had to be taken into account that everything is scalable on every device and every browser. It is built with twig in conjunction with native javascript."
       ],
       "date": 2019,
       "meta": [
@@ -80,9 +81,7 @@
         "url": "mediatonic.png"
       },
       "description": [
-        "1",
-        "2",
-        "3"
+        "Coming"
       ],
       "date": 2019,
       "meta": [
@@ -115,8 +114,8 @@
       },
       "description": [
         "L’OR Espresso Augmented Reality Proof of Concept",
-        "2",
-        "3"
+        "At Superhero Cheesecake I was allowed to experiment with argumented reality. Here I made several prototypes for them on mobiel and in the browser. For example, by looking at how AR can be implemented in the browser in combination with ThreeJS by using 8thwall. But also how you can develop different techniques of occlusion, image tracking and add interaction to filters with SparkAR.",
+        "Ultimately, we developed a prototype for L'OR Espresso where the box can be scanned where a coffee bean plant grows out of the box. For different boxes, coffee beans come from different regions where they come from. You can click on it and the name of the country fades in. A was that how to keep as high resolution textures as possible without lowering the quality and the animation as smooth as possible. The plant was custom modeled and animated using Blender."
       ],
       "date": 2019,
       "meta": [
@@ -143,14 +142,16 @@
     {
       "title": "Recharge",
       "slug": "recharge",
+      "error": "Unfortunately the API is no longer publicly available and the project can temporarily not be viewed online.",
       "cover": {
         "alt": "Recharge photo",
         "url": "recharge.png"
       },
       "description": [
-        "1",
-        "2",
-        "3"
+        "Recharge is an interactive proof of concept for users who drive electric vehicles in Amsterdam to report problems that occur when trying to charge their electric cars.",
+        "It is a web application with an app and a dashboard. The app provides easy access for electric car drivers so that they can quickly share their complaints. With the most common problems already provided as standard options, they can immediately report it and find the nearby charging station where the issue occurs. The dashboard is for the companies involved in the charging stations, and they are responsible for maintaining them. The dashboard gives them insight into all the issues at the moment that occurs. More information is available in the project repository where the design choices are documented.",
+        "The front-end has been build with Nuxt.js, a Vue.js framework for server-side rendering. On the backend, there is a typescript environment with GraphQL connected to a MongoDB database. My role project was creating the flow of the application, visualizing it, and building the front-end of the app. Also, I was in charge of making sure our online server was running two parallel applications together than can communicate with each other — all managed by continuous integration with Codeship.",
+        "Recharge is one of the 21 projects nominated for theTyyy Golden Dot Awards 2019, the best student work of the study Communication Multimedia Design at the Amsterdam University of Applied Sciences."
       ],
       "date": 2019,
       "meta": [
@@ -186,9 +187,8 @@
         "url": "matise.png"
       },
       "description": [
-        "1",
-        "2",
-        "3"
+        "In 2018 I did my internship at Matise in Amsterdam. I operated a front-end developer there. I've worked on different projects for clients such as Schweppes and Basic-fit in teams. But for the most part, I've worked on their agency website. I learned a lot at Matise from creating concepts to building a production-ready webpage and maintaining products, and I'm grateful that I was part of the team and the knowledge they provided me.",
+        "During helping to build their agency website, I was in charge of creating the animations and structuring the project. This website has been build with Nuxt.js, a Vue.js framework for server-side rendering. In this project, I focused mostly on the hero screen with the slider and the page-transition animations."
       ],
       "date": 2018,
       "meta": [
@@ -220,9 +220,8 @@
         "url": "glitching.png"
       },
       "description": [
-        "1",
-        "2",
-        "3"
+        "For the minor Web Development at the Amsterdam University of Applied Sciences, I've created this interactive article trying to expand my CSS knowledge and stretching the limits of it. This article glitches halfway through, making it impossible to read. For creating awareness that printable items disappear slowly, this article is only readable when you print it. It creates a unique experience for the user, with exciting interactions hidden everywhere on clicks and hovers.",
+        "Finding the limits of CSS and stretching how far I could go was my main goal in this project. With heavy use of all different kinds of filter attributes and keyframe animations to make it more alive. They are disabled on smaller screen sizes to avoid crashing the browser and heating your phone. So it is preferable to watch it on a bigger screen to fully experience it."
       ],
       "date": 2018,
       "meta": [

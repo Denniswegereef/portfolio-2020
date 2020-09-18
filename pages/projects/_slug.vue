@@ -16,6 +16,10 @@
         <p v-for="(item, index) in work.description" :key="index" ref="body_text" class="subheading project__body">
           {{ item }}
         </p>
+
+        <p ref="error" class="project__body project__error">
+          {{ work.error }}
+        </p>
       </div>
 
       <div ref="line" class="project__line" data-scroll data-scroll-call="meta_container_animation" />
@@ -168,9 +172,10 @@ export default {
       tl.set(this.$refs.container, { opacity: 1 }, 0.0)
       tl.set(this.$refs.back, { xPercent: 25 }, 0.5)
       tl.set(this.$refs.date, { opacity: 0, yPercent: 25 }, 0.0)
-      tl.to(this.$refs.canvas, { duration: 1.5, opacity: 0.6 }, 0.2)
+      tl.to(this.$refs.canvas, { duration: 1.5, opacity: 0.5 }, 0.2)
       tl.to(this.$refs.title, { duration: 1.0, yPercent: 0, ease: 'power4', stagger: 0.1 }, 0.9)
       tl.to(this.$data.split.child, { duration: 1.0, yPercent: 0, ease: 'power4', stagger: 0.1 }, 1.3)
+      if (this.$refs.error) tl.to(this.$refs.error, { duration: 0.5, opacity: 1 }, 2.5)
       tl.set(this.$refs.title_container, { overflow: 'visible' }, 1.9)
       tl.to(this.$refs.date, { duration: 0.5, opacity: 1, yPercent: 0 }, 2.0)
       tl.to(this.$refs.back, { duration: 0.5, opacity: 1, xPercent: 0 }, 2.2)
@@ -199,6 +204,7 @@ export default {
       tlLeave.to([...this.$refs.meta_item, ...this.$refs.meta_link], { duration: 0.2, y: '40px', stagger: 0.2, delay: 0.1, opacity: 0, ease: 'power4Out' }, 0.5)
       tlLeave.to(this.$refs.line, { duration: 0.9, scaleX: 0 }, 0.5)
       tlLeave.to(this.$refs.image_container, { duration: 0.5, opacity: 0 }, 0.6)
+      if (this.$refs.error) tlLeave.to(this.$refs.error, { duration: 0.5, opacity: 0 }, 0.5)
       // tlLeave.to(this.$refs.canvas, { duration: this.$data.leaveDuration, opacity: 0.0 }, 0.0)
 
       // Image intro animation
@@ -455,6 +461,15 @@ export default {
   }
 }
 
+.project__error {
+  margin: 0;
+
+  font-size: rem(10px);
+  color: $color-primary;
+
+  opacity: 0;
+}
+
 .project__line {
   width: 100%;
   height: rem(2px);
@@ -516,6 +531,10 @@ export default {
 
     font-size: rem(20px);
     line-height: rem(30px);
+  }
+
+  .project__error {
+    font-size: rem(14px);
   }
 
   .project__link-container {
