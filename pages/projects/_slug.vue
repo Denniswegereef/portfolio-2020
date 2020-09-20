@@ -115,10 +115,11 @@ export default {
       },
       clipPathOffset: 15,
       meta: {
-        title: '| Dennis Wegereef',
-        hid: 'description',
-        name: 'description',
-        content: 'asdf'
+        title: 'Dennis Wegereef | Creative developer portfolio',
+        hid: 'Portfolio 2020',
+        name: 'Portfolio 2020',
+        content: 'Portfolio of Dennis Wegereef, creative developer based in Amsterdam.',
+        type: 'website'
       }
     }
   },

@@ -44,9 +44,10 @@ export default {
       },
       meta: {
         title: 'Dennis Wegereef | Creative developer portfolio',
-        hid: 'description',
-        name: 'description',
-        content: 'asdf'
+        hid: 'Portfolio 2020',
+        name: 'Portfolio 2020',
+        content: 'Portfolio of Dennis Wegereef, creative developer based in Amsterdam.',
+        type: 'website'
       }
     }
   },
