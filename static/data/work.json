@@ -48,8 +48,8 @@
         "url": "dfns.png"
       },
       "description": [
-        "DFNS (Defense) offers products to clean clothing and shoes / sneakers. They do this, among other things, by responding to the sustainability of the products. I contributed to the realization of their website.",
-        "My role in the project was to translate the design to the web. To set up everything as modularly as possible so that components can be used everywhere. Where it had to be taken into account that everything is scalable on every device and every browser. It is built with twig in conjunction with native javascript."
+        "DFNS (Defense) offers products to clean clothing and shoes/sneakers. They do this, among other things, by responding to the sustainability of the products. I contributed to the realization of the website together with Superhero Cheesecake.",
+        "My role in the project was to translate the design to the web. To set up everything as dynamically as possible so that components can be used everywhere. That it displays well on every size screen and browser for every user."
       ],
       "date": 2019,
       "meta": [
@@ -81,8 +81,7 @@
         "url": "mediatonic.png"
       },
       "description": [
-        "Mediatonic is a game studio in the United Kingdom. Among others the makers of the popular game Fall guys at the moment. I contributed to the development of their new company website with other developers from Superhero Cheesecake.",
-        "My role was to ensure that the quality of each component is up to standard. Think of ensuring that it is visible and properly scaled on every screen size, that everything works well on every browser down to IE11, animations run smoothly, and that the data from the CMS is properly displayed. The project was built with Craft CMS in combination with twig and native javascript."
+        "Mediatonic is a game studio in the United Kingdom. Currently the creator of the popular game Fall guys. I contributed to the development of their new company website which shows what a great studio they are. Together with the people of Superhero Cheesecake, we have created this playful website."
       ],
       "date": 2019,
       "meta": [
@@ -152,7 +151,7 @@
         "Recharge is an interactive proof of concept for users who drive electric vehicles in Amsterdam to report problems that occur when trying to charge their electric cars.",
         "It is a web application with an app and a dashboard. The app provides easy access for electric car drivers so that they can quickly share their complaints. With the most common problems already provided as standard options, they can immediately report it and find the nearby charging station where the issue occurs. The dashboard is for the companies involved in the charging stations, and they are responsible for maintaining them. The dashboard gives them insight into all the issues at the moment that occurs. More information is available in the project repository where the design choices are documented.",
         "The front-end has been build with Nuxt.js, a Vue.js framework for server-side rendering. On the backend, there is a typescript environment with GraphQL connected to a MongoDB database. My role project was creating the flow of the application, visualizing it, and building the front-end of the app. Also, I was in charge of making sure our online server was running two parallel applications together than can communicate with each other — all managed by continuous integration with Codeship.",
-        "Recharge is one of the 21 projects nominated for theTyyy Golden Dot Awards 2019, the best student work of the study Communication Multimedia Design at the Amsterdam University of Applied Sciences."
+        "Recharge is one of the 21 projects nominated for the Golden Dot Awards 2019, the best student work of the study Communication Multimedia Design at the Amsterdam University of Applied Sciences."
       ],
       "date": 2019,
       "meta": [
